@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Test RapidAPI Flights Sky";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Test kết nối API: Flights Sky</h2>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">
+            <strong>❌ Lỗi:</strong> @ViewBag.Error
+        </div>
+    }
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">
+            Dữ liệu JSON thô trả về từ Server
+        </div>
+        <div class="card-body p-0">
+            @if (!string.IsNullOrEmpty(ViewBag.RawJson))
+            {
+                <pre style="margin: 0; padding: 20px; background-color: #1e1e1e; color: #4af626; max-height: 600px; overflow-y: auto;">@ViewBag.RawJson</pre>
+            }
+            else
+            {
+                <div class="p-3 text-muted">Không nhận được dữ liệu.</div>
+            }
+        </div>
+    </div>
+</div>

@@ -3,16 +3,60 @@
   "WorkspaceRootPath": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E2CDE58E-A3A6-45EB-8336-8FCB2B0D20F3}|TravelBookingWebsite.csproj|f:\\github\\data_mining\\tourism\\travelbookingwebsite\\views\\hotel\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E2CDE58E-A3A6-45EB-8336-8FCB2B0D20F3}|TravelBookingWebsite.csproj|solutionrelative:views\\hotel\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|f:\\github\\data_mining\\tourism\\travelbookingwebsite\\views\\flight\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|solutionrelative:views\\flight\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E2CDE58E-A3A6-45EB-8336-8FCB2B0D20F3}|TravelBookingWebsite.csproj|f:\\github\\data_mining\\tourism\\travelbookingwebsite\\controllers\\hotelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E2CDE58E-A3A6-45EB-8336-8FCB2B0D20F3}|TravelBookingWebsite.csproj|solutionrelative:controllers\\hotelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|f:\\github\\data_mining\\tourism\\travelbookingwebsite\\controllers\\flightcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|solutionrelative:controllers\\flightcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E2CDE58E-A3A6-45EB-8336-8FCB2B0D20F3}|TravelBookingWebsite.csproj|f:\\github\\data_mining\\tourism\\travelbookingwebsite\\models\\hoteldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E2CDE58E-A3A6-45EB-8336-8FCB2B0D20F3}|TravelBookingWebsite.csproj|solutionrelative:models\\hoteldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|f:\\github\\data_mining\\tourism\\travelbookingwebsite\\models\\flightticket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|solutionrelative:models\\flightticket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|f:\\github\\data_mining\\tourism\\travelbookingwebsite\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|f:\\github\\data_mining\\tourism\\travelbookingwebsite\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|f:\\github\\data_mining\\tourism\\travelbookingwebsite\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|solutionrelative:appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|f:\\github\\data_mining\\tourism\\travelbookingwebsite\\views\\hotel\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|solutionrelative:views\\hotel\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|f:\\github\\data_mining\\tourism\\travelbookingwebsite\\models\\airportmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|solutionrelative:models\\airportmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|f:\\github\\data_mining\\tourism\\travelbookingwebsite\\views\\testflight\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|solutionrelative:views\\testflight\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|f:\\github\\data_mining\\tourism\\travelbookingwebsite\\controllers\\testflowcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|solutionrelative:controllers\\testflowcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|f:\\github\\data_mining\\tourism\\travelbookingwebsite\\views\\testflow\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|solutionrelative:views\\testflow\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|f:\\github\\data_mining\\tourism\\travelbookingwebsite\\controllers\\hotelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|solutionrelative:controllers\\hotelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|f:\\github\\data_mining\\tourism\\travelbookingwebsite\\travelbookingwebsite.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|solutionrelative:travelbookingwebsite.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|f:\\github\\data_mining\\tourism\\travelbookingwebsite\\models\\hoteldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{543215C1-61BA-8C15-1809-99B33F23770D}|TravelBookingWebsite.csproj|solutionrelative:models\\hoteldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,11 +66,127 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "appsettings.Development.json",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\appsettings.Development.json",
+              "RelativeToolTip": "appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-06-02T03:04:26.326Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FlightTicket.cs",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\Models\\FlightTicket.cs",
+              "RelativeDocumentMoniker": "Models\\FlightTicket.cs",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\Models\\FlightTicket.cs",
+              "RelativeToolTip": "Models\\FlightTicket.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAcwFgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T03:00:24.926Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AirportModel.cs",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\Models\\AirportModel.cs",
+              "RelativeDocumentMoniker": "Models\\AirportModel.cs",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\Models\\AirportModel.cs",
+              "RelativeToolTip": "Models\\AirportModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T02:47:16.056Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\Views\\Flight\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Flight\\Index.cshtml",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\Views\\Flight\\Index.cshtml",
+              "RelativeToolTip": "Views\\Flight\\Index.cshtml",
+              "ViewState": "AgIAAFYAAAAAAAAAAAAkwGkAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-02T02:33:04.944Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FlightController.cs",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\Controllers\\FlightController.cs",
+              "RelativeDocumentMoniker": "Controllers\\FlightController.cs",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\Controllers\\FlightController.cs",
+              "RelativeToolTip": "Controllers\\FlightController.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAAEkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T02:31:02.02Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T02:28:51.688Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-06-02T02:25:28.022Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\Views\\TestFlight\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\TestFlight\\Index.cshtml",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\Views\\TestFlight\\Index.cshtml",
+              "RelativeToolTip": "Views\\TestFlight\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-23T08:16:53.909Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\Views\\TestFlow\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\TestFlow\\Index.cshtml",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\Views\\TestFlow\\Index.cshtml",
+              "RelativeToolTip": "Views\\TestFlow\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFIAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-23T07:30:32.004Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Index.cshtml",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\Views\\Hotel\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Hotel\\Index.cshtml",
@@ -39,20 +199,43 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 12,
+              "Title": "TravelBookingWebsite.csproj",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\TravelBookingWebsite.csproj",
+              "RelativeDocumentMoniker": "TravelBookingWebsite.csproj",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\TravelBookingWebsite.csproj",
+              "RelativeToolTip": "TravelBookingWebsite.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-05-23T07:23:30.806Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "TestFlowController.cs",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\Controllers\\TestFlowController.cs",
+              "RelativeDocumentMoniker": "Controllers\\TestFlowController.cs",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\Controllers\\TestFlowController.cs",
+              "RelativeToolTip": "Controllers\\TestFlowController.cs",
+              "ViewState": "AgIAADQAAAAAAAAAAAAAACwAAABmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-23T07:22:13.032Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "HotelController.cs",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\Controllers\\HotelController.cs",
               "RelativeDocumentMoniker": "Controllers\\HotelController.cs",
               "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\Controllers\\HotelController.cs",
               "RelativeToolTip": "Controllers\\HotelController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABQAAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-20T08:06:40.372Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-20T08:06:40.372Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 13,
               "Title": "HotelDto.cs",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\TravelBookingWebsite\\Models\\HotelDto.cs",
               "RelativeDocumentMoniker": "Models\\HotelDto.cs",
@@ -60,8 +243,7 @@
               "RelativeToolTip": "Models\\HotelDto.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAowBoAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-20T08:05:06.882Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-20T08:05:06.882Z"
             }
           ]
         }

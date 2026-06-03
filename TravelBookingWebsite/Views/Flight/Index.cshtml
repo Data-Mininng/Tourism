@@ -1,0 +1,118 @@
+﻿@model List<TravelBookingWebsite.Models.FlightTicket>
+@{
+    ViewData["Title"] = "Kết quả tìm kiếm Chuyến bay";
+}
+
+<style>
+    .ticket-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        display: flex;
+        overflow: hidden;
+        margin-bottom: 20px;
+        transition: transform 0.2s;
+    }
+
+        .ticket-card:hover {
+            transform: scale(1.02);
+        }
+
+    .ticket-left {
+        flex: 3;
+        padding: 20px;
+        border-right: 2px dashed #dee2e6;
+        position: relative;
+    }
+
+    .ticket-right {
+        flex: 1;
+        background: #f8f9fa;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .flight-route {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 15px;
+    }
+
+    .flight-line {
+        flex-grow: 1;
+        height: 2px;
+        background: #0d6efd;
+        margin: 0 15px;
+        position: relative;
+    }
+
+        .flight-line::after {
+            content: '✈';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+            color: #0d6efd;
+        }
+
+    .price-text {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #dc3545;
+    }
+</style>
+
+<div class="container mt-5">
+    <h2 class="fw-bold mb-4">✈️ Kết Quả Chuyến Bay</h2>
+
+    @if (Model != null && Model.Any())
+    {
+        foreach (var ticket in Model)
+        {
+            <div class="ticket-card">
+                <div class="ticket-left">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div class="d-flex align-items-center">
+                            @if (!string.IsNullOrEmpty(ticket.AirlineLogo))
+                            {
+                                <img src="@ticket.AirlineLogo" alt="logo" width="40" class="me-2 rounded" />
+                            }
+                            <span class="badge bg-primary fs-6">@ticket.Airline</span>
+                        </div>
+                        <span class="text-muted fw-bold">Chuyến bay: @ticket.FlightNumber</span>
+                    </div>
+
+                    <div class="flight-route text-center">
+                        <div>
+                            <h3 class="fw-bold mb-0">@ticket.OriginCode</h3>
+                            <p class="text-muted mb-0">@ticket.DepartureTime</p>
+                        </div>
+
+                        <div class="flight-line">
+                            <div class="text-muted mt-2" style="font-size: 0.85rem;">@ticket.Duration</div>
+                        </div>
+
+                        <div>
+                            <h3 class="fw-bold mb-0">@ticket.DestinationCode</h3>
+                            <p class="text-muted mb-0">@ticket.ArrivalTime</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="ticket-right">
+                    <p class="text-muted mb-1">Giá mỗi hành khách</p>
+                    <div class="price-text">
+                        @ticket.Price.ToString("N0") <span style="font-size: 1rem;">@ticket.Currency</span>
+                    </div>
+                    <button class="btn btn-danger w-100 mt-3 fw-bold rounded-pill">
+                        Chọn vé
+                    </button>
+                </div>
+            </div>
+        }
+    }
+</div>
