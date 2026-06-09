@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\WebApplication",
+    "\\WebApplication\\Controllers",
+    "\\WebApplication\\Models",
+    "\\WebApplication\\obj",
+    "\\WebApplication\\Properties",
+    "\\WebApplication\\Repositories",
+    "\\WebApplication\\ViewModels",
+    "\\WebApplication\\Views"
+  ],
+  "PreviewInSolutionExplorer": false
+}

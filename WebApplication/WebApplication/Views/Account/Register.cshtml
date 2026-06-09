@@ -1,0 +1,57 @@
+@model TravelApp.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Đăng ký tài khoản";
+}
+
+<div class="section" style="display:flex; justify-content:center; padding:3rem 1rem;">
+    <div class="card" style="max-width:480px; width:100%;">
+        <div class="card-body" style="padding:2rem;">
+            <div style="text-align:center; margin-bottom:2rem;">
+                <div class="brand-icon" style="margin:0 auto 1rem; width:48px; height:48px; font-size:1.2rem;">VT</div>
+                <h2 class="fw-bold text-2xl">Tạo tài khoản</h2>
+                <p class="muted text-sm mt-2">Đăng ký để bắt đầu khám phá Vietnam Travel</p>
+            </div>
+
+            <div asp-validation-summary="All" style="color:#ef4444; font-size:0.85rem; margin-bottom:1rem;"></div>
+
+            <form asp-action="Register" method="post">
+                <div class="form-group mb-3">
+                    <label asp-for="FullName">Họ và tên</label>
+                    <input asp-for="FullName" class="form-control" placeholder="Nguyễn Văn A" />
+                    <span asp-validation-for="FullName" style="color:#ef4444; font-size:0.8rem;"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Email">Email</label>
+                    <input asp-for="Email" class="form-control" placeholder="you@example.com" />
+                    <span asp-validation-for="Email" style="color:#ef4444; font-size:0.8rem;"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Password">Mật khẩu</label>
+                    <input asp-for="Password" class="form-control" placeholder="Tối thiểu 6 ký tự" />
+                    <span asp-validation-for="Password" style="color:#ef4444; font-size:0.8rem;"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="ConfirmPassword">Xác nhận mật khẩu</label>
+                    <input asp-for="ConfirmPassword" class="form-control" placeholder="Nhập lại mật khẩu" />
+                    <span asp-validation-for="ConfirmPassword" style="color:#ef4444; font-size:0.8rem;"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full btn-lg">Đăng ký</button>
+            </form>
+
+            <div style="text-align:center; margin-top:1.5rem; border-top:1px solid var(--border); padding-top:1.5rem;">
+                <p class="text-sm muted">
+                    Đã có tài khoản?
+                    <a asp-controller="Account" asp-action="Login" style="color:var(--accent); font-weight:600;">Đăng nhập</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

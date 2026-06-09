@@ -27,6 +27,7 @@ namespace TravelBookingWebsite.Models
         public FlightData Data { get; set; }
     }
 
+
     public class FlightData
     {
         [JsonPropertyName("itineraries")]

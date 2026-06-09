@@ -1,0 +1,98 @@
+@model TravelApp.Models.Car
+
+@{
+    ViewData["Title"] = "Chi tiết xe";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1>
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+            Chi tiết xe cho thuê
+        </h1>
+        <div class="meta-row">
+            <div class="meta-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Mã xe: #@Model.Id
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="padding-top: 2rem; padding-bottom: 3rem; max-width: 720px;">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex align-center gap-3 mb-4">
+                <div style="width:56px;height:56px;background:rgba(16,185,129,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+                </div>
+                <div class="flex-1">
+                    <h2 class="fw-bold" style="font-size:1.5rem;">@Model.Brand @Model.Model</h2>
+                    <span class="muted text-sm">Mã xe: #@Model.Id</span>
+                </div>
+                @if (Model.IsAvailable)
+                {
+                    <span class="badge badge-green" style="font-size:.8rem;padding:.3rem .8rem;">Còn trống</span>
+                }
+                else
+                {
+                    <span class="badge badge-red" style="font-size:.8rem;padding:.3rem .8rem;">Đã thuê</span>
+                }
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;background:rgba(255,255,255,.04);border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;">
+                <div>
+                    <div class="d-flex align-center gap-2 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                        <span class="muted text-xs" style="text-transform:uppercase;letter-spacing:.04em;">Hãng xe</span>
+                    </div>
+                    <span class="fw-semi">@Model.Brand</span>
+                </div>
+                <div>
+                    <div class="d-flex align-center gap-2 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                        <span class="muted text-xs" style="text-transform:uppercase;letter-spacing:.04em;">Dòng xe</span>
+                    </div>
+                    <span class="fw-semi">@Model.Model</span>
+                </div>
+                <div>
+                    <div class="d-flex align-center gap-2 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        <span class="muted text-xs" style="text-transform:uppercase;letter-spacing:.04em;">Năm sản xuất</span>
+                    </div>
+                    <span class="fw-semi">@Model.Year</span>
+                </div>
+                <div>
+                    <div class="d-flex align-center gap-2 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        <span class="muted text-xs" style="text-transform:uppercase;letter-spacing:.04em;">Giá thuê / ngày</span>
+                    </div>
+                    <span class="fw-semi accent" style="font-size:1.25rem;">@Model.PricePerDay.ToString("N0")đ</span>
+                </div>
+            </div>
+
+            <div class="d-flex gap-3" style="justify-content:flex-end; align-items:center; padding-top:1rem; border-top:1px solid var(--border);">
+                <a asp-action="Index" class="btn btn-outline">Quay lại danh sách</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        Chỉnh sửa
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline" style="color:#fca5a5;border-color:rgba(239,68,68,.3);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        Xoá
+                    </a>
+                }
+                else
+                {
+                    <form asp-action="Book" asp-route-id="@Model.Id" method="post" style="margin:0;">
+                        <button type="submit" class="btn btn-primary" style="background:#10b981;">
+                            Đặt xe ngay
+                        </button>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>

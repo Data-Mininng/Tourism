@@ -1,0 +1,57 @@
+@model IEnumerable<TravelApp.Models.Tour>
+@{
+    ViewData["Title"] = "Các Tour Nổi Bật";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 000 20 14.5 14.5 0 000-20"/><path d="M2 12h20"/></svg>
+            Tour Du Lịch Đặc Sắc
+        </h1>
+        <p class="muted mt-2">Khám phá những trải nghiệm tuyệt vời nhất cùng chúng tôi</p>
+    </div>
+</div>
+
+<div class="section pt-4">
+    <div class="container">
+        @if (!Model.Any())
+        {
+            <div class="card" style="text-align:center; padding:3rem;">
+                <p class="muted">Không có tour nào trong hệ thống.</p>
+            </div>
+        }
+        else
+        {
+            <div class="dest-grid">
+                @foreach (var item in Model)
+                {
+                    <div class="dest-card">
+                        <div class="img-wrap">
+                            <img src="https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=800" alt="Tour">
+                            <div class="img-overlay"></div>
+                            <span class="dest-badge">@item.DurationDays Ngày</span>
+                        </div>
+                        <div class="dest-content">
+                            <h3 class="fw-semi mb-2 text-xl" style="height:56px; overflow:hidden;">@item.Name</h3>
+                            <p class="text-sm muted mb-3" style="height:40px; overflow:hidden;">@item.Description</p>
+                            
+                            <div class="d-flex align-center gap-2 mb-4 text-sm muted2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                Điểm đến: <span class="text-light">@item.Destination</span>
+                            </div>
+
+                            <div class="dest-footer">
+                                <div>
+                                    <span class="price-big" style="font-size:1.25rem;">@item.Price.ToString("N0") ₫</span>
+                                    <span class="price-sub">/ người</span>
+                                </div>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline" style="padding:0.4rem 1rem; font-size:0.8rem;">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>

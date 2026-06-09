@@ -1,0 +1,69 @@
+@model TravelApp.Models.Flight
+@{
+    ViewData["Title"] = "Sửa chuyến bay " + Model.FlightNumber;
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1>Sửa chuyến bay @Model.FlightNumber</h1>
+    </div>
+</div>
+
+<div class="section">
+    <div class="container" style="max-width:600px;">
+        <div class="card">
+            <div class="card-body" style="padding:2rem;">
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group mb-3">
+                        <label asp-for="Airline">Hãng hàng không</label>
+                        <input asp-for="Airline" class="form-control" />
+                        <span asp-validation-for="Airline" style="color:#ef4444; font-size:0.8rem;"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="FlightNumber">Số hiệu chuyến bay</label>
+                        <input asp-for="FlightNumber" class="form-control" />
+                    </div>
+                    <div class="search-grid sg-2" style="gap:1rem;">
+                        <div class="form-group mb-3">
+                            <label asp-for="Departure">Nơi đi</label>
+                            <input asp-for="Departure" class="form-control" />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="Arrival">Nơi đến</label>
+                            <input asp-for="Arrival" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="search-grid sg-2" style="gap:1rem;">
+                        <div class="form-group mb-3">
+                            <label asp-for="DepartureTime">Giờ đi</label>
+                            <input asp-for="DepartureTime" class="form-control" type="datetime-local" />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="ArrivalTime">Giờ đến</label>
+                            <input asp-for="ArrivalTime" class="form-control" type="datetime-local" />
+                        </div>
+                    </div>
+                    <div class="search-grid sg-2" style="gap:1rem;">
+                        <div class="form-group mb-3">
+                            <label asp-for="Price">Giá vé (₫)</label>
+                            <input asp-for="Price" class="form-control" type="number" />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="AvailableSeats">Số ghế</label>
+                            <input asp-for="AvailableSeats" class="form-control" type="number" />
+                        </div>
+                    </div>
+                    <div style="display:flex; gap:1rem; margin-top:1rem;">
+                        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                        <a asp-action="Index" class="btn btn-outline">Hủy</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

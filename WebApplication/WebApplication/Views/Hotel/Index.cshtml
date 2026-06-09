@@ -1,0 +1,130 @@
+@model IEnumerable<TravelApp.Models.Hotel>
+@{
+    ViewData["Title"] = "Kết quả khách sạn";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V7a2 2 0 012-2h14a2 2 0 012 2v14"/><path d="M3 11h18"/><path d="M9 21V11"/></svg>
+            Khách sạn tại Nha Trang
+        </h1>
+        <div class="meta-row">
+            <div class="meta-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                15/07 - 18/07 (3 đêm)
+            </div>
+            <div class="meta-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                2 Người lớn, 1 Phòng
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="results-layout">
+        <!-- Sidebar Filter -->
+        <div class="filter-panel">
+            <h3>Bộ lọc</h3>
+            
+            <div class="filter-group">
+                <h4>Hạng sao</h4>
+                <label class="check-row">
+                    <input type="checkbox" checked>
+                    <span>5 Sao</span>
+                </label>
+                <label class="check-row">
+                    <input type="checkbox">
+                    <span>4 Sao</span>
+                </label>
+                <label class="check-row">
+                    <input type="checkbox">
+                    <span>3 Sao</span>
+                </label>
+            </div>
+
+            <div class="filter-group">
+                <div class="sep"></div>
+                <h4>Tiện ích</h4>
+                <label class="check-row">
+                    <input type="checkbox">
+                    <span>Hồ bơi</span>
+                </label>
+                <label class="check-row">
+                    <input type="checkbox">
+                    <span>Wifi miễn phí</span>
+                </label>
+                <label class="check-row">
+                    <input type="checkbox">
+                    <span>Bãi đậu xe</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Kết quả -->
+        <div class="results-list">
+            @if (!Model.Any())
+            {
+                <div class="card" style="text-align:center; padding:3rem;">
+                    <p class="muted">Không tìm thấy khách sạn nào.</p>
+                </div>
+            }
+            else
+            {
+                @foreach (var item in Model)
+                {
+                    <div class="result-card">
+                        <div class="rc-img">
+                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800" alt="Hotel">
+                        </div>
+                        <div class="rc-body">
+                            <div>
+                                <div class="d-flex align-center" style="justify-content:space-between; margin-bottom:0.5rem;">
+                                    <h3 class="fw-bold text-xl">@item.Name</h3>
+                                    <span class="badge badge-green">9.2 Tuyệt vời</span>
+                                </div>
+                                
+                                <div class="rating-stars mb-2">
+                                    @for(int i=0; i<5; i++)
+                                    {
+                                        if (i < item.Stars)
+                                        {
+                                            <svg class="star filled rs" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                        }
+                                        else
+                                        {
+                                            <svg class="star rs" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                        }
+                                    }
+                                </div>
+                                
+                                <p class="text-sm muted mb-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline; margin-bottom:-2px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                    @item.Location
+                                </p>
+
+                                <div class="tag-row">
+                                    @if(item.HasPool)
+                                    {
+                                        <span class="tag">Hồ bơi</span>
+                                    }
+                                    <span class="tag">Wifi miễn phí</span>
+                                    <span class="tag">Bao gồm bữa sáng</span>
+                                </div>
+                            </div>
+
+                            <div class="price-footer">
+                                <div>
+                                    <div class="price-big">@item.PricePerNight.ToString("N0") ₫</div>
+                                    <div class="price-sub">/ đêm</div>
+                                </div>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Đặt phòng</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

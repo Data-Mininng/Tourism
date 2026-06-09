@@ -1,0 +1,70 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\University\\Year3\\Tense_02\\Data Mining\\\u0110\u1ED3 \u00C1n\\WebApplication\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\university\\year3\\tense_02\\data mining\\\u0111\u1ED3 \u00E1n\\webapplication\\webapplication\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\university\\year3\\tense_02\\data mining\\\u0111\u1ED3 \u00E1n\\webapplication\\webapplication\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\university\\year3\\tense_02\\data mining\\\u0111\u1ED3 \u00E1n\\webapplication\\webapplication\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "F:\\University\\Year3\\Tense_02\\Data Mining\\\u0110\u1ED3 \u00C1n\\WebApplication\\WebApplication\\appsettings.json",
+              "RelativeDocumentMoniker": "WebApplication\\appsettings.json",
+              "ToolTip": "F:\\University\\Year3\\Tense_02\\Data Mining\\\u0110\u1ED3 \u00C1n\\WebApplication\\WebApplication\\appsettings.json",
+              "RelativeToolTip": "WebApplication\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-06-09T09:00:21.377Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "F:\\University\\Year3\\Tense_02\\Data Mining\\\u0110\u1ED3 \u00C1n\\WebApplication\\WebApplication\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "WebApplication\\Controllers\\AccountController.cs",
+              "ToolTip": "F:\\University\\Year3\\Tense_02\\Data Mining\\\u0110\u1ED3 \u00C1n\\WebApplication\\WebApplication\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "WebApplication\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-08T16:42:56.384Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "F:\\University\\Year3\\Tense_02\\Data Mining\\\u0110\u1ED3 \u00C1n\\WebApplication\\WebApplication\\Program.cs",
+              "RelativeDocumentMoniker": "WebApplication\\Program.cs",
+              "ToolTip": "F:\\University\\Year3\\Tense_02\\Data Mining\\\u0110\u1ED3 \u00C1n\\WebApplication\\WebApplication\\Program.cs",
+              "RelativeToolTip": "WebApplication\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-08T16:02:58.418Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

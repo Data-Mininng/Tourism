@@ -1,0 +1,134 @@
+@model Tour
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<!-- Page Header -->
+<div class="page-header">
+    <div class="container">
+        <h1>
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            Chi tiết <span class="accent">Tour</span>
+        </h1>
+        <div class="meta-row">
+            <div class="meta-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                @Model.Destination
+            </div>
+            <div class="meta-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                @Model.DurationDays ngày
+            </div>
+            <div class="meta-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                @Model.Price.ToString("N0")đ
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="container" style="max-width:800px;">
+        <div class="card">
+            <!-- Tour Image -->
+            <img src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?q=80&w=1200" alt="@Model.Name" class="card-img" style="height:300px;" />
+
+            <div class="card-body">
+                <!-- Tour Name & Badges -->
+                <div class="d-flex align-center gap-3 mb-3" style="flex-wrap:wrap; justify-content:space-between;">
+                    <h2 class="fw-bold text-2xl">@Model.Name</h2>
+                    <div class="d-flex gap-2">
+                        <span class="badge badge-amber">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            @Model.DurationDays ngày
+                        </span>
+                        <span class="badge badge-green">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                            @Model.Destination
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Detail Info Grid -->
+                <div class="search-grid sg-3 mb-4">
+                    <div style="background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:var(--radius); padding:1.25rem;">
+                        <div class="d-flex align-center gap-2 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <span class="text-sm muted">Điểm đến</span>
+                        </div>
+                        <div class="fw-semi">@Model.Destination</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:var(--radius); padding:1.25rem;">
+                        <div class="d-flex align-center gap-2 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            <span class="text-sm muted">Thời gian</span>
+                        </div>
+                        <div class="fw-semi">@Model.DurationDays ngày</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:var(--radius); padding:1.25rem;">
+                        <div class="d-flex align-center gap-2 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                            <span class="text-sm muted">Giá tour</span>
+                        </div>
+                        <div class="price-big">@Model.Price.ToString("N0")đ</div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="mb-4">
+                    <div class="d-flex align-center gap-2 mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                        <span class="fw-semi">Mô tả chương trình</span>
+                    </div>
+                    <div style="background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:var(--radius); padding:1.25rem;">
+                        <p class="muted" style="line-height:1.8;">@Model.Description</p>
+                    </div>
+                </div>
+
+                <!-- Tour Highlights -->
+                <div class="mb-4">
+                    <span class="text-sm muted d-flex align-center gap-2 mb-2" style="display:flex;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        Điểm nổi bật
+                    </span>
+                    <div class="tag-row">
+                        <span class="tag">Hướng dẫn viên</span>
+                        <span class="tag">Bữa ăn đầy đủ</span>
+                        <span class="tag">Vận chuyển</span>
+                        <span class="tag">Bảo hiểm du lịch</span>
+                        <span class="tag">@Model.Destination</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-flex gap-3" style="justify-content:flex-end; align-items:center; padding-top:1.25rem; border-top:1px solid var(--border);">
+                    <a asp-action="Index" class="btn btn-outline">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                        Quay lại
+                    </a>
+                    
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            Chỉnh sửa
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn" style="background:rgba(239,68,68,.15); color:#fca5a5;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                            Xóa
+                        </a>
+                    }
+                    else
+                    {
+                        <form asp-action="Book" asp-route-id="@Model.Id" method="post" style="margin:0;">
+                            <button type="submit" class="btn btn-primary" style="background:#10b981;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline; margin-bottom:-2px; margin-right:4px;"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+                                Đặt Tour ngay
+                            </button>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

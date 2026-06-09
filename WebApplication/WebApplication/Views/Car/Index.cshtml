@@ -1,0 +1,62 @@
+@model IEnumerable<TravelApp.Models.Car>
+@{
+    ViewData["Title"] = "Dịch Vụ Thuê Xe";
+}
+
+<div class="page-header">
+    <div class="container">
+        <div class="d-flex" style="justify-content:space-between; align-items:center;">
+            <div>
+                <h1>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 00-.84-.99L16 11l-2.7-3.6a2 2 0 00-1.6-.8H5a2 2 0 00-2 2v7h2m4 0h6m4 0a2 2 0 11-4 0 2 2 0 014 0zM7 16a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    Dịch Vụ Thuê Xe
+                </h1>
+                <p class="muted mt-2">Dễ dàng tìm thấy chiếc xe phù hợp cho chuyến đi của bạn</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section pt-4">
+    <div class="container">
+        @if (!Model.Any())
+        {
+            <div class="card" style="text-align:center; padding:3rem;">
+                <p class="muted">Không có xe nào trong hệ thống.</p>
+            </div>
+        }
+        else
+        {
+            <div class="search-grid sg-4">
+                @foreach (var item in Model)
+                {
+                    <div class="card dest-card">
+                        <div class="img-wrap" style="height:160px;">
+                            <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=800" alt="Car">
+                            @if(item.IsAvailable)
+                            {
+                                <span class="dest-badge" style="background:rgba(16,185,129,0.9);">Sẵn sàng</span>
+                            }
+                            else
+                            {
+                                <span class="dest-badge" style="background:rgba(239,68,68,0.9);">Đã thuê</span>
+                            }
+                        </div>
+                        <div class="dest-content">
+                            <h3 class="fw-bold mb-1 text-xl">@item.Brand @item.Model</h3>
+                            <p class="text-sm muted mb-3">Đời @item.Year</p>
+                            
+                            <div class="dest-footer">
+                                <div>
+                                    <span class="price-big" style="font-size:1.1rem; color:var(--text);">@item.PricePerDay.ToString("N0") ₫</span>
+                                    <span class="price-sub">/ ngày</span>
+                                </div>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline" style="padding:0.4rem 1rem; font-size:0.8rem;">Đặt xe</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
