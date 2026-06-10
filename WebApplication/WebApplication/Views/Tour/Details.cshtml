@@ -27,7 +27,17 @@
     </div>
 </div>
 
-<div class="section">
+<div class="section"
+     data-page-type="Tour"
+     data-ref-id="@Model.Id"
+     data-context='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(new
+     {
+         service = "DV_Tour_Va_Khu_Vui_Choi",
+         destination = Model.Destination,
+         duration_days = Model.DurationDays,
+         price_tier = Model.Price < 2000000 ? "Thap" : Model.Price < 5000000 ? "Trung_Binh" : "Cao",
+         so_ngay_cat = Model.DurationDays <= 3 ? "SoNgay_Ngan" : Model.DurationDays <= 7 ? "SoNgay_TrungBinh" : "SoNgay_Dai"
+     }))'>
     <div class="container" style="max-width:800px;">
         <div class="card">
             <!-- Tour Image -->

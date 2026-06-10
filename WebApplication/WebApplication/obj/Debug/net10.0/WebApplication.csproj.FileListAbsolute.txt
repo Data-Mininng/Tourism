@@ -724,7 +724,6 @@ F:\University\Year3\Tense_02\Data Mining\Đồ Án\WebApplication\WebApplication
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\bin\Debug\net10.0\wwwroot\css\site.css
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\bin\Debug\net10.0\wwwroot\favicon.ico
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\bin\Debug\net10.0\wwwroot\js\site.js
-F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\bin\Debug\net10.0\wwwroot\js\vietnam-travel-ai.js
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\bin\Debug\net10.0\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\bin\Debug\net10.0\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\bin\Debug\net10.0\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
@@ -788,7 +787,6 @@ F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\bin\Debug\net10.0\ww
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\bin\Debug\net10.0\wwwroot\css\site.css.gz
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\bin\Debug\net10.0\wwwroot\favicon.ico.gz
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\bin\Debug\net10.0\wwwroot\js\site.js.gz
-F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\bin\Debug\net10.0\wwwroot\js\vietnam-travel-ai.js.gz
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\bin\Debug\net10.0\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.gz
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\bin\Debug\net10.0\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map.gz
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\bin\Debug\net10.0\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.gz
@@ -1011,7 +1009,6 @@ F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\obj\Debug\net10.0\sc
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\obj\Debug\net10.0\compressed\57874zzgaq-{0}-r8ljiirnu1-r8ljiirnu1.gz
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\obj\Debug\net10.0\compressed\7zcwxwqqo2-{0}-61n19gt1b8-61n19gt1b8.gz
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\obj\Debug\net10.0\compressed\89yg9bbsgi-{0}-tl3yo4xl9q-tl3yo4xl9q.gz
-F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\obj\Debug\net10.0\compressed\xzeux8af56-{0}-12lkrlozpm-12lkrlozpm.gz
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\obj\Debug\net10.0\compressed\7423apgs6f-{0}-bqjiyaj88i-bqjiyaj88i.gz
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\obj\Debug\net10.0\compressed\ga9irod1kc-{0}-c2jlpeoesf-c2jlpeoesf.gz
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\obj\Debug\net10.0\compressed\ioqxp581m2-{0}-erw9l3u2r3-erw9l3u2r3.gz
@@ -1085,3 +1082,6 @@ F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\obj\Debug\net10.0\re
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\obj\Debug\net10.0\TravelApp.pdb
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\obj\Debug\net10.0\WebApplication.genruntimeconfig.cache
 F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\obj\Debug\net10.0\ref\TravelApp.dll
+F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\bin\Debug\net10.0\wwwroot\js\vt-tracker.js
+F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\bin\Debug\net10.0\wwwroot\js\vt-tracker.js.gz
+F:\GitHub\Data_Mining\Tourism\WebApplication\WebApplication\obj\Debug\net10.0\compressed\uabvx309up-{0}-wc0aepmyqr-wc0aepmyqr.gz

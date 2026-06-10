@@ -3,8 +3,40 @@
   "WorkspaceRootPath": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\views\\admin\\rulemanagement.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\views\\admin\\rulemanagement.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\controllers\\recommendationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\controllers\\recommendationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\views\\recommendation\\_associationsuggestions.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\views\\recommendation\\_associationsuggestions.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\views\\tour\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\views\\tour\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\views\\recommendation\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\views\\recommendation\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\wwwroot\\js\\vt-tracker.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\wwwroot\\js\\vt-tracker.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\views\\flight\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\views\\flight\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -15,20 +47,8 @@
       "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\views\\recommendation\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\views\\recommendation\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\views\\recommendation\\_associationsuggestions.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\views\\recommendation\\_associationsuggestions.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\models\\flightmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\models\\flightmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\views\\car\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -39,16 +59,8 @@
       "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\views\\hotel\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\views\\flight\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\views\\flight\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\views\\transfer\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\views\\transfer\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\views\\tour\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\views\\tour\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -62,72 +74,102 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "WebApplication\\Controllers\\AdminController.cs",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "WebApplication\\Controllers\\AdminController.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAAAgwEMAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T23:12:34.141Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RuleManagement.cshtml",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Admin\\RuleManagement.cshtml",
+              "RelativeDocumentMoniker": "WebApplication\\Views\\Admin\\RuleManagement.cshtml",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Admin\\RuleManagement.cshtml",
+              "RelativeToolTip": "WebApplication\\Views\\Admin\\RuleManagement.cshtml",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAswHIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-10T23:11:03.582Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "vt-tracker.js",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\wwwroot\\js\\vt-tracker.js",
+              "RelativeDocumentMoniker": "WebApplication\\wwwroot\\js\\vt-tracker.js",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\wwwroot\\js\\vt-tracker.js",
+              "RelativeToolTip": "WebApplication\\wwwroot\\js\\vt-tracker.js",
+              "ViewState": "AgIAAEYBAAAAAAAAAAAswFIBAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-06-10T21:23:02.432Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "RecommendationController.cs",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Controllers\\RecommendationController.cs",
               "RelativeDocumentMoniker": "WebApplication\\Controllers\\RecommendationController.cs",
               "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Controllers\\RecommendationController.cs",
               "RelativeToolTip": "WebApplication\\Controllers\\RecommendationController.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAYwDYAAABXAAAAAAAAAA==",
+              "ViewState": "AgIAAFICAAAAAAAAAAAUwFwCAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-09T11:16:37.831Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Car\\Details.cshtml",
-              "RelativeDocumentMoniker": "WebApplication\\Views\\Car\\Details.cshtml",
-              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Car\\Details.cshtml",
-              "RelativeToolTip": "WebApplication\\Views\\Car\\Details.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAhAAAAAAAAAA==",
+              "DocumentIndex": 6,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Recommendation\\Index.cshtml",
+              "RelativeDocumentMoniker": "WebApplication\\Views\\Recommendation\\Index.cshtml",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Recommendation\\Index.cshtml",
+              "RelativeToolTip": "WebApplication\\Views\\Recommendation\\Index.cshtml",
+              "ViewState": "AgIAAF8BAAAAAAAAAAAcwG4BAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-09T11:06:33.948Z"
+              "WhenOpened": "2026-06-09T11:13:07.135Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Tour\\Details.cshtml",
+              "RelativeDocumentMoniker": "WebApplication\\Views\\Tour\\Details.cshtml",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Tour\\Details.cshtml",
+              "RelativeToolTip": "WebApplication\\Views\\Tour\\Details.cshtml",
+              "ViewState": "AgIAABoAAAAAAAAAAAAhwCcAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-09T11:04:37.326Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "WebApplication\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "WebApplication\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAFwAAAAAAAAAAAAswGoAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-09T11:02:38.3Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Flight\\Details.cshtml",
-              "RelativeDocumentMoniker": "WebApplication\\Views\\Flight\\Details.cshtml",
-              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Flight\\Details.cshtml",
-              "RelativeToolTip": "WebApplication\\Views\\Flight\\Details.cshtml",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-09T11:05:33.638Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Hotel\\Details.cshtml",
-              "RelativeDocumentMoniker": "WebApplication\\Views\\Hotel\\Details.cshtml",
-              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Hotel\\Details.cshtml",
-              "RelativeToolTip": "WebApplication\\Views\\Hotel\\Details.cshtml",
-              "ViewState": "AgIAADkAAAAAAAAAAAAhwGYAAABhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-09T11:05:20.188Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Program.cs",
-              "RelativeDocumentMoniker": "WebApplication\\Program.cs",
-              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Program.cs",
-              "RelativeToolTip": "WebApplication\\Program.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAAAAoAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-08T16:02:58.418Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "appsettings.json",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\appsettings.json",
               "RelativeDocumentMoniker": "WebApplication\\appsettings.json",
@@ -139,19 +181,68 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Recommendation\\Index.cshtml",
-              "RelativeDocumentMoniker": "WebApplication\\Views\\Recommendation\\Index.cshtml",
-              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Recommendation\\Index.cshtml",
-              "RelativeToolTip": "WebApplication\\Views\\Recommendation\\Index.cshtml",
-              "ViewState": "AgIAAJ4AAAAAAAAAAAAAAKgAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "_AssociationSuggestions.cshtml",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Recommendation\\_AssociationSuggestions.cshtml",
+              "RelativeDocumentMoniker": "WebApplication\\Views\\Recommendation\\_AssociationSuggestions.cshtml",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Recommendation\\_AssociationSuggestions.cshtml",
+              "RelativeToolTip": "WebApplication\\Views\\Recommendation\\_AssociationSuggestions.cshtml",
+              "ViewState": "AgIAAG4AAAAAAAAAAAAswIEAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-09T11:13:07.135Z"
+              "WhenOpened": "2026-06-09T11:30:48.075Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
+              "Title": "Program.cs",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Program.cs",
+              "RelativeDocumentMoniker": "WebApplication\\Program.cs",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Program.cs",
+              "RelativeToolTip": "WebApplication\\Program.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAAAoAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-08T16:02:58.418Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Hotel\\Details.cshtml",
+              "RelativeDocumentMoniker": "WebApplication\\Views\\Hotel\\Details.cshtml",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Hotel\\Details.cshtml",
+              "RelativeToolTip": "WebApplication\\Views\\Hotel\\Details.cshtml",
+              "ViewState": "AgIAADkAAAAAAAAAAAAhwGYAAABhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-09T11:05:20.188Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Flight\\Details.cshtml",
+              "RelativeDocumentMoniker": "WebApplication\\Views\\Flight\\Details.cshtml",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Flight\\Details.cshtml",
+              "RelativeToolTip": "WebApplication\\Views\\Flight\\Details.cshtml",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-09T11:05:33.638Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Car\\Details.cshtml",
+              "RelativeDocumentMoniker": "WebApplication\\Views\\Car\\Details.cshtml",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Car\\Details.cshtml",
+              "RelativeToolTip": "WebApplication\\Views\\Car\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-09T11:06:33.948Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "FlightModels.cs",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Models\\FlightModels.cs",
               "RelativeDocumentMoniker": "WebApplication\\Models\\FlightModels.cs",
@@ -163,19 +254,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "_AssociationSuggestions.cshtml",
-              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Recommendation\\_AssociationSuggestions.cshtml",
-              "RelativeDocumentMoniker": "WebApplication\\Views\\Recommendation\\_AssociationSuggestions.cshtml",
-              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Recommendation\\_AssociationSuggestions.cshtml",
-              "RelativeToolTip": "WebApplication\\Views\\Recommendation\\_AssociationSuggestions.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-09T11:30:48.075Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 14,
               "Title": "Details.cshtml",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Transfer\\Details.cshtml",
               "RelativeDocumentMoniker": "WebApplication\\Views\\Transfer\\Details.cshtml",
@@ -187,31 +266,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Tour\\Details.cshtml",
-              "RelativeDocumentMoniker": "WebApplication\\Views\\Tour\\Details.cshtml",
-              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Tour\\Details.cshtml",
-              "RelativeToolTip": "WebApplication\\Views\\Tour\\Details.cshtml",
-              "ViewState": "AgIAAFkAAAAAAAAAAAAhwGcAAABLAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-09T11:04:37.326Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "WebApplication\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "WebApplication\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAC4AAAAAAAAAAAArwD0AAABWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-09T11:02:38.3Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "AccountController.cs",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "WebApplication\\Controllers\\AccountController.cs",

@@ -2,18 +2,25 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 import os
 
-# ================= 1. ĐỌC DỮ LIỆU =================
-print("Đang đọc dữ liệu gốc...")
-current_dir = os.getcwd()
+# ================= 1. ĐỌC DỮ LIỆU CỦA FILE CSV THUẦN TÚY =================
+print("Đang đọc dữ liệu gốc từ file CSV...")
+# Định vị chính xác thư mục dataset nơi chứa file preprocess.py hiện tại
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Đường dẫn đến file CSV được sinh ra từ file tạo dữ liệu 
 csv_path = os.path.join(current_dir, "tourism_dataset_5k.csv")
+
+if not os.path.exists(csv_path):
+    raise FileNotFoundError(f"❌ Không tìm thấy file dữ liệu gốc tại: {csv_path}. Vui lòng chạy file tạo dữ liệu trước!")
+
 df = pd.read_csv(csv_path)
 
 # ================= 2. LÀM SẠCH DỮ LIỆU (CLEANING) =================
 print("Bước 1: Làm sạch dữ liệu...")
-# Bỏ cột tourist_id vì nó là khóa chính, không có ý nghĩa phân tích
-# Bỏ luôn 2 cột chuỗi services_list và activities_list vì mình đã có các cột 0/1 tương ứng rồi
-columns_to_drop = ['tourist_id', 'services_list', 'activities_list']
-df = df.drop(columns=columns_to_drop)
+# SỬA LỖI: Cột khóa chính trong file tạo dữ liệu đặt tên là 'id' chứ không phải 'tourist_id'
+# Thêm errors='ignore' để đảm bảo code chạy mượt mà, không crash bất ngờ
+columns_to_drop = ['id', 'services_list', 'activities_list']
+df = df.drop(columns=columns_to_drop, errors='ignore')
 
 # Xóa các dòng có giá trị rỗng (Missing Values) để an toàn
 df = df.dropna()
@@ -47,8 +54,7 @@ scaler = MinMaxScaler()
 df_encoded[numeric_cols] = scaler.fit_transform(df_encoded[numeric_cols])
 
 
-# ================= 6. XUẤT DỮ LIỆU ĐÃ TIỀN XỬ LÝ =================
-
+# ================= 6. XUẤT DỮ LIỆU ĐÃ TIỀN XỬ LÝ RA THƯ MỤC DATASET =================
 print("Bước 5: Lưu dữ liệu ra file...")
 output_csv = os.path.join(current_dir, "tourism_dataset_preprocessed.csv")
 output_xlsx = os.path.join(current_dir, "tourism_dataset_preprocessed.xlsx")
@@ -56,7 +62,7 @@ output_xlsx = os.path.join(current_dir, "tourism_dataset_preprocessed.xlsx")
 # Xuất file CSV cho mô hình AI đọc
 df_encoded.to_csv(output_csv, index=False, encoding='utf-8')
 
-# Xuất thêm file Excel cho thằng anh dễ nhìn
+# Xuất thêm file Excel trực quan
 df_encoded.to_excel(output_xlsx, index=False)
 
 print("==================================================")

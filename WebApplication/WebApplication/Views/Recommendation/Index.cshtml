@@ -2,6 +2,8 @@
 @{
     ViewData["Title"] = "Dành cho bạn";
     var voucher = ViewBag.ActiveVoucher as TravelApp.Models.VoucherIssued;
+    bool hasHistory = Model.RecentPageTypes.Any();
+    bool hasLocation = Model.VisitedLocations.Any();
 }
 
 <div class="page-header">
@@ -9,79 +11,125 @@
         <h1>
             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"
                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
             </svg>
             Dành cho <span class="accent">Bạn</span>
         </h1>
-        <p class="muted mt-2">Gợi ý cá nhân hóa dựa trên hành trình bạn đang khám phá</p>
+        <p class="muted mt-2">
+            @if (hasLocation)
+            {
+                <span>
+                    Gợi ý cá nhân hoá — bạn đã xem dịch vụ tại
+                    <strong style="color:var(--accent);">@string.Join(", ", Model.VisitedLocations.Select(l => l.Replace("_", " ")).Take(3))</strong>
+                </span>
+            }
+            else if (hasHistory)
+            {
+                <span>Dựa trên lịch sử duyệt web của bạn</span>
+            }
+            else
+            {
+                <span>Khám phá dịch vụ để nhận gợi ý cá nhân hoá</span>
+            }
+        </p>
     </div>
 </div>
 
 <div class="section pt-4">
     <div class="container">
 
-        @* Voucher đang hoạt động *@
+        @* ── VOUCHER ĐANG HOẠT ĐỘNG ────────────────────────────────────── *@
         @if (voucher != null)
         {
             <div style="
-                background:rgba(245,158,11,.1); border:1px solid rgba(245,158,11,.4);
-                border-radius:12px; padding:1.25rem 1.5rem; margin-bottom:2rem;
-                display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
-            ">
-                <span style="font-size:1.6rem;">🎁</span>
-                <div style="flex:1;">
-                    <div style="font-weight:700; color:#f59e0b;">
-                        Bạn đang có voucher: <span style="font-family:monospace; letter-spacing:.1em;">@voucher.VoucherCode</span>
+                background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(5,150,105,.07));
+                border:1px solid rgba(16,185,129,.4);
+                border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:2rem;
+                display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+                <span style="font-size:1.8rem;">🎁</span>
+                <div style="flex:1;min-width:200px;">
+                    <div style="font-weight:700;color:#10b981;">
+                        Voucher đang chờ bạn:
+                        <span style="font-family:monospace;letter-spacing:.1em;">@voucher.VoucherCode</span>
                     </div>
                     <div class="text-sm muted">
                         Giảm <strong>@voucher.DiscountPercent%</strong> cho @voucher.ApplicableType
-                        &nbsp;·&nbsp; Hết hạn lúc @voucher.ExpiresAt.ToString("HH:mm dd/MM")
+                        &nbsp;·&nbsp; Hết hạn @voucher.ExpiresAt.ToString("HH:mm dd/MM")
                     </div>
                 </div>
+                <a href="/Recommendation/MyVouchers"
+                   style="padding:.45rem 1.1rem;background:rgba(16,185,129,.2);
+                    border:1px solid rgba(16,185,129,.5);border-radius:8px;
+                    color:#10b981;text-decoration:none;font-size:.83rem;font-weight:600;white-space:nowrap;">
+                    Xem tất cả voucher →
+                </a>
+            </div>
+        }
+        else if (hasHistory)
+        {
+            @* Gợi ý nhẹ để user biết có voucher feature *@
+            <div style="
+                background:rgba(245,158,11,.06);border:1px dashed rgba(245,158,11,.3);
+                border-radius:10px;padding:.85rem 1.25rem;margin-bottom:1.5rem;
+                display:flex;align-items:center;gap:.75rem;font-size:.84rem;color:rgba(255,255,255,.65);">
+                <span>💡</span>
+                <span>AI đang phân tích hành vi của bạn — tiếp tục duyệt để nhận voucher ưu đãi!</span>
+                <a href="/Recommendation/MyVouchers" style="color:#f59e0b;text-decoration:none;margin-left:auto;white-space:nowrap;font-weight:600;">
+                    Kiểm tra →
+                </a>
             </div>
         }
 
-        @* Gợi ý luật kết hợp - JS render vào đây *@
-        <div id="rec-assoc-block" style="display:none; margin-bottom:2.5rem;">
-            <div class="d-flex align-center gap-2 mb-3">
+        @* ── GỢI Ý LUẬT KẾT HỢP FP-GROWTH ────────────────────────────── *@
+        <div id="rec-assoc-block" style="display:none;margin-bottom:2.5rem;">
+            <div class="d-flex align-center gap-2 mb-3" style="flex-wrap:wrap;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                      fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
                 </svg>
-                <h2 class="fw-semi text-xl" style="margin:0;">Gói dịch vụ được đề xuất</h2>
+                <h2 class="fw-semi text-xl" style="margin:0;">Gợi ý thông minh từ AI</h2>
                 <span style="font-size:.7rem;font-weight:700;padding:.2rem .55rem;
                     background:rgba(245,158,11,.15);color:#f59e0b;
                     border-radius:999px;border:1px solid rgba(245,158,11,.3);">
-                    Dựa trên hành vi của bạn
+                    Luật FP-Growth
                 </span>
+                <span id="rec-context-label" style="font-size:.75rem;color:rgba(255,255,255,.45);margin-left:auto;"></span>
             </div>
             <div id="rec-assoc-cards" style="display:flex;gap:1rem;flex-wrap:wrap;"></div>
         </div>
 
-        @* Banner nếu chưa có lịch sử *@
-        @if (!Model.RecentPageTypes.Any())
+        @* ── BANNER CHƯA CÓ LỊCH SỬ ────────────────────────────────────── *@
+        @if (!hasHistory)
         {
             <div class="card mb-4" style="text-align:center;padding:2.5rem;border:1px dashed var(--border);">
                 <div style="font-size:2.8rem;margin-bottom:.75rem;">🧭</div>
                 <p class="fw-semi mb-1">Bắt đầu khám phá để nhận gợi ý cá nhân!</p>
                 <p class="muted text-sm mb-3">Xem qua tour, khách sạn, chuyến bay... hệ thống sẽ tự gợi ý phù hợp.</p>
                 <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;">
-                    <a asp-controller="Tour"     asp-action="Index" class="btn btn-outline" style="font-size:.85rem;">🗺️ Tour</a>
-                    <a asp-controller="Hotel"    asp-action="Index" class="btn btn-outline" style="font-size:.85rem;">🏨 Khách sạn</a>
-                    <a asp-controller="Flight"   asp-action="Index" class="btn btn-outline" style="font-size:.85rem;">✈️ Chuyến bay</a>
-                    <a asp-controller="Car"      asp-action="Index" class="btn btn-outline" style="font-size:.85rem;">🚙 Thuê xe</a>
+                    <a asp-controller="Tour" asp-action="Index" class="btn btn-outline" style="font-size:.85rem;">🗺️ Tour</a>
+                    <a asp-controller="Hotel" asp-action="Index" class="btn btn-outline" style="font-size:.85rem;">🏨 Khách sạn</a>
+                    <a asp-controller="Flight" asp-action="Index" class="btn btn-outline" style="font-size:.85rem;">✈️ Chuyến bay</a>
+                    <a asp-controller="Car" asp-action="Index" class="btn btn-outline" style="font-size:.85rem;">🚙 Thuê xe</a>
                     <a asp-controller="Transfer" asp-action="Index" class="btn btn-outline" style="font-size:.85rem;">🚗 Đưa đón</a>
                 </div>
             </div>
         }
 
-        @* Tour *@
+        @* ── TOUR ─────────────────────────────────────────────────────────── *@
         @if (Model.SuggestedTours.Any())
         {
             <div class="mb-5">
-                <div class="d-flex align-center gap-2 mb-3">
+                <div class="d-flex align-center gap-2 mb-3" style="flex-wrap:wrap;">
                     <span style="font-size:1.2rem;">🗺️</span>
                     <h2 class="fw-semi text-xl" style="margin:0;">Tour phù hợp với bạn</h2>
+                    @if (hasLocation)
+                    {
+                        <span style="font-size:.72rem;padding:.2rem .55rem;
+                            background:rgba(16,185,129,.12);color:#6ee7b7;
+                            border-radius:999px;border:1px solid rgba(16,185,129,.2);">
+                            📍 @string.Join(", ", Model.VisitedLocations.Select(l => l.Replace("_", " ")).Take(2))
+                        </span>
+                    }
                 </div>
                 <div class="dest-grid">
                     @foreach (var t in Model.SuggestedTours)
@@ -93,8 +141,14 @@
                                 <span class="dest-badge">@t.DurationDays Ngày</span>
                             </div>
                             <div class="dest-content">
-                                <h3 class="fw-semi mb-2" style="font-size:1rem;height:48px;overflow:hidden;">@t.Name</h3>
-                                <p class="text-sm muted mb-3" style="height:36px;overflow:hidden;">@t.Description</p>
+                                <h3 class="fw-semi mb-1" style="font-size:1rem;height:44px;overflow:hidden;">@t.Name</h3>
+                                <div class="text-sm muted mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" display="inline">
+                                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                                    </svg>
+                                    @t.Destination
+                                </div>
                                 <div class="dest-footer">
                                     <div>
                                         <span class="price-big" style="font-size:1rem;">@t.Price.ToString("N0") ₫</span>
@@ -110,13 +164,21 @@
             </div>
         }
 
-        @* Hotel *@
+        @* ── HOTEL ──────────────────────────────────────────────────────────── *@
         @if (Model.SuggestedHotels.Any())
         {
             <div class="mb-5">
-                <div class="d-flex align-center gap-2 mb-3">
+                <div class="d-flex align-center gap-2 mb-3" style="flex-wrap:wrap;">
                     <span style="font-size:1.2rem;">🏨</span>
                     <h2 class="fw-semi text-xl" style="margin:0;">Khách sạn bạn có thể thích</h2>
+                    @if (hasLocation)
+                    {
+                        <span style="font-size:.72rem;padding:.2rem .55rem;
+                            background:rgba(16,185,129,.12);color:#6ee7b7;
+                            border-radius:999px;border:1px solid rgba(16,185,129,.2);">
+                            📍 @string.Join(", ", Model.VisitedLocations.Select(l => l.Replace("_", " ")).Take(2))
+                        </span>
+                    }
                 </div>
                 <div class="dest-grid">
                     @foreach (var h in Model.SuggestedHotels)
@@ -145,13 +207,21 @@
             </div>
         }
 
-        @* Flight *@
+        @* ── FLIGHT ─────────────────────────────────────────────────────────── *@
         @if (Model.SuggestedFlights.Any())
         {
             <div class="mb-5">
-                <div class="d-flex align-center gap-2 mb-3">
+                <div class="d-flex align-center gap-2 mb-3" style="flex-wrap:wrap;">
                     <span style="font-size:1.2rem;">✈️</span>
                     <h2 class="fw-semi text-xl" style="margin:0;">Chuyến bay phù hợp</h2>
+                    @if (hasLocation)
+                    {
+                        <span style="font-size:.72rem;padding:.2rem .55rem;
+                            background:rgba(16,185,129,.12);color:#6ee7b7;
+                            border-radius:999px;border:1px solid rgba(16,185,129,.2);">
+                            ✈️ Đến @string.Join(", ", Model.VisitedLocations.Select(l => l.Replace("_", " ")).Take(2))
+                        </span>
+                    }
                 </div>
                 <div style="display:grid;gap:.75rem;">
                     @foreach (var f in Model.SuggestedFlights)
@@ -174,7 +244,7 @@
             </div>
         }
 
-        @* Car *@
+        @* ── CAR ──────────────────────────────────────────────────────────────── *@
         @if (Model.SuggestedCars.Any())
         {
             <div class="mb-5">
@@ -203,7 +273,7 @@
             </div>
         }
 
-        @* Transfer *@
+        @* ── TRANSFER ────────────────────────────────────────────────────────── *@
         @if (Model.SuggestedTransfers.Any())
         {
             <div class="mb-5">
@@ -236,57 +306,68 @@
 </div>
 
 @section Scripts {
-<script>
-(async function loadRecommendationSuggestions() {
-    const visited = JSON.parse(sessionStorage.getItem('vt_visited_services') || '[]');
-    if (!visited.length) return;
+    <script>
+        (async function loadRuleRecommendations() {
+            // Đọc toàn bộ items tích lũy từ tracker (bao gồm địa điểm, hãng bay, v.v.)
+            const items = (document.body.dataset.allItems || sessionStorage.getItem('vt_items') || '').trim();
+            if (!items) return;
 
-    try {
-        const res  = await fetch('/Recommendation/GetSuggestions?services='
-                                 + encodeURIComponent(visited.join(',')) + '&limit=5');
-        const json = await res.json();
-        if (json.status !== 'success' || !json.data.length) return;
+            try {
+                const res  = await fetch('/Recommendation/GetSuggestions?services=' + encodeURIComponent(items) + '&limit=5');
+                const json = await res.json();
+                if (json.status !== 'success' || !json.data?.length) return;
 
-        const block = document.getElementById('rec-assoc-block');
-        const cards = document.getElementById('rec-assoc-cards');
-        block.style.display = 'block';
+                const block = document.getElementById('rec-assoc-block');
+                const cards = document.getElementById('rec-assoc-cards');
+                const label = document.getElementById('rec-context-label');
+                block.style.display = 'block';
 
-        json.data.forEach(rule => {
-            (rule.displayItems || []).forEach(item => {
-                const icon = item.icon || '📦';
-                const name = item.name || item[0] || '';
-                const url  = item.url  || item[1] || '/';
-                const conf = rule.do_Tin_Cay || 0;
+                // Hiển thị context tóm tắt
+                const ctxParts = items.split(',')
+                    .filter(s => s.startsWith('Den_') || s.startsWith('Hang_'))
+                    .map(s => s.replace('Den_','').replace('Hang_','').replace(/_/g,' '))
+                    .slice(0,3);
+                if (ctxParts.length) label.textContent = 'Dựa trên: ' + ctxParts.join(' · ');
 
-                const card = document.createElement('a');
-                card.href = url;
-                card.style.cssText = `
-                    display:inline-flex;align-items:center;gap:.75rem;
-                    background:rgba(255,255,255,.05);
-                    border:1px solid var(--border);border-radius:10px;
-                    padding:.85rem 1.25rem;text-decoration:none;color:inherit;
-                    transition:border-color .2s,background .2s;min-width:160px;
-                `;
-                card.onmouseenter = () => {
-                    card.style.borderColor = 'var(--accent)';
-                    card.style.background  = 'rgba(16,185,129,.08)';
-                };
-                card.onmouseleave = () => {
-                    card.style.borderColor = 'var(--border)';
-                    card.style.background  = 'rgba(255,255,255,.05)';
-                };
-                card.innerHTML = `
-                    <span style="font-size:1.5rem;line-height:1;">${icon}</span>
-                    <div>
-                        <div style="font-weight:600;font-size:.9rem;">${name}</div>
-                        <div style="font-size:.72rem;color:rgba(255,255,255,.5);">
-                            Tin cậy <strong style="color:var(--accent);">${conf}%</strong>
-                        </div>
-                    </div>`;
-                cards.appendChild(card);
-            });
-        });
-    } catch(e) { /* silent */ }
-})();
-</script>
+                const rendered = new Set();
+                json.data.forEach(rule => {
+                    (rule.displayItems || []).forEach(item => {
+                        const key  = item.name || '';
+                        if (rendered.has(key)) return;
+                        rendered.add(key);
+
+                        const icon = item.icon  || '📦';
+                        const url  = item.url   || '/';
+                        const conf = rule.do_Tin_Cay || 0;
+                        const lift = rule.chi_So_Lift || 1;
+                        const reason = rule.lyDoGoiY || '';
+
+                        const card = document.createElement('a');
+                        card.href = url;
+                        card.style.cssText = `
+                            display:inline-flex;align-items:center;gap:.75rem;
+                            background:rgba(255,255,255,.05);border:1px solid var(--border);
+                            border-radius:12px;padding:.9rem 1.25rem;text-decoration:none;
+                            color:inherit;transition:border-color .2s,background .2s;
+                            min-width:170px;cursor:pointer;`;
+                        card.onmouseenter = () => { card.style.borderColor='var(--accent)'; card.style.background='rgba(16,185,129,.08)'; };
+                        card.onmouseleave = () => { card.style.borderColor='var(--border)'; card.style.background='rgba(255,255,255,.05)'; };
+                        card.innerHTML = `
+                            <span style="font-size:1.6rem;line-height:1;">${icon}</span>
+                            <div>
+                                <div style="font-weight:600;font-size:.9rem;">${key}</div>
+                                <div style="font-size:.7rem;color:rgba(255,255,255,.45);line-height:1.4;">
+                                    Tin cậy <strong style="color:var(--accent);">${conf}%</strong>
+                                    ${lift > 1.2 ? ` · Lift <strong style="color:#f59e0b;">${lift}x</strong>` : ''}
+                                    ${reason ? `<br><span style="font-size:.66rem;">${reason}</span>` : ''}
+                                </div>
+                            </div>`;
+                        cards.appendChild(card);
+                    });
+                });
+
+                if (!cards.children.length) block.style.display = 'none';
+            } catch(_) {}
+        })();
+    </script>
 }

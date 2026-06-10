@@ -9,8 +9,7 @@ engine   = create_engine(DB_URL)
 def get_transactions() -> pd.DataFrame:
     """
     Lấy toàn bộ ma trận giao dịch đã tiền xử lý đầy đủ từ bảng GiaoDich.
-    Bao gồm: 5 dịch vụ + 6 hoạt động + địa điểm + mục đích + mùa + nhóm tuổi
-    + ngân sách + số ngày + số người + kênh đặt + giới tính + đánh giá + quay lại
+    Bao gồm các thuộc tính dịch vụ, hoạt động và toàn bộ biến ngữ cảnh mở rộng.
     """
     query = """
         SELECT
@@ -29,7 +28,7 @@ def get_transactions() -> pd.DataFrame:
             HD_Check_In,
             HD_Nghi_Duong_Chua_Lanh,
 
-            -- Thông tin chuyến đi (cần rời rạc hóa)
+            -- Thông tin chuyến đi (Ngữ cảnh cũ)
             dia_diem,
             muc_dich,
             mua,
@@ -37,17 +36,23 @@ def get_transactions() -> pd.DataFrame:
             gioi_tinh,
             kenh_dat,
 
-            -- Số học (cần bin hóa)
+            -- Số học
             ngan_sach_trieu,
             so_ngay,
             so_nguoi,
             danh_gia,
-            khach_quay_lai
+            khach_quay_lai,
+
+            -- BỔ SUNG: Thêm các cột tương ứng với Log Frontend gửi sang để AI luyện luật
+            tu_den,
+            hang_hang_khong,
+            loai_khach_san,
+            ho_boi
 
         FROM GiaoDich
     """
     df = pd.read_sql(query, engine)
-    print(f"[DB] Lấy {len(df)} giao dịch với {df.shape[1]} cột")
+    print(f"[DB] Lấy {len(df)} giao dịch với {df.shape[1]} thuộc tính để luyện AI.")
     return df
 
 

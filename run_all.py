@@ -55,7 +55,7 @@ def main():
         print("⏭️  [Bỏ qua]: Đã có dữ liệu tiền xử lý Du lịch.")
 
     # Bước 3: Tiền xử lý dữ liệu online_shoppers_intention
-    if not os.path.exists("Dataset/du_lieu_da_xu_ly.csv"):
+    if not os.path.exists("Dataset/Voucher/du_lieu_da_xu_ly.csv"):
         if os.path.exists("Dataset/Voucher/2_tien_xu_ly.py"):
             run_script("Dataset/Voucher/2_tien_xu_ly.py", "Tiền xử lý dữ liệu Online Shoppers")
     else:

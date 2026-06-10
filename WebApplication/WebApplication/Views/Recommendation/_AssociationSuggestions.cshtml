@@ -1,23 +1,22 @@
-@*
-    Partial này gọi GetSuggestions với TOÀN BỘ items tích lũy (service + địa điểm + giá...)
-    Không cần tham số, tự đọc từ sessionStorage qua JS
-*@
 <div id="vt-assoc-block" style="margin-top:1.75rem;display:none;" aria-label="Gợi ý dịch vụ liên quan">
     <div style="padding-top:1.25rem;border-top:1px solid var(--border);">
-        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;">
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;flex-wrap:wrap;">
             <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
                  fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
             </svg>
             <span style="font-weight:600;font-size:.9rem;">Khách hàng thường kết hợp thêm</span>
-            <span style="font-size:.68rem;font-weight:700;padding:.2rem .55rem;background:rgba(245,158,11,.15);color:#f59e0b;border-radius:999px;border:1px solid rgba(245,158,11,.3);">Gợi ý thông minh</span>
+            <span style="font-size:.68rem;font-weight:700;padding:.2rem .55rem;
+            background:rgba(245,158,11,.15);color:#f59e0b;
+            border-radius:999px;border:1px solid rgba(245,158,11,.3);">Luật FP-Growth</span>
+            <span id="vt-assoc-context" style="font-size:.7rem;color:rgba(255,255,255,.4);margin-left:auto;"></span>
         </div>
 
         <!-- Loading skeleton -->
-        <div id="vt-assoc-loading" style="display:flex;gap:.75rem;">
-            <div style="height:66px;width:150px;background:rgba(255,255,255,.06);border-radius:8px;animation:vtPulse 1.5s ease infinite;"></div>
-            <div style="height:66px;width:150px;background:rgba(255,255,255,.06);border-radius:8px;animation:vtPulse 1.5s ease infinite .3s;"></div>
-            <div style="height:66px;width:150px;background:rgba(255,255,255,.06);border-radius:8px;animation:vtPulse 1.5s ease infinite .6s;"></div>
+        <div id="vt-assoc-loading" style="display:flex;gap:.75rem;flex-wrap:wrap;">
+            <div style="height:70px;width:165px;background:rgba(255,255,255,.06);border-radius:10px;animation:vtPulse 1.5s ease infinite;"></div>
+            <div style="height:70px;width:165px;background:rgba(255,255,255,.06);border-radius:10px;animation:vtPulse 1.5s ease infinite .3s;"></div>
+            <div style="height:70px;width:165px;background:rgba(255,255,255,.06);border-radius:10px;animation:vtPulse 1.5s ease infinite .6s;"></div>
         </div>
 
         <div id="vt-assoc-chips" style="display:flex;gap:.75rem;flex-wrap:wrap;"></div>
@@ -25,99 +24,109 @@
 </div>
 
 <style>
-@@keyframes vtPulse { 0%,100%{opacity:.35} 50%{opacity:.75} }
+    @@keyframes vtPulse {
+        0%, 100% {
+            opacity: .35
+        }
+
+        50% {
+            opacity: .75
+        }
+    }
 </style>
 
 <script>
-(function loadAssoc() {
-    // Dùng allItems (đầy đủ ngữ cảnh) thay vì chỉ services
-    // allItems được JS v3 ghi vào body.dataset.allItems sau khi recordBehavior()
-    // Nếu chưa có (script chưa chạy xong), dùng SESS_ITEMS từ sessionStorage
-    function getItems() {
-        const fromBody = document.body.dataset.allItems;
-        if (fromBody && fromBody.length > 0) return fromBody;
-        return sessionStorage.getItem('vt_items') || '';
-    }
-
-    async function run() {
-        const items = getItems();
-        if (!items) {
-            document.getElementById('vt-assoc-loading').style.display = 'none';
-            return;
+    (function loadAssoc() {
+        function getItems() {
+            // Ưu tiên body.dataset (tracker ghi ngay sau khi đọc context)
+            const fromBody = document.body.dataset.allItems;
+            if (fromBody && fromBody.length > 3) return fromBody;
+            return sessionStorage.getItem('vt_items') || '';
         }
 
-        const ICON = {
-            'DV_Khach_San_Homestay':   ['🏨','Khách sạn & Homestay','/Hotel'],
-            'DV_Ve_May_Bay':           ['✈️','Vé máy bay','/Flight'],
-            'DV_Dua_Don_San_Bay':      ['🚗','Đưa đón sân bay','/Transfer'],
-            'DV_Tour_Va_Khu_Vui_Choi': ['🗺️','Tour & Khu vui chơi','/Tour'],
-            'DV_Thue_Xe_Tu_Lai':       ['🚙','Thuê xe tự lái','/Car'],
-            'HD_Tam_Bien':             ['🏖️','Tour tắm biển','/Tour'],
-            'HD_Leo_Nui_Trekking':     ['⛰️','Tour leo núi','/Tour'],
-            'HD_Tham_Quan_Di_Tich':    ['🏛️','Tham quan di tích','/Tour'],
-            'HD_Am_Thuc':              ['🍜','Tour ẩm thực','/Tour'],
-            'HD_Check_In':             ['📸','Địa điểm check-in','/Tour'],
-            'HD_Nghi_Duong_Chua_Lanh': ['🧘','Nghỉ dưỡng chữa lành','/Hotel'],
-        };
+        async function run() {
+            // Chờ tracker chạy xong extractItems() (delay nhỏ)
+            await new Promise(r => setTimeout(r, 250));
 
-        try {
-            const res  = await fetch(`/Recommendation/GetSuggestions?services=${encodeURIComponent(items)}&limit=4`);
-            const json = await res.json();
+            const items = getItems();
+            const loadingEl = document.getElementById('vt-assoc-loading');
+            const chipsEl   = document.getElementById('vt-assoc-chips');
+            const ctxEl     = document.getElementById('vt-assoc-context');
+            const blockEl   = document.getElementById('vt-assoc-block');
 
-            document.getElementById('vt-assoc-loading').style.display = 'none';
+            if (!items) {
+                if (loadingEl) loadingEl.style.display = 'none';
+                return;
+            }
 
-            if (json.status !== 'success' || !json.data?.length) return;
+            // Hiển thị ngữ cảnh đang dùng để gợi ý
+            const ctxParts = items.split(',')
+                .filter(s => s.startsWith('Den_') || s.startsWith('Hang_') || s.startsWith('KhachSan_'))
+                .map(s => s.replace(/^(Den_|Hang_|KhachSan_)/, '').replace(/_/g,' '))
+                .slice(0, 3);
+            if (ctxParts.length && ctxEl) {
+                ctxEl.textContent = 'Ngữ cảnh: ' + ctxParts.join(' · ');
+            }
 
-            const block  = document.getElementById('vt-assoc-block');
-            const chips  = document.getElementById('vt-assoc-chips');
-            block.style.display = 'block';
+            try {
+                const res  = await fetch('/Recommendation/GetSuggestions?services=' + encodeURIComponent(items) + '&limit=4');
+                const json = await res.json();
 
-            const rendered = new Set();
-            json.data.forEach(rule => {
-                (rule.displayItems || []).forEach(item => {
-                    const icon = item.icon || '📦';
-                    const name = item.name || '';
-                    const url  = item.url  || '/';
-                    if (rendered.has(name)) return;
-                    rendered.add(name);
+                if (loadingEl) loadingEl.style.display = 'none';
 
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.style.cssText = 'display:inline-flex;align-items:center;gap:.6rem;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:8px;padding:.6rem 1.1rem;text-decoration:none;color:inherit;transition:border-color .2s,background .2s;min-width:140px;cursor:pointer;';
-                    a.onmouseenter = () => { a.style.borderColor = 'var(--accent)'; a.style.background = 'rgba(16,185,129,.08)'; };
-                    a.onmouseleave = () => { a.style.borderColor = 'var(--border)'; a.style.background = 'rgba(255,255,255,.05)'; };
+                if (json.status !== 'success' || !json.data?.length) return;
 
-                    // Hiển thị context lý do gợi ý (nếu có địa điểm trong antecedent)
-                    const reason = rule.dichVu_Goc
-                        .split(',').map(s => s.trim())
-                        .filter(s => s.startsWith('Den_') || s.startsWith('NganSach_') || s.startsWith('Hang_') || s.startsWith('NgayDi_'))
-                        .map(s => s.replace(/^(Den_|NganSach_|Hang_|NgayDi_)/, '').replace(/_/g, ' '))
-                        .slice(0, 2).join(' · ');
+                blockEl.style.display = 'block';
 
-                    a.innerHTML = `
-                        <span style="font-size:1.35rem;line-height:1;">${icon}</span>
-                        <div>
-                            <div style="font-weight:600;font-size:.85rem;">${name}</div>
-                            <div style="font-size:.7rem;color:rgba(255,255,255,.45);">
-                                Tin cậy <strong style="color:var(--accent);">${rule.do_Tin_Cay}%</strong>
-                                ${reason ? `· ${reason}` : ''}
-                            </div>
-                        </div>`;
-                    chips.appendChild(a);
+                const rendered = new Set();
+                json.data.forEach(rule => {
+                    (rule.displayItems || []).forEach(item => {
+                        const name = item.name || '';
+                        if (rendered.has(name)) return;
+                        rendered.add(name);
+
+                        const icon   = item.icon  || '📦';
+                        const url    = item.url   || '/';
+                        const conf   = rule.do_Tin_Cay || 0;
+                        const lift   = rule.chi_So_Lift || 1;
+                        const reason = rule.lyDoGoiY   || '';
+
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.style.cssText = `
+                            display:inline-flex;align-items:center;gap:.65rem;
+                            background:rgba(255,255,255,.05);border:1px solid var(--border);
+                            border-radius:10px;padding:.65rem 1.1rem;text-decoration:none;
+                            color:inherit;transition:border-color .2s,background .2s;
+                            min-width:150px;cursor:pointer;`;
+                        a.onmouseenter = () => { a.style.borderColor='var(--accent)'; a.style.background='rgba(16,185,129,.08)'; };
+                        a.onmouseleave = () => { a.style.borderColor='var(--border)'; a.style.background='rgba(255,255,255,.05)'; };
+
+                        a.innerHTML = `
+                            <span style="font-size:1.45rem;line-height:1;">${icon}</span>
+                            <div>
+                                <div style="font-weight:600;font-size:.85rem;">${name}</div>
+                                <div style="font-size:.68rem;color:rgba(255,255,255,.42);line-height:1.45;">
+                                    Tin cậy <strong style="color:var(--accent);">${conf}%</strong>
+                                    ${lift > 1.2 ? ` &middot; Lift <strong style="color:#f59e0b;">${lift}x</strong>` : ''}
+                                    ${reason ? `<br><span style="font-size:.64rem;">${reason}</span>` : ''}
+                                </div>
+                            </div>`;
+                        chipsEl.appendChild(a);
+                    });
                 });
-            });
 
-            if (!chips.children.length) block.style.display = 'none';
-        } catch (e) {
-            document.getElementById('vt-assoc-loading').style.display = 'none';
+                if (!chipsEl.children.length) blockEl.style.display = 'none';
+
+            } catch(_) {
+                if (loadingEl) loadingEl.style.display = 'none';
+            }
         }
-    }
 
-    // Chờ JS v3 chạy xong recordBehavior() rồi mới fetch (delay nhỏ)
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => setTimeout(run, 200));
-    } else {
-        setTimeout(run, 200);
-    }
-})();
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', run);
+        } else {
+            run();
+        }
+    })();
 </script>
