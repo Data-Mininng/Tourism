@@ -100,6 +100,9 @@
                     </div>
                 </div>
 
+                <!-- Gợi ý luật kết hợp (THÊM MỚI - không sửa gì bên trên) -->
+                @await Html.PartialAsync("~/Views/Recommendation/_AssociationSuggestions.cshtml")
+
                 <!-- Action Buttons -->
                 <div class="d-flex gap-3" style="justify-content:flex-end; align-items:center; padding-top:1.25rem; border-top:1px solid var(--border);">
                     <a asp-action="Index" class="btn btn-outline">

@@ -26,6 +26,7 @@
                     <a asp-controller="Tour" asp-action="Index">Tour</a>
                     <a asp-controller="Car" asp-action="Index">Thuê xe</a>
                     <a asp-controller="Transfer" asp-action="Index">Đưa đón</a>
+                    <a asp-controller="Recommendation" asp-action="Index" style="color:var(--accent);">✨ Dành cho bạn</a>
                     @if (User.Identity != null && User.Identity.IsAuthenticated)
                     {
                         <a asp-controller="Dashboard" asp-action="Index">Hồ sơ</a>
@@ -64,6 +65,7 @@
                 <a asp-controller="Tour" asp-action="Index">Tour</a>
                 <a asp-controller="Car" asp-action="Index">Thuê xe</a>
                 <a asp-controller="Transfer" asp-action="Index">Đưa đón</a>
+                <a asp-controller="Recommendation" asp-action="Index" style="color:var(--accent);">✨ Dành cho bạn</a>
                 @if (User.Identity != null && User.Identity.IsAuthenticated)
                 {
                     <a asp-controller="Dashboard" asp-action="Index">Hồ sơ</a>
@@ -133,6 +135,7 @@
     </footer>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/vietnam-travel-ai.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

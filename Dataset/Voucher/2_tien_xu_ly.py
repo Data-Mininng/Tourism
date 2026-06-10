@@ -1,28 +1,30 @@
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder, StandardScaler
-import joblib
+from sklearn.preprocessing import MinMaxScaler
 
-print("--- MODULE 2: PIPELINE TIỀN XỬ LÝ (PREPROCESSING) ---")
+def tien_xu_ly_data_that(file_vao, file_ra):
+    # 1. Đọc file CSV tải từ mạng về
+    df = pd.read_csv(file_vao)
+    
+    # 2. Tạo nhãn quyết định Voucher: Nếu lượn lờ nhiều (PageValues > 0) mà KHÔNG mua (Revenue == False)
+    df['Need_Voucher'] = ((df['PageValues'] > 0) & (df['Revenue'] == False)).astype(int)
+    
+    # 3. Lọc lấy các cột thao tác web cốt lõi để train
+    cac_cot_giu_lai = ['Administrative_Duration', 'Informational_Duration', 'ProductRelated_Duration', 
+                       'BounceRates', 'ExitRates', 'PageValues', 'Weekend', 'Need_Voucher']
+    df = df[cac_cot_giu_lai]
+    
+    # Mã hóa cột Weekend (True/False -> 1/0)
+    df['Weekend'] = df['Weekend'].astype(int)
+    
+    # 4. Chuẩn hóa Min-Max cho các cột thời gian số học
+    scaler = MinMaxScaler()
+    cot_so_hoc = ['Administrative_Duration', 'Informational_Duration', 'ProductRelated_Duration', 'BounceRates', 'ExitRates', 'PageValues']
+    df[cot_so_hoc] = scaler.fit_transform(df[cot_so_hoc])
+    
+    # 5. Xuất file sạch để đưa vào File 3 train thuật toán
+    df.to_csv(file_ra, index=False)
+    print("Đã tiền xử lý xong data thật từ Internet! Sẵn sàng để huấn luyện.")
 
-# Đọc định dạng CSV
-df = pd.read_csv("web_behavior_raw.csv")
-
-df = df.dropna()
-
-encoders = {}
-categorical_cols = ['Visitor_Type', 'Device']
-for col in categorical_cols:
-    le = LabelEncoder()
-    df[col] = le.fit_transform(df[col])
-    encoders[col] = le
-
-joblib.dump(encoders, "label_encoders.pkl")
-
-scaler = StandardScaler()
-numeric_cols = ['Time_On_Site', 'Pages_Viewed', 'Exit_Rate', 'Age']
-df[numeric_cols] = scaler.fit_transform(df[numeric_cols])
-joblib.dump(scaler, "data_scaler.pkl")
-
-# Xuất ra định dạng CSV
-df.to_csv("web_behavior_clean.csv", index=False)
-print("✅ Hoàn tất! Dữ liệu sạch lưu tại: web_behavior_clean.csv")
+if __name__ == "__main__":
+    # Giả sử anh tải về đổi tên file thành data_mang.csv
+    tien_xu_ly_data_that('online_shoppers_intention.csv', 'du_lieu_da_xu_ly.csv')

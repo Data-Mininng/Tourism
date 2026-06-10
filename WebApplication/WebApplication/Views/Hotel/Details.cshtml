@@ -23,7 +23,16 @@
     </div>
 </div>
 
-<div class="section">
+<div class="section"
+     data-page-type="Hotel"
+     data-ref-id="@Model.Id"
+     data-context='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(new {
+         service    = "DV_Khach_San_Homestay",
+         location   = Model.Location,
+         stars      = Model.Stars,
+         has_pool   = Model.HasPool ? "Co_Ho_Boi" : "Khong_Ho_Boi",
+         price_tier = Model.PricePerNight < 500000 ? "Thap" : Model.PricePerNight < 1500000 ? "Trung_Binh" : "Cao"
+     }))'>
     <div class="container" style="max-width:800px;">
         <div class="card">
             <!-- Hotel Image -->
@@ -100,6 +109,9 @@
                         <span class="tag">Đỗ xe</span>
                     </div>
                 </div>
+
+                <!-- Gợi ý luật kết hợp (THÊM MỚI) -->
+                @await Html.PartialAsync("~/Views/Recommendation/_AssociationSuggestions.cshtml")
 
                 <!-- Action Buttons -->
                 <div class="d-flex gap-3" style="justify-content:flex-end; align-items:center; padding-top:1.25rem; border-top:1px solid var(--border);">

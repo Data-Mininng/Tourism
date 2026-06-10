@@ -13,7 +13,17 @@
     </div>
 </div>
 
-<div class="section">
+<div class="section"
+     data-page-type="Flight"
+     data-ref-id="@Model.Id"
+     data-context='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(new {
+         service     = "DV_Ve_May_Bay",
+         departure   = Model.Departure,
+         destination = Model.Arrival,
+         airline     = Model.Airline,
+         price_tier  = Model.Price < 1000000 ? "Thap" : Model.Price < 3000000 ? "Trung_Binh" : "Cao",
+         month       = Model.DepartureTime.Month
+     }))'>
     <div class="container" style="max-width:800px;">
         <div class="card">
             <div class="card-body" style="padding:2rem;">
@@ -67,6 +77,9 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Gợi ý luật kết hợp (THÊM MỚI) -->
+                @await Html.PartialAsync("~/Views/Recommendation/_AssociationSuggestions.cshtml")
 
                 <!-- Actions -->
                 <div class="d-flex gap-3" style="justify-content:flex-end; align-items:center; padding-top:1.25rem; margin-top:2rem; border-top:1px solid var(--border);">

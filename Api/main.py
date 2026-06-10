@@ -4,7 +4,7 @@ import uvicorn
 import pandas as pd
 from fastapi.middleware.cors import CORSMiddleware
 
-# Nhập 2 thằng cu ly vào làm việc
+
 import database
 import rule_generator
 
@@ -84,5 +84,45 @@ def get_recommendations(service_name: str, limit: int = 3):
 
     except Exception as e:
         return {"status": "error", "message": str(e)}
+    
+# 1. Khai báo cấu trúc dữ liệu nhận từ .NET gửi sang
+class VoucherPredictParams(BaseModel):
+    administrative_duration: float
+    informational_duration: float
+    productrelated_duration: float
+    bounce_rates: float
+    exit_rates: float
+    page_values: float
+    weekend: int
+
+# 2. Định nghĩa API endpoint /api/predict-voucher
+@app.post("/api/predict-voucher")
+def predict_voucher_endpoint(params: VoucherPredictParams):
+    try:
+        # Lấy dữ liệu ra để chuẩn bị đưa vào model AI (nếu có)
+        # data = params.dict() 
+        
+        # TODO: Ở đây bạn sẽ load model Machine Learning của bạn lên để dự đoán.
+        # Hiện tại, tôi sẽ viết một logic mẫu (hoặc bạn có thể nhét logic AI của bạn vào).
+        
+        # Logic AI tạm thời hoặc gọi hàm từ file predict của bạn:
+        # Ví dụ giả lập: Nếu giá trị trang (page_values) cao hoặc thời gian xem sản phẩm lớn
+        if params.page_values > 0.5 or params.productrelated_duration > 0.03:
+            need_voucher = 1
+            discount_percent = 15  # Tặng voucher 15%
+        else:
+            need_voucher = 0
+            discount_percent = 0
+            
+        # Trả về đúng cấu trúc json mà .NET đang đợi đọc:
+        # doc.RootElement.GetProperty("need_voucher").GetInt32()
+        return {
+            "need_voucher": need_voucher,
+            "discount_percent": discount_percent
+        }
+        
+    except Exception as e:
+        # Nếu lỗi thì trả về fallback không cấp voucher để hệ thống .NET không bị sập
+        return {"need_voucher": 0, "discount_percent": 0, "error": str(e)}
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=5000)

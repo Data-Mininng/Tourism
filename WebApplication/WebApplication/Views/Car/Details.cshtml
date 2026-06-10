@@ -19,7 +19,16 @@
     </div>
 </div>
 
-<div class="container" style="padding-top: 2rem; padding-bottom: 3rem; max-width: 720px;">
+<div class="container"
+     style="padding-top: 2rem; padding-bottom: 3rem; max-width: 720px;"
+     data-page-type="Car"
+     data-ref-id="@Model.Id"
+     data-context='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(new {
+         service    = "DV_Thue_Xe_Tu_Lai",
+         brand      = Model.Brand,
+         price_tier = Model.PricePerDay < 500000 ? "Thap" : Model.PricePerDay < 1200000 ? "Trung_Binh" : "Cao",
+         available  = Model.IsAvailable ? "Con_Trong" : "Het_Cho"
+     }))'>
     <div class="card">
         <div class="card-body">
             <div class="d-flex align-center gap-3 mb-4">
@@ -70,6 +79,9 @@
                     <span class="fw-semi accent" style="font-size:1.25rem;">@Model.PricePerDay.ToString("N0")đ</span>
                 </div>
             </div>
+
+            <!-- Gợi ý luật kết hợp (THÊM MỚI) -->
+            @await Html.PartialAsync("~/Views/Recommendation/_AssociationSuggestions.cshtml")
 
             <div class="d-flex gap-3" style="justify-content:flex-end; align-items:center; padding-top:1rem; border-top:1px solid var(--border);">
                 <a asp-action="Index" class="btn btn-outline">Quay lại danh sách</a>

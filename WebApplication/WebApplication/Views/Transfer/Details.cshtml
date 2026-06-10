@@ -15,7 +15,16 @@
     </a>
 </div>
 
-<div class="section">
+<div class="section"
+     data-page-type="Transfer"
+     data-ref-id="@Model.Id"
+     data-context='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(new {
+         service     = "DV_Dua_Don_San_Bay",
+         from        = Model.FromLocation,
+         destination = Model.ToLocation,
+         type        = Model.Type.Replace(" ", "_"),
+         price_tier  = Model.Price < 200000 ? "Thap" : Model.Price < 500000 ? "Trung_Binh" : "Cao"
+     }))'>
     <div class="card" style="max-width:700px;">
         <div class="card-body">
             <!-- Header -->
@@ -74,6 +83,9 @@
                     <p class="fw-bold">@Model.Capacity người</p>
                 </div>
             </div>
+
+            <!-- Gợi ý luật kết hợp (THÊM MỚI) -->
+            @await Html.PartialAsync("~/Views/Recommendation/_AssociationSuggestions.cshtml")
 
             <!-- Actions -->
             <div class="d-flex gap-3" style="justify-content:flex-end; align-items:center; border-top:1px solid var(--border); padding-top:1rem;">

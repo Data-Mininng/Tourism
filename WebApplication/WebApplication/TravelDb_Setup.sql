@@ -359,3 +359,70 @@ GO
 
 PRINT '✅ TravelDb đã được tạo và seed dữ liệu thành công!'
 GO
+
+
+-- Bảng luật FP-Growth (đồng bộ với Python)
+CREATE TABLE LuatFPGrowth (
+    Id                      INT IDENTITY(1,1) PRIMARY KEY,
+    DichVu_Goc              NVARCHAR(500) NOT NULL,
+    DichVu_GoiY             NVARCHAR(500) NOT NULL,
+    Do_Ho_Tro               DECIMAL(10,4) NOT NULL,
+    Do_Tin_Cay_Confidence   DECIMAL(10,4) NOT NULL,
+    Chi_So_Lift             DECIMAL(10,4) NOT NULL,
+    CreatedAt               DATETIME2 DEFAULT GETDATE()
+);
+
+-- Bảng log hành vi người dùng
+CREATE TABLE UserBehaviorLogs (
+    Id          INT IDENTITY(1,1) PRIMARY KEY,
+    SessionId   NVARCHAR(50)  NOT NULL,
+    UserId      INT           NULL,
+    PageType    NVARCHAR(50)  NOT NULL,
+    ReferenceId INT           NULL,
+    PageValues  FLOAT         DEFAULT 0,
+    TimeOnPage  FLOAT         DEFAULT 0,
+    IsWeekend   BIT           DEFAULT 0,
+    HasPurchased BIT          DEFAULT 0,
+    LoggedAt    DATETIME2     DEFAULT GETDATE()
+);
+
+-- Bảng voucher đã cấp
+CREATE TABLE VouchersIssued (
+    Id              INT IDENTITY(1,1) PRIMARY KEY,
+    SessionId       NVARCHAR(50)  NOT NULL,
+    UserId          INT           NULL,
+    VoucherCode     NVARCHAR(50)  NOT NULL,
+    DiscountPercent INT           DEFAULT 10,
+    ApplicableType  NVARCHAR(50)  NOT NULL DEFAULT 'All',
+    ApplicableId    INT           NULL,
+    IssuedAt        DATETIME2     DEFAULT GETDATE(),
+    ExpiresAt       DATETIME2     NOT NULL,
+    IsUsed          BIT           DEFAULT 0
+);
+---------------------------------------------------
+-- Chạy trong SQL Server Management Studio (database của web C#)
+
+-- Thêm cột ContextData vào bảng UserBehaviorLogs (nếu chưa có)
+IF NOT EXISTS (
+    SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS
+    WHERE TABLE_NAME = 'UserBehaviorLogs' AND COLUMN_NAME = 'ContextData'
+)
+BEGIN
+    ALTER TABLE UserBehaviorLogs
+    ADD ContextData NVARCHAR(1000) NOT NULL DEFAULT '{}';
+    PRINT 'Đã thêm cột ContextData vào UserBehaviorLogs';
+END
+
+-- Đảm bảo bảng LuatFPGrowth tồn tại
+IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE name='LuatFPGrowth' AND xtype='U')
+CREATE TABLE LuatFPGrowth (
+    Id                    INT IDENTITY(1,1) PRIMARY KEY,
+    DichVu_Goc            NVARCHAR(500) NOT NULL,
+    DichVu_GoiY           NVARCHAR(500) NOT NULL,
+    Do_Ho_Tro             DECIMAL(10,4) NOT NULL DEFAULT 0,
+    Do_Tin_Cay_Confidence DECIMAL(10,4) NOT NULL DEFAULT 0,
+    Chi_So_Lift           DECIMAL(10,4) NOT NULL DEFAULT 0,
+    CreatedAt             DATETIME2     NOT NULL DEFAULT GETDATE()
+);
+
+PRINT 'Migration hoàn tất!';
