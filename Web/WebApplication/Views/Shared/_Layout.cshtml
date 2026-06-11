@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Vietnam Travel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-inner">
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand">
+                    <div class="brand-icon">VT</div>
+                    <span>Vietnam Travel</span>
+                </a>
+
+                <div class="nav-links">
+                    <a asp-controller="Home" asp-action="Index">Trang chủ</a>
+                    <a asp-controller="Flight" asp-action="Index">Chuyến bay</a>
+                    <a asp-controller="Hotel" asp-action="Index">Khách sạn</a>
+                    <a asp-controller="Tour" asp-action="Index">Tour</a>
+                    <a asp-controller="Car" asp-action="Index">Thuê xe</a>
+                    <a asp-controller="Transfer" asp-action="Index">Đưa đón</a>
+                    <a asp-controller="Recommendation" asp-action="Index" style="color:var(--accent);">✨ Dành cho bạn</a>
+                    <a asp-controller="Recommendation" asp-action="MyVouchers" style="color:#f59e0b;" id="nav-voucher-link">
+                        🎫 Voucher <span id="nav-voucher-badge" style="display:none;font-size:.65rem;background:#f59e0b;color:#000;
+                        border-radius:999px;padding:.1rem .4rem;margin-left:.25rem;font-weight:700;vertical-align:middle;"></span>
+                    </a>
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <a asp-controller="Dashboard" asp-action="Index">Hồ sơ</a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-controller="Admin" asp-action="Dashboard" style="color:var(--accent);">Quản trị</a>
+                            <a asp-controller="Admin" asp-action="RuleManagement" style="color:#10b981;">⚙️ Cấu hình Luật AI</a>
+                        }
+                    }
+                </div>
+
+                <div class="navbar-right">
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <span class="text-sm muted" style="margin-right:0.5rem;">Xin chào, <strong style="color:var(--accent);">@User.Identity.Name</strong></span>
+                        <form asp-controller="Account" asp-action="Logout" method="post" style="display:inline;">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn-signin" style="background:transparent; border:1px solid var(--border); color:var(--muted);">Đăng xuất</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <a asp-controller="Account" asp-action="Login" class="btn-signin">Đăng nhập</a>
+                    }
+                </div>
+
+                <button class="nav-toggle" onclick="toggleNav()">
+                    <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
+                    <svg id="icon-x" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                </button>
+            </div>
+
+            <div class="nav-mobile" id="navMobile">
+                <a asp-controller="Home" asp-action="Index">Trang chủ</a>
+                <a asp-controller="Flight" asp-action="Index">Chuyến bay</a>
+                <a asp-controller="Hotel" asp-action="Index">Khách sạn</a>
+                <a asp-controller="Tour" asp-action="Index">Tour</a>
+                <a asp-controller="Car" asp-action="Index">Thuê xe</a>
+                <a asp-controller="Transfer" asp-action="Index">Đưa đón</a>
+                <a asp-controller="Recommendation" asp-action="Index" style="color:var(--accent);">✨ Dành cho bạn</a>
+                <a asp-controller="Recommendation" asp-action="MyVouchers" style="color:#f59e0b;" id="nav-voucher-link">
+                    🎫 Voucher <span id="nav-voucher-badge" style="display:none;font-size:.65rem;background:#f59e0b;color:#000;
+                    border-radius:999px;padding:.1rem .4rem;margin-left:.25rem;font-weight:700;vertical-align:middle;"></span>
+                </a>
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Dashboard" asp-action="Index">Hồ sơ</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="Admin" asp-action="Dashboard">Quản trị</a>
+                        <a asp-controller="Admin" asp-action="RuleManagement" style="color:#10b981;">⚙️ Cấu hình Luật AI</a>
+                    }
+                    <form asp-controller="Account" asp-action="Logout" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn-signin" style="background:transparent; border:1px solid var(--border); color:var(--muted); width:100%;">Đăng xuất</button>
+                    </form>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login" class="btn-signin">Đăng nhập</a>
+                }
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="d-flex align-center gap-2 mb-3">
+                        <div class="brand-icon">VT</div>
+                        <span class="fw-bold">Vietnam Travel</span>
+                    </div>
+                    <p>Nền tảng đặt vé máy bay, khách sạn, tour du lịch hàng đầu Việt Nam.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Dịch vụ</h3>
+                    <ul>
+                        <li><a asp-controller="Flight" asp-action="Index">Chuyến bay</a></li>
+                        <li><a asp-controller="Hotel" asp-action="Index">Khách sạn</a></li>
+                        <li><a asp-controller="Tour" asp-action="Index">Tour du lịch</a></li>
+                        <li><a asp-controller="Car" asp-action="Index">Thuê xe</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Hỗ trợ</h3>
+                    <ul>
+                        <li><a href="#">Liên hệ</a></li>
+                        <li><a href="#">Câu hỏi thường gặp</a></li>
+                        <li><a asp-controller="Home" asp-action="Privacy">Chính sách bảo mật</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Liên kết</h3>
+                    <ul>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; @DateTime.Now.Year Vietnam Travel. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/vt-tracker.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        // Cập nhật badge voucher trên navbar mỗi khi trang load
+        (function updateVoucherBadge() {
+        const badge = document.getElementById('nav-voucher-badge');
+        if (!badge) return;
+        // Đọc từ sessionStorage (tracker ghi sau khi CheckVoucher thành công)
+        const shown = sessionStorage.getItem('vt_voucher_shown');
+        if (shown === '1') {
+        badge.style.display = 'inline';
+        badge.textContent = 'Mới';
+        }
+        })();
+    </script>
+</body>
+</html>

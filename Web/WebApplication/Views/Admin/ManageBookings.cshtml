@@ -1,0 +1,94 @@
+@model IEnumerable<TravelApp.Models.Booking>
+@{
+    ViewData["Title"] = "Quản lý Đơn đặt dịch vụ";
+}
+
+<div class="page-header">
+    <div class="container d-flex align-center" style="justify-content:space-between;">
+        <div>
+            <h1 class="text-3xl fw-bold">Quản lý Đơn Đặt (Bookings)</h1>
+            <p class="muted mt-2">Duyệt hoặc từ chối các yêu cầu đặt dịch vụ của người dùng</p>
+        </div>
+        <a asp-action="Dashboard" class="btn btn-outline">Quay lại Dashboard</a>
+    </div>
+</div>
+
+<div class="container py-4">
+    <div class="card">
+        <div class="card-body" style="padding:0; overflow-x:auto;">
+            <table style="width:100%; border-collapse: collapse; min-width:800px;">
+                <thead>
+                    <tr style="border-bottom: 1px solid var(--border); background: var(--surface);">
+                        <th style="padding: 1rem; text-align: left;" class="text-sm muted">Mã Đơn</th>
+                        <th style="padding: 1rem; text-align: left;" class="text-sm muted">Khách hàng</th>
+                        <th style="padding: 1rem; text-align: left;" class="text-sm muted">Dịch Vụ</th>
+                        <th style="padding: 1rem; text-align: left;" class="text-sm muted">Ngày Đặt</th>
+                        <th style="padding: 1rem; text-align: left;" class="text-sm muted">Tổng Tiền</th>
+                        <th style="padding: 1rem; text-align: left;" class="text-sm muted">Trạng Thái</th>
+                        <th style="padding: 1rem; text-align: right;" class="text-sm muted">Hành Động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model == null || !Model.Any())
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center" style="padding: 2rem;">Chưa có đơn đặt nào.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var b in Model)
+                        {
+                            <tr style="border-bottom: 1px solid var(--border);">
+                                <td style="padding: 1rem;" class="fw-semi">#@b.Id</td>
+                                <td style="padding: 1rem;">
+                                    <div class="fw-semi">@(b.User?.FullName ?? "Unknown")</div>
+                                    <div class="text-xs muted2">@(b.User?.Email ?? "")</div>
+                                </td>
+                                <td style="padding: 1rem;">
+                                    <span class="badge @(b.BookingType == "Flight" ? "badge-blue" : b.BookingType == "Hotel" ? "badge-amber" : b.BookingType == "Tour" ? "badge-green" : "badge-blue")">
+                                        @b.BookingType
+                                    </span>
+                                    <div class="text-xs muted2 mt-1">Ref ID: @b.ReferenceId</div>
+                                </td>
+                                <td style="padding: 1rem;" class="text-sm">@b.BookingDate.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td style="padding: 1rem;" class="fw-semi" style="color:var(--accent);">@b.TotalAmount.ToString("N0") ₫</td>
+                                <td style="padding: 1rem;">
+                                    @if (b.Status == "Pending")
+                                    {
+                                        <span class="badge badge-amber" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">Chờ duyệt</span>
+                                    }
+                                    else if (b.Status == "Confirmed")
+                                    {
+                                        <span class="badge badge-green">Đã duyệt</span>
+                                    }
+                                    else if (b.Status == "Rejected")
+                                    {
+                                        <span class="badge" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">Đã hủy</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge">@b.Status</span>
+                                    }
+                                </td>
+                                <td style="padding: 1rem; text-align: right;">
+                                    @if (b.Status == "Pending")
+                                    {
+                                        <div class="d-flex gap-2" style="justify-content: flex-end;">
+                                            <form asp-action="ApproveBooking" asp-route-id="@b.Id" method="post" style="margin:0;">
+                                                <button type="submit" class="btn btn-primary" style="padding:0.25rem 0.75rem; font-size:0.8rem;">Duyệt</button>
+                                            </form>
+                                            <form asp-action="RejectBooking" asp-route-id="@b.Id" method="post" style="margin:0;">
+                                                <button type="submit" class="btn btn-outline" style="padding:0.25rem 0.75rem; font-size:0.8rem; color:#ef4444; border-color:rgba(239,68,68,0.3);">Từ chối</button>
+                                            </form>
+                                        </div>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

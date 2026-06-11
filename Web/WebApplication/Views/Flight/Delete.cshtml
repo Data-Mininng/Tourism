@@ -1,0 +1,39 @@
+@model TravelApp.Models.Flight
+@{
+    ViewData["Title"] = "Xóa chuyến bay " + Model.FlightNumber;
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1 style="color:#ef4444;">Xác nhận xóa chuyến bay</h1>
+        <p class="muted mt-2">Hành động này không thể hoàn tác</p>
+    </div>
+</div>
+
+<div class="section">
+    <div class="container" style="max-width:600px;">
+        <div class="card" style="border-color:#ef4444;">
+            <div class="card-body" style="padding:2rem;">
+                <div style="text-align:center; margin-bottom:1.5rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                </div>
+
+                <h3 class="fw-bold text-xl" style="text-align:center; margin-bottom:1.5rem;">Bạn có chắc muốn xóa chuyến bay này?</h3>
+
+                <div style="background:var(--surface); border-radius:0.75rem; padding:1rem; margin-bottom:1.5rem;">
+                    <p><strong>Hãng:</strong> @Model.Airline</p>
+                    <p><strong>Số hiệu:</strong> @Model.FlightNumber</p>
+                    <p><strong>Lộ trình:</strong> @Model.Departure → @Model.Arrival</p>
+                    <p><strong>Giờ khởi hành:</strong> @Model.DepartureTime.ToString("dd/MM/yyyy HH:mm")</p>
+                    <p><strong>Giá vé:</strong> @Model.Price.ToString("N0") ₫</p>
+                </div>
+
+                <form asp-action="Delete" method="post" style="display:flex; gap:1rem; justify-content:center;">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-primary" style="background:#ef4444;">Xác nhận xóa</button>
+                    <a asp-action="Index" class="btn btn-outline">Hủy bỏ</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+@model TravelApp.Models.Flight
+@{
+    ViewData["Title"] = "Chi tiết chuyến bay " + Model.FlightNumber;
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+            Chi tiết chuyến bay
+        </h1>
+        <p class="muted mt-2">Thông tin đầy đủ về chuyến bay @Model.FlightNumber</p>
+    </div>
+</div>
+
+<div class="section"
+     data-page-type="Flight"
+     data-ref-id="@Model.Id"
+     data-context='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(new {
+         service     = "DV_Ve_May_Bay",
+         departure   = Model.Departure,
+         destination = Model.Arrival,
+         airline     = Model.Airline,
+         price_tier  = Model.Price < 1000000 ? "Thap" : Model.Price < 3000000 ? "Trung_Binh" : "Cao",
+         month       = Model.DepartureTime.Month
+     }))'>
+    <div class="container" style="max-width:800px;">
+        <div class="card">
+            <div class="card-body" style="padding:2rem;">
+                <!-- Hãng bay -->
+                <div style="text-align:center; margin-bottom:2rem; padding-bottom:1.5rem; border-bottom:1px solid var(--border);">
+                    <h2 class="fw-bold text-2xl" style="color:var(--accent);">@Model.Airline</h2>
+                    <div class="text-sm muted mt-2">Chuyến bay @Model.FlightNumber</div>
+                </div>
+
+                <!-- Lộ trình bay -->
+                <div class="flight-card" style="border:none; box-shadow:none; padding:0; margin-bottom:2rem;">
+                    <div class="flight-inner" style="padding:0;">
+                        <div class="flight-times" style="flex:1; justify-content:center;">
+                            <div style="text-align:center;">
+                                <div class="time-big" style="font-size:2rem;">@Model.DepartureTime.ToString("HH:mm")</div>
+                                <div class="airport-code" style="font-size:1rem;">@Model.Departure</div>
+                                <div class="text-xs muted mt-2">@Model.DepartureTime.ToString("dd/MM/yyyy")</div>
+                            </div>
+
+                            <div class="flight-mid">
+                                <div class="text-xs muted mb-2">@((Model.ArrivalTime - Model.DepartureTime).ToString(@"h\h\ m\m"))</div>
+                                <div class="flight-line">
+                                    <div class="line-seg"></div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+                                    <div class="line-seg rev"></div>
+                                </div>
+                                <div class="text-xs muted mt-2">Bay thẳng</div>
+                            </div>
+
+                            <div style="text-align:center;">
+                                <div class="time-big" style="font-size:2rem;">@Model.ArrivalTime.ToString("HH:mm")</div>
+                                <div class="airport-code" style="font-size:1rem;">@Model.Arrival</div>
+                                <div class="text-xs muted mt-2">@Model.ArrivalTime.ToString("dd/MM/yyyy")</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thông tin chi tiết -->
+                <div style="border-top:1px solid var(--border); padding-top:1.5rem;">
+                    <div class="search-grid sg-2" style="gap:1rem;">
+                        <div class="stat-card" style="text-align:left;">
+                            <div class="stat-label">Giá vé</div>
+                            <div class="price-big" style="font-size:1.5rem;">@Model.Price.ToString("N0") ₫</div>
+                            <div class="price-sub">/ khách</div>
+                        </div>
+                        <div class="stat-card" style="text-align:left;">
+                            <div class="stat-label">Chỗ ngồi còn trống</div>
+                            <div class="stat-value" style="font-size:1.5rem;">@Model.AvailableSeats</div>
+                            <div class="text-xs muted">chỗ</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gợi ý luật kết hợp (THÊM MỚI) -->
+                @await Html.PartialAsync("~/Views/Recommendation/_AssociationSuggestions.cshtml")
+
+                <!-- Actions -->
+                <div class="d-flex gap-3" style="justify-content:flex-end; align-items:center; padding-top:1.25rem; margin-top:2rem; border-top:1px solid var(--border);">
+                    <a asp-action="Index" class="btn btn-outline">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+                        Quay lại danh sách
+                    </a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Sửa</a>
+                        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline" style="color:#ef4444; border-color:#ef4444;">Xóa</a>
+                    }
+                    else
+                    {
+                        <form asp-action="Book" asp-route-id="@Model.Id" method="post" style="margin:0;">
+                            <button type="submit" class="btn btn-primary" style="background:#10b981;">
+                                Đặt vé ngay
+                            </button>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,230 +12,260 @@ import rule_generator
 
 app = FastAPI()
 
-# Cấu hình CORS đồng bộ cổng kết nối an toàn với .NET
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Cho phép tất cả các nguồn gọi tới
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],  # Bắt buộc phải có OPTIONS
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 
 # =====================================================================
-# 1. ĐỊNH NGHĨA CẤU TRÚC DỮ LIỆU ĐẦU VÀO (PYDANTIC SCHEMAS)
+# 1. SCHEMAS
 # =====================================================================
 
 class RuleParams(BaseModel):
-    min_support: float = 0.1
-    min_confidence: float = 0.5
+    min_support: float = 0.05
+    min_confidence: float = 0.3
 
 
 class VoucherPredictParams(BaseModel):
-    administrative_duration: float
-    informational_duration: float
-    productrelated_duration: float
-    bounce_rates: float
-    exit_rates: float
-    page_values: float
-    weekend: int  # Đảm bảo nhận dạng số (1/0) hoặc ép kiểu mượt mà từ .NET sang
+    administrative_duration:  float
+    informational_duration:   float
+    productrelated_duration:  float
+    bounce_rates:             float
+    exit_rates:               float
+    page_values:              float
+    weekend:                  int
 
 
 # =====================================================================
-# 2. KHỞI TẠO VÀ TỰ ĐỘNG NẠP MÔ HÌNH HỌC MÁY (VOUCHER MODEL)
+# 2. LOAD MODEL
 # =====================================================================
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-# Đồng bộ hóa chính xác tên file lưu trữ scaler thực tế trong Dataset của bạn
+BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
 VOUCHER_DIR = os.path.join(BASE_DIR, "..", "Dataset", "Voucher")
 
-voucher_model = None
+voucher_model  = None
 voucher_scaler = None
 
-# Thử nạp file mô hình học máy và bộ chuẩn hóa đặc trưng
 try:
-    model_path = os.path.join(VOUCHER_DIR, "mo_hinh_quyet_dinh_voucher.pkl")
-    # Kiểm tra cả tên file 'scaler_voucher.pkl' hoặc 'bo_chuan_hoa_voucher.pkl' tùy hệ thống lưu
+    model_path  = os.path.join(VOUCHER_DIR, "mo_hinh_quyet_dinh_voucher.pkl")
     scaler_path = os.path.join(VOUCHER_DIR, "scaler_voucher.pkl")
     if not os.path.exists(scaler_path):
         scaler_path = os.path.join(VOUCHER_DIR, "bo_chuan_hoa_voucher.pkl")
 
-    voucher_model = joblib.load(model_path)
+    voucher_model  = joblib.load(model_path)
     voucher_scaler = joblib.load(scaler_path)
-    print("✅ Đã load mô hình và scaler từ thư mục Dataset thành công!")
+    print("✅ Load model và scaler thành công!")
+    if hasattr(voucher_model, "feature_names_in_"):
+        print(f"   Model features: {list(voucher_model.feature_names_in_)}")
+    if hasattr(voucher_scaler, "feature_names_in_"):
+        print(f"   Scaler features: {list(voucher_scaler.feature_names_in_)}")
 except Exception as e:
-    voucher_model = None
-    voucher_scaler = None
-    print(f"⚠️ Cảnh báo: Không thể nạp tệp mô hình hoặc bộ chuẩn hóa: {e}")
+    print(f"⚠️ Không thể load model: {e}")
 
 
 # =====================================================================
-# 3. ENDPOINT XỬ LÝ HỆ THỐNG GỢI Ý LUẬT (FP-GROWTH)
+# 3. ENDPOINT: TRAIN RULES (FP-Growth)
+# =====================================================================
+
+# =====================================================================
+# 3. ENDPOINT: TRAIN RULES (FP-Growth)
 # =====================================================================
 
 @app.post("/api/train-rules")
 def train_rules_endpoint(params: RuleParams):
     try:
-        # Bước 1: Gọi DB lấy Data
-        df_transactions = database.get_transactions()
+        csv_path = os.path.abspath(os.path.join(BASE_DIR, "..", "Dataset", "tourism_dataset_5k.csv"))
+        if not os.path.exists(csv_path):
+            return {"status": "error", "message": f"Không tìm thấy file data gốc tại: {csv_path}"}
+            
+        df_transactions = pd.read_csv(csv_path)
 
-        # Bước 2: Ném Data vào lò AI luyện ra Luật
         df_rules = rule_generator.run_fpgrowth(df_transactions, params.min_support, params.min_confidence)
+        
+        # ─────────────────────────────────────────────────────────────────
+        # CHỈ SỬA ĐOẠN NÀY: Ép lại tên cột DataFrame khớp chuẩn 100% với DB của bạn
+        # ─────────────────────────────────────────────────────────────────
+        if not df_rules.empty:
+            df_rules.columns = ['DichVu_Goc', 'DichVu_GoiY', 'Do_Ho_Tro', 'Do_Tin_Cay_Confidence', 'Chi_So_Lift']
+        # ─────────────────────────────────────────────────────────────────
 
-        # Bước 3: Ném Luật về lại DB để lưu
         database.save_rules(df_rules)
-
         return {
-            "status": "success", 
-            "message": "Cập nhật luật thành công tuyệt đối!",
+            "status": "success",
+            "message": "Cập nhật luật thành công!",
             "total_rules_generated": len(df_rules)
         }
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
+# =====================================================================
+# 4. ENDPOINT: GET RECOMMENDATIONS
+# =====================================================================
 
 @app.get("/api/recommendations")
-def get_recommendations(service_name: str = Query(None), limit: int = 3):
+def get_recommendations(service_name: str = Query(None), limit: int = 4):
     try:
         if not service_name or service_name.strip() == "":
             return {"status": "success", "data": []}
 
-        # Bốc mớ hành vi vết lướt từ JavaScript/C# gửi sang biến thành set tập hợp và dọn khoảng trắng
-        current_user_behaviors = set([b.strip() for b in service_name.split(",") if b.strip()])
+        current_items = set([b.strip() for b in service_name.split(",") if b.strip()])
 
-        # Lấy bảng luật lên từ SQL Server (Bọc dự phòng trường hợp tên bảng viết liền/viết cách)
+        # Lấy luật từ DB
         try:
-            query = "SELECT DichVu_Goc, DichVu_GoiY, Do_Tin_Cay_Confidence FROM Luat_FPGrowth"
+            query    = "SELECT DichVu_Goc, DichVu_GoiY, Do_Tin_Cay_Confidence, Chi_So_Lift FROM Luat_FPGrowth"
             df_rules = pd.read_sql(query, database.engine)
         except Exception:
-            query = "SELECT DichVu_Goc, DichVu_GoiY, Do_Tin_Cay_Confidence FROM LuatFPGrowth"
-            df_rules = pd.read_sql(query, database.engine)
+            try:
+                query    = "SELECT DichVu_Goc, DichVu_GoiY, Do_Tin_Cay_Confidence, Chi_So_Lift FROM LuatFPGrowth"
+                df_rules = pd.read_sql(query, database.engine)
+            except Exception as e2:
+                return {"status": "error", "message": f"Không đọc được bảng luật: {str(e2)}"}
 
         if df_rules.empty:
             return {"status": "success", "data": []}
 
         valid_rules = []
+        for _, row in df_rules.iterrows():
+            antecedent = set([i.strip() for i in str(row["DichVu_Goc"]).split(",") if i.strip()])
+            if not antecedent or not antecedent.issubset(current_items):
+                continue
+            consequents = [i.strip() for i in str(row["DichVu_GoiY"]).split(",") if i.strip()]
+            if any(c in current_items for c in consequents):
+                continue
+            valid_rules.append({
+                "DichVu_Goc":              str(row["DichVu_Goc"]).strip(),
+                "DichVu_GoiY":             str(row["DichVu_GoiY"]).strip(),
+                "Do_Tin_Cay_Confidence":   float(row["Do_Tin_Cay_Confidence"]),
+                "Chi_So_Lift":             float(row.get("Chi_So_Lift", 1.0)),
+            })
 
-        for index, row in df_rules.iterrows():
-            # SỬA LỖI CHÍ MẠNG: Dọn dẹp khoảng trắng thừa của từng item vế trái bốc lên từ Database (tránh bẫy ", ")
-            db_rule_antecedent = set([item.strip() for item in str(row['DichVu_Goc']).split(",") if item.strip()])
+        if not valid_rules:
+            return {"status": "success", "data": []}
 
-            # Kiểm tra xem tổ hợp lướt web hiện tại của khách có chứa trọn vế gốc của luật này không
-            if db_rule_antecedent and db_rule_antecedent.issubset(current_user_behaviors):
-                
-                # Loại bỏ không gợi ý lại những gì khách ĐÃ lướt qua hoặc đang xem
-                v_phai_items = [i.strip() for i in str(row['DichVu_GoiY']).split(",") if i.strip()]
-                if not any(item in current_user_behaviors for item in v_phai_items):
-                    valid_rules.append({
-                        "DichVu_Goc": str(row['DichVu_Goc']).strip(),
-                        "DichVu_GoiY": str(row['DichVu_GoiY']).strip(),
-                        "Do_Tin_Cay_Confidence": float(row['Do_Tin_Cay_Confidence'])
-                    })
+        df_result = pd.DataFrame(valid_rules)
+        df_result = df_result.sort_values("Do_Tin_Cay_Confidence", ascending=False)
+        df_result = df_result.groupby("DichVu_GoiY").first().reset_index()
+        df_result = df_result.sort_values("Do_Tin_Cay_Confidence", ascending=False).head(limit)
 
-        if len(valid_rules) > 0:
-            df_result = pd.DataFrame(valid_rules)
-            # Sắp xếp confidence giảm dần
-            df_result = df_result.sort_values(by="Do_Tin_Cay_Confidence", ascending=False)
-            # Gom nhóm loại trùng vế gợi ý, chỉ giữ lại dòng luật có độ tin cậy tối ưu nhất
-            df_result = df_result.groupby("DichVu_GoiY").first().reset_index()
-            df_result = df_result.sort_values(by="Do_Tin_Cay_Confidence", ascending=False).head(limit)
-            
-            return {"status": "success", "data": df_result.to_dict(orient="records")}
-        
-        return {"status": "success", "data": []}
+        return {"status": "success", "data": df_result.to_dict(orient="records")}
 
     except Exception as e:
-        return {"status": "error", "message": f"Lỗi xử lý gợi ý hệ thống: {str(e)}"}
+        return {"status": "error", "message": str(e)}
 
 
 # =====================================================================
-# 4. ENDPOINT DỰ ĐOÁN TẶNG VOUCHER (DECISION TREE)
+# 5. ENDPOINT: PREDICT VOUCHER  ─  Dự đoán Revenue → quyết định voucher
 # =====================================================================
-
-from fastapi import HTTPException # Nhớ kiểm tra xem đã import chưa ở đầu file
 
 @app.post("/api/predict-voucher")
 def predict_voucher_endpoint(params: VoucherPredictParams):
     try:
         if voucher_model is None or voucher_scaler is None:
             return {
-                "need_voucher": 0, 
-                "discount_percent": 0, 
-                "error": "Mô hình hoặc Bộ chuẩn hóa chưa được nạp thành công lên máy chủ Python."
+                "need_voucher":    0,
+                "discount_percent": 0,
+                "error": "Model chưa được load. Kiểm tra thư mục Dataset/Voucher/"
             }
 
-        # Gom toàn bộ dữ liệu đầu vào cấu hình thành một map bản đồ dữ liệu chữ thường sạch sẽ
-        param_mapping = {
-            "administrative_duration": params.administrative_duration,
-            "informational_duration": params.informational_duration,
-            "productrelated_duration": params.productrelated_duration,
-            "bounce_rates": params.bounce_rates,
-            "exit_rates": params.exit_rates,
-            "page_values": params.page_values,
-            "weekend": 1 if params.weekend else 0
+        # ── Chuẩn bị input ────────────────────────────────────────────
+        param_map = {
+            "administrative_duration":  params.administrative_duration,
+            "informational_duration":   params.informational_duration,
+            "productrelated_duration":  params.productrelated_duration,
+            "bounce_rates":             params.bounce_rates,
+            "exit_rates":               params.exit_rates,
+            "page_values":              params.page_values,
+            "weekend":                  1 if params.weekend else 0,
         }
-        clean_param_map = {k.lower().replace("_", ""): v for k, v in param_mapping.items()}
+        clean_map = {k.lower().replace("_", ""): v for k, v in param_map.items()}
 
-        # Căn chỉnh khít thứ tự cột yêu cầu của Bộ chuẩn hóa Scaler
+        # ── Scale các feature số học ───────────────────────────────────
         if hasattr(voucher_scaler, "feature_names_in_"):
-            scaler_features = list(voucher_scaler.feature_names_in_)
-            aligned_scaler_data = {}
-            for col in scaler_features:
-                clean_col_name = col.lower().replace("_", "")
-                aligned_scaler_data[col] = clean_param_map.get(clean_col_name, 0.0)
-            input_df = pd.DataFrame([aligned_scaler_data])
-            numeric_scaled = voucher_scaler.transform(input_df)
+            scaler_cols = list(voucher_scaler.feature_names_in_)
+            scaler_data = {col: clean_map.get(col.lower().replace("_",""), 0.0) for col in scaler_cols}
+            scaled = voucher_scaler.transform(pd.DataFrame([scaler_data]))
         else:
-            numeric_features = np.array([[
+            numeric = np.array([[
                 params.administrative_duration, params.informational_duration,
                 params.productrelated_duration, params.bounce_rates,
                 params.exit_rates, params.page_values
             ]])
-            numeric_scaled = voucher_scaler.transform(numeric_features)
+            scaled = voucher_scaler.transform(numeric)
 
-        # Căn chỉnh khít thứ tự cột yêu cầu của Mô hình học máy Cây quyết định (Decision Tree)
+        # ── Dự đoán bằng model ────────────────────────────────────────
         if hasattr(voucher_model, "feature_names_in_"):
-            model_features = list(voucher_model.feature_names_in_)
-            aligned_model_data = {}
-            for col in model_features:
-                clean_col_name = col.lower().replace("_", "")
-                if hasattr(voucher_scaler, "feature_names_in_") and col in list(voucher_scaler.feature_names_in_):
-                    idx = list(voucher_scaler.feature_names_in_).index(col)
-                    aligned_model_data[col] = numeric_scaled[0][idx]
+            model_cols  = list(voucher_model.feature_names_in_)
+            scaler_cols = list(voucher_scaler.feature_names_in_) if hasattr(voucher_scaler, "feature_names_in_") else []
+            model_data  = {}
+            for col in model_cols:
+                clean_col = col.lower().replace("_", "")
+                if col in scaler_cols:
+                    idx = scaler_cols.index(col)
+                    model_data[col] = float(scaled[0][idx])
                 else:
-                    aligned_model_data[col] = clean_param_map.get(clean_col_name, 0)
-            final_df = pd.DataFrame([aligned_model_data])
-            prediction = voucher_model.predict(final_df)
+                    model_data[col] = clean_map.get(clean_col, 0)
+            prediction = voucher_model.predict(pd.DataFrame([model_data]))
         else:
-            weekend_val = 1 if params.weekend else 0
-            final_features = np.hstack((numeric_scaled, [[weekend_val]]))
-            prediction = voucher_model.predict(final_features)
+            weekend_val   = 1 if params.weekend else 0
+            final_feats   = np.hstack((scaled, [[weekend_val]]))
+            prediction    = voucher_model.predict(final_feats)
 
-        # Trích xuất nhãn dự đoán ý định mua hàng (1: Tự chốt đơn mua, 0: Bỏ đi không mua)
-        is_going_to_buy = int(prediction[0])
+        # ── Revenue prediction: 0 = không mua, 1 = sẽ mua ──────────
+        predicted_revenue = int(prediction[0])
 
-        # LOGIC CHIẾN LƯỢC: Khách có xu hướng không mua (0) + Lướt xem sản phẩm kỹ (>= 120 giây)
-        if is_going_to_buy == 0 and params.productrelated_duration >= 120:
-            need_voucher = 1
-            discount_percent = 15
-            print(f"[AI Quyết Định] Phát hiện khách phân vân (Revenue=0, Thời gian={params.productrelated_duration}s) -> CẤP VOUCHER GIỮ CHÂN!")
+        # ── QUYẾT ĐỊNH VOUCHER dựa trên model + context ───────────────
+        need_voucher    = 0
+        discount_percent = 0
+        decision_reason  = ""
+
+        if predicted_revenue == 0:
+            if params.productrelated_duration >= 120 or params.page_values >= 30:
+                need_voucher = 1
+                if params.page_values >= 60:
+                    discount_percent = 20
+                    decision_reason  = "Revenue=0, page_values cao (≥60) → CẤP 20%"
+                elif params.page_values >= 30 or params.productrelated_duration >= 300:
+                    discount_percent = 15
+                    decision_reason  = "Revenue=0, page_values trung bình hoặc xem lâu → CẤP 15%"
+                else:
+                    discount_percent = 10
+                    decision_reason  = "Revenue=0, xem sản phẩm ≥120s → CẤP 10%"
+            else:
+                decision_reason = "Revenue=0 nhưng xem quá ngắn → KHÔNG cấp"
         else:
-            need_voucher = 0
-            discount_percent = 0
-            print(f"[AI Quyết Định] Khách chắc chắn tự mua (Revenue=1) hoặc lướt hời hợt -> TỪ CHỐI CẤP VOUCHER.")
+            decision_reason = "Revenue=1 → khách sẽ tự mua, KHÔNG cấp voucher"
+
+        print(f"[Voucher Decision] {decision_reason} "
+              f"| productDuration={params.productrelated_duration:.0f}s "
+              f"| pageValues={params.page_values:.1f} "
+              f"| weekend={params.weekend}")
 
         return {
-            "need_voucher": need_voucher,
+            "need_voucher":     need_voucher,
             "discount_percent": discount_percent,
-            "status": "success",
+            "status":           "success",
             "debug_info": {
-                "predicted_revenue_intent": is_going_to_buy
+                "predicted_revenue_intent": predicted_revenue,
+                "decision_reason":          decision_reason,
+                "product_duration_s":       params.productrelated_duration,
+                "page_values":              params.page_values,
             }
         }
-        
+
     except Exception as e:
-        return {"need_voucher": 0, "discount_percent": 0, "error": f"Lỗi ma trận cây quyết định: {str(e)}"}
+        return {
+            "need_voucher":     0,
+            "discount_percent": 0,
+            "error":            f"Lỗi dự đoán: {str(e)}"
+        }
+
+
+# ── In cấu trúc cây khi khởi động (debug) ─────────────────────────────
 if voucher_model is not None and hasattr(voucher_model, "feature_names_in_"):
-    print("\n🌲=== TOÀN BỘ CẤU TRÚC LUẬT RẼ NHÁNH CỦA CÂY QUYẾT ĐỊNH ===")
-    print(export_text(voucher_model, feature_names=list(voucher_model.feature_names_in_)))
+    print("\n🌲=== CẤU TRÚC CÂY QUYẾT ĐỊNH VOUCHER ===")
+    print(export_text(voucher_model, feature_names=list(voucher_model.feature_names_in_), max_depth=4))
+
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=5000)
-    

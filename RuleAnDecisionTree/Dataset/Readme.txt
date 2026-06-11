@@ -1,1 +1,0 @@
-this dataset is created by code. It have 1200 row data with 12 attribute

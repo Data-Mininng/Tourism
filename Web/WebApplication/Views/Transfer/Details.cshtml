@@ -1,0 +1,114 @@
+@model TravelApp.Models.Transfer
+
+@{
+    ViewData["Title"] = "Chi Tiết Phương Tiện";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="text-3xl fw-bold">Chi Tiết Phương Tiện</h1>
+        <p class="muted mt-2">Xem thông tin chi tiết phương tiện #@Model.Id</p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Quay lại
+    </a>
+</div>
+
+<div class="section"
+     data-page-type="Transfer"
+     data-ref-id="@Model.Id"
+     data-context='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(new {
+         service     = "DV_Dua_Don_San_Bay",
+         from        = Model.FromLocation,
+         destination = Model.ToLocation,
+         type        = Model.Type.Replace(" ", "_"),
+         price_tier  = Model.Price < 200000 ? "Thap" : Model.Price < 500000 ? "Trung_Binh" : "Cao"
+     }))'>
+    <div class="card" style="max-width:700px;">
+        <div class="card-body">
+            <!-- Header -->
+            <div class="d-flex align-center" style="justify-content:space-between; margin-bottom:1.5rem; padding-bottom:1rem; border-bottom:1px solid var(--border);">
+                <div class="d-flex align-center gap-3">
+                    <div style="width:48px; height:48px; border-radius:0.75rem; background:rgba(16,185,129,0.15); display:flex; align-items:center; justify-content:center;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-xl fw-bold">@Model.FromLocation → @Model.ToLocation</h2>
+                        <span class="badge @(Model.Type == "Máy bay" ? "badge-blue" : Model.Type == "Xe khách" ? "badge-green" : Model.Type == "Tàu hỏa" ? "badge-amber" : "badge-blue") mt-2" style="display:inline-block;">
+                            @Model.Type
+                        </span>
+                    </div>
+                </div>
+                <span class="muted2 text-sm">#@Model.Id</span>
+            </div>
+
+            <!-- Route Info -->
+            <div class="search-grid sg-2 mb-4">
+                <div style="background:rgba(255,255,255,0.03); border-radius:0.75rem; padding:1.25rem;">
+                    <div class="d-flex align-center gap-2 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"></circle><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z"></path></svg>
+                        <span class="text-sm muted">Điểm đi</span>
+                    </div>
+                    <p class="fw-bold text-xl">@Model.FromLocation</p>
+                </div>
+
+                <div style="background:rgba(255,255,255,0.03); border-radius:0.75rem; padding:1.25rem;">
+                    <div class="d-flex align-center gap-2 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <span class="text-sm muted">Điểm đến</span>
+                    </div>
+                    <p class="fw-bold text-xl">@Model.ToLocation</p>
+                </div>
+            </div>
+
+            <!-- Details Grid -->
+            <div class="search-grid sg-3 mb-4">
+                <div style="background:rgba(255,255,255,0.03); border-radius:0.75rem; padding:1.25rem; text-align:center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:0.5rem;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    <p class="text-xs muted mb-2">Khởi hành</p>
+                    <p class="fw-semi text-sm">@Model.DepartureTime.ToString("dd/MM/yyyy")</p>
+                    <p class="accent text-sm">@Model.DepartureTime.ToString("HH:mm")</p>
+                </div>
+
+                <div style="background:rgba(255,255,255,0.03); border-radius:0.75rem; padding:1.25rem; text-align:center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:0.5rem;"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    <p class="text-xs muted mb-2">Giá vé</p>
+                    <p class="fw-bold accent">@Model.Price.ToString("N0") ₫</p>
+                </div>
+
+                <div style="background:rgba(255,255,255,0.03); border-radius:0.75rem; padding:1.25rem; text-align:center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:0.5rem;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    <p class="text-xs muted mb-2">Sức chứa</p>
+                    <p class="fw-bold">@Model.Capacity người</p>
+                </div>
+            </div>
+
+            <!-- Gợi ý luật kết hợp (THÊM MỚI) -->
+            @await Html.PartialAsync("~/Views/Recommendation/_AssociationSuggestions.cshtml")
+
+            <!-- Actions -->
+            <div class="d-flex gap-3" style="justify-content:flex-end; align-items:center; border-top:1px solid var(--border); padding-top:1rem;">
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                        Chỉnh sửa
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline" style="color:#ef4444; border-color:#ef4444;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        Xóa
+                    </a>
+                }
+                else
+                {
+                    <form asp-action="Book" asp-route-id="@Model.Id" method="post" style="margin:0;">
+                        <button type="submit" class="btn btn-primary" style="background:#10b981;">
+                            Đặt vé phương tiện
+                        </button>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>

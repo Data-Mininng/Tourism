@@ -1,0 +1,52 @@
+@model TravelApp.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+<div class="section" style="display:flex; justify-content:center; padding:3rem 1rem;">
+    <div class="card" style="max-width:440px; width:100%;">
+        <div class="card-body" style="padding:2rem;">
+            <div style="text-align:center; margin-bottom:2rem;">
+                <div class="brand-icon" style="margin:0 auto 1rem; width:48px; height:48px; font-size:1.2rem;">VT</div>
+                <h2 class="fw-bold text-2xl">Đăng nhập</h2>
+                <p class="muted text-sm mt-2">Chào mừng bạn quay lại Vietnam Travel</p>
+            </div>
+
+            <div asp-validation-summary="All" style="color:#ef4444; font-size:0.85rem; margin-bottom:1rem;"></div>
+
+            <form asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                <div class="form-group mb-3">
+                    <label asp-for="Email">Email</label>
+                    <input asp-for="Email" class="form-control" placeholder="you@example.com" />
+                    <span asp-validation-for="Email" style="color:#ef4444; font-size:0.8rem;"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Password">Mật khẩu</label>
+                    <input asp-for="Password" class="form-control" placeholder="••••••••" />
+                    <span asp-validation-for="Password" style="color:#ef4444; font-size:0.8rem;"></span>
+                </div>
+
+                <div class="d-flex align-center" style="justify-content:space-between; margin-bottom:1.5rem;">
+                    <label class="d-flex align-center gap-2" style="cursor:pointer;">
+                        <input asp-for="RememberMe" style="accent-color:var(--accent); width:16px; height:16px;" />
+                        <span class="text-sm muted">Ghi nhớ đăng nhập</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full btn-lg">Đăng nhập</button>
+            </form>
+
+            <div style="text-align:center; margin-top:1.5rem; border-top:1px solid var(--border); padding-top:1.5rem;">
+                <p class="text-sm muted">
+                    Chưa có tài khoản?
+                    <a asp-controller="Account" asp-action="Register" style="color:var(--accent); font-weight:600;">Đăng ký ngay</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
