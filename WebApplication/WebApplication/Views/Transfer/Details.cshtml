@@ -25,7 +25,9 @@
          type        = Model.Type.Replace(" ", "_"),
          price_tier  = Model.Price < 200000 ? "Thap" : Model.Price < 500000 ? "Trung_Binh" : "Cao"
      }))'>
-    <div class="card" style="max-width:700px;">
+    <div class="card" style="max-width:700px;overflow:hidden;">
+        <img src="/@Model.ImageUrl" alt="@Model.Type" class="card-img" style="height:220px;object-fit:cover;" loading="lazy"
+             onerror="this.src='/img/transfer/default.jpg'" />
         <div class="card-body">
             <!-- Header -->
             <div class="d-flex align-center" style="justify-content:space-between; margin-bottom:1.5rem; padding-bottom:1rem; border-bottom:1px solid var(--border);">

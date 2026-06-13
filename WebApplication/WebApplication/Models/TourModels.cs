@@ -11,6 +11,11 @@ public class Tour
     public int DurationDays { get; set; }
     public decimal Price { get; set; }
     public string Description { get; set; } = string.Empty;
+
+    /// <summary>Đường dẫn ảnh đại diện, VD: img/tour/1.jpg</summary>
+    [MaxLength(300)]
+    public string ImageUrl { get; set; } = "img/tour/default.jpg";
+
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
 }

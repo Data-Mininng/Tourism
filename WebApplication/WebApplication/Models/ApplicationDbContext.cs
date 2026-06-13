@@ -18,10 +18,12 @@ namespace TravelApp.Data
         public DbSet<Booking>  Bookings  { get; set; }
         public DbSet<Review>   Reviews   { get; set; }
 
-        // ── DbSet MỚI THÊM (3 bảng AI) ─────────────────────────────────
-        public DbSet<LuatFPGrowth>    LuatFPGrowth    { get; set; }
-        public DbSet<UserBehaviorLog> UserBehaviorLogs { get; set; }
-        public DbSet<VoucherIssued>   VouchersIssued   { get; set; }
+        // ── DbSet MỚI THÊM (3 bảng AI + 2 bảng log voucher) ────────────
+        public DbSet<LuatFPGrowth>       LuatFPGrowth       { get; set; }
+        public DbSet<UserBehaviorLog>    UserBehaviorLogs   { get; set; }
+        public DbSet<VoucherIssued>      VouchersIssued     { get; set; }
+        public DbSet<VoucherFeatureLog>  VoucherFeatureLogs { get; set; }
+        public DbSet<VoucherDecisionLog> VoucherDecisionLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

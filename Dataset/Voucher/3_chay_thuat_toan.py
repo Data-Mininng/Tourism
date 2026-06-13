@@ -5,7 +5,7 @@ from sklearn.tree import DecisionTreeClassifier # ĐÂY MỚI LÀ CÂY QUYẾT �
 from sklearn.metrics import accuracy_score
 
 # 1. Đọc dữ liệu CSV đã qua tiền xử lý
-df = pd.read_csv('du_lieu_da_xu_ly.csv')
+df = pd.read_csv('Dataset/Voucher/du_lieu_da_xu_ly.csv')
 X = df.drop('Need_Voucher', axis=1)
 y = df['Need_Voucher']
 

@@ -77,8 +77,17 @@
                     <div class="flight-card">
                         <div class="flight-inner">
                             <div style="flex:1;">
-                                <div class="airline-name">@item.Airline</div>
-                                <div class="text-xs muted2">Chuyến bay @item.FlightNumber</div>
+                                <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.3rem;">
+                                    <div style="width:36px;height:36px;border-radius:8px;overflow:hidden;flex-shrink:0;">
+                                        <img src="/@item.ImageUrl" alt="@item.Airline"
+                                             style="width:100%;height:100%;object-fit:cover;" loading="lazy"
+                                             onerror="this.src='/img/flight/default.jpg'">
+                                    </div>
+                                    <div>
+                                        <div class="airline-name">@item.Airline</div>
+                                        <div class="text-xs muted2">Chuyến bay @item.FlightNumber</div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="flight-times">

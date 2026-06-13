@@ -20,4 +20,12 @@
 		</Content>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="wwwroot\img\hotel\" />
+	  <Folder Include="wwwroot\img\flight\" />
+	  <Folder Include="wwwroot\img\car\" />
+	  <Folder Include="wwwroot\img\transfer\" />
+	  <Folder Include="wwwroot\img\tour\" />
+	</ItemGroup>
+
 </Project>

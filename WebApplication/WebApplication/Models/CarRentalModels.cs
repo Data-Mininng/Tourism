@@ -12,6 +12,11 @@ public class Car
     public int Year { get; set; }
     public decimal PricePerDay { get; set; }
     public bool IsAvailable { get; set; }
+
+    /// <summary>Đường dẫn ảnh đại diện, VD: img/car/1.jpg</summary>
+    [MaxLength(300)]
+    public string ImageUrl { get; set; } = "img/car/default.jpg";
+
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
 }

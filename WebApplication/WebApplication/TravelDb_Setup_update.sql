@@ -27,6 +27,7 @@ CREATE TABLE Cars (
     Year        INT            NOT NULL DEFAULT 2020,
     PricePerDay DECIMAL(18,2)  NOT NULL DEFAULT 0,
     IsAvailable BIT            NOT NULL DEFAULT 1,
+    ImageUrl    NVARCHAR(300)  NOT NULL DEFAULT 'img/car/default.jpg',
     CreatedAt   DATETIME2      NOT NULL DEFAULT GETDATE(),
     UpdatedAt   DATETIME2      NOT NULL DEFAULT GETDATE()
 );
@@ -55,6 +56,7 @@ CREATE TABLE Flights (
     ArrivalTime    DATETIME2      NOT NULL,
     Price          DECIMAL(18,2)  NOT NULL DEFAULT 0,
     AvailableSeats INT            NOT NULL DEFAULT 0,
+    ImageUrl       NVARCHAR(300)  NOT NULL DEFAULT 'img/flight/default.jpg',
     CreatedAt      DATETIME2      NOT NULL DEFAULT GETDATE(),
     UpdatedAt      DATETIME2      NOT NULL DEFAULT GETDATE()
 );
@@ -68,6 +70,7 @@ CREATE TABLE Hotels (
     Stars         INT            NOT NULL DEFAULT 3,
     PricePerNight DECIMAL(18,2)  NOT NULL DEFAULT 0,
     HasPool       BIT            NOT NULL DEFAULT 0,
+    ImageUrl      NVARCHAR(300)  NOT NULL DEFAULT 'img/hotel/default.jpg',
     CreatedAt     DATETIME2      NOT NULL DEFAULT GETDATE(),
     UpdatedAt     DATETIME2      NOT NULL DEFAULT GETDATE()
 );
@@ -81,6 +84,7 @@ CREATE TABLE Tours (
     DurationDays INT            NOT NULL DEFAULT 1,
     Price        DECIMAL(18,2)  NOT NULL DEFAULT 0,
     Description  NVARCHAR(MAX)  NULL,
+    ImageUrl     NVARCHAR(300)  NOT NULL DEFAULT 'img/tour/default.jpg',
     CreatedAt    DATETIME2      NOT NULL DEFAULT GETDATE(),
     UpdatedAt    DATETIME2      NOT NULL DEFAULT GETDATE()
 );
@@ -95,6 +99,7 @@ CREATE TABLE Transfers (
     DepartureTime DATETIME2      NOT NULL,
     Price         DECIMAL(18,2)  NOT NULL DEFAULT 0,
     Capacity      INT            NOT NULL DEFAULT 4,
+    ImageUrl      NVARCHAR(300)  NOT NULL DEFAULT 'img/transfer/default.jpg',
     CreatedAt     DATETIME2      NOT NULL DEFAULT GETDATE(),
     UpdatedAt     DATETIME2      NOT NULL DEFAULT GETDATE()
 );
@@ -219,61 +224,61 @@ GO
 -- ============================================================
 
 IF NOT EXISTS (SELECT TOP 1 1 FROM Cars)
-INSERT INTO Cars (Brand, Model, Year, PricePerDay, IsAvailable) VALUES
-(N'Toyota',   N'Camry',   2020, 800000,  1),
-(N'Honda',    N'Civic',   2021, 650000,  1),
-(N'Hyundai',  N'Tucson',  2022, 900000,  1),
-(N'Ford',     N'Ranger',  2021, 1100000, 1),
-(N'Mazda',    N'CX-5',    2023, 1000000, 0),
-(N'Kia',      N'Morning', 2020, 500000,  1),
-(N'VinFast',  N'VF 8',    2023, 1200000, 1),
-(N'Mercedes', N'C200',    2022, 2500000, 1);
+INSERT INTO Cars (Brand, Model, Year, PricePerDay, IsAvailable, ImageUrl) VALUES
+(N'Toyota',   N'Camry',   2020, 800000,  1, 'img/car/1.jpg'),
+(N'Honda',    N'Civic',   2021, 650000,  1, 'img/car/2.jpg'),
+(N'Hyundai',  N'Tucson',  2022, 900000,  1, 'img/car/3.jpg'),
+(N'Ford',     N'Ranger',  2021, 1100000, 1, 'img/car/4.jpg'),
+(N'Mazda',    N'CX-5',    2023, 1000000, 0, 'img/car/5.jpg'),
+(N'Kia',      N'Morning', 2020, 500000,  1, 'img/car/6.jpg'),
+(N'VinFast',  N'VF 8',    2023, 1200000, 1, 'img/car/7.jpg'),
+(N'Mercedes', N'C200',    2022, 2500000, 1, 'img/car/8.jpg');
 GO
 
 IF NOT EXISTS (SELECT TOP 1 1 FROM Flights)
-INSERT INTO Flights (Airline, FlightNumber, Departure, Arrival, DepartureTime, ArrivalTime, Price, AvailableSeats) VALUES
-(N'Vietnam Airlines', N'VN123', N'Hà Nội',          N'TP. Hồ Chí Minh', DATEADD(day,1,GETDATE()), DATEADD(hour,2,DATEADD(day,1,GETDATE())),    1850000, 90),
-(N'VietJet Air',      N'VJ456', N'TP. Hồ Chí Minh', N'Đà Nẵng',         DATEADD(day,2,GETDATE()), DATEADD(hour,1,DATEADD(day,2,GETDATE())),     750000, 120),
-(N'Bamboo Airways',   N'QH789', N'Hà Nội',           N'Nha Trang',        DATEADD(day,3,GETDATE()), DATEADD(hour,2,DATEADD(day,3,GETDATE())),    1200000,  80),
-(N'Vietnam Airlines', N'VN321', N'TP. Hồ Chí Minh', N'Phú Quốc',        DATEADD(day,4,GETDATE()), DATEADD(minute,75,DATEADD(day,4,GETDATE())), 1100000,  60),
-(N'VietJet Air',      N'VJ654', N'Đà Nẵng',          N'Hà Nội',           DATEADD(day,5,GETDATE()), DATEADD(hour,1,DATEADD(day,5,GETDATE())),    900000, 100),
-(N'Pacific Airlines', N'BL100', N'Hà Nội',           N'Đà Lạt',           DATEADD(day,6,GETDATE()), DATEADD(hour,2,DATEADD(day,6,GETDATE())),   1300000,  55);
+INSERT INTO Flights (Airline, FlightNumber, Departure, Arrival, DepartureTime, ArrivalTime, Price, AvailableSeats, ImageUrl) VALUES
+(N'Vietnam Airlines', N'VN123', N'Hà Nội',          N'TP. Hồ Chí Minh', DATEADD(day,1,GETDATE()), DATEADD(hour,2,DATEADD(day,1,GETDATE())),    1850000, 90,  'img/flight/1.jpg'),
+(N'VietJet Air',      N'VJ456', N'TP. Hồ Chí Minh', N'Đà Nẵng',         DATEADD(day,2,GETDATE()), DATEADD(hour,1,DATEADD(day,2,GETDATE())),     750000, 120, 'img/flight/2.jpg'),
+(N'Bamboo Airways',   N'QH789', N'Hà Nội',           N'Nha Trang',        DATEADD(day,3,GETDATE()), DATEADD(hour,2,DATEADD(day,3,GETDATE())),    1200000,  80, 'img/flight/3.jpg'),
+(N'Vietnam Airlines', N'VN321', N'TP. Hồ Chí Minh', N'Phú Quốc',        DATEADD(day,4,GETDATE()), DATEADD(minute,75,DATEADD(day,4,GETDATE())), 1100000,  60, 'img/flight/4.jpg'),
+(N'VietJet Air',      N'VJ654', N'Đà Nẵng',          N'Hà Nội',           DATEADD(day,5,GETDATE()), DATEADD(hour,1,DATEADD(day,5,GETDATE())),    900000, 100, 'img/flight/5.jpg'),
+(N'Pacific Airlines', N'BL100', N'Hà Nội',           N'Đà Lạt',           DATEADD(day,6,GETDATE()), DATEADD(hour,2,DATEADD(day,6,GETDATE())),   1300000,  55, 'img/flight/6.jpg');
 GO
 
 IF NOT EXISTS (SELECT TOP 1 1 FROM Hotels)
-INSERT INTO Hotels (Name, Location, Stars, PricePerNight, HasPool) VALUES
-(N'Hanoi Pearl Hotel',          N'Hà Nội',  5, 2200000, 1),
-(N'Saigon Star Hotel',          N'TP. Hồ Chí Minh', 4, 1800000, 1),
-(N'Danang Beach Resort',        N'Đà Nẵng', 5, 3500000, 1),
-(N'Nha Trang Palace Hotel',     N'Nha Trang', 4, 1500000, 1),
-(N'Phu Quoc Island Resort',     N'Phú Quốc', 5, 4200000, 1),
-(N'Hoi An Ancient House Hotel', N'Hội An',   3,  900000, 0),
-(N'Dalat Flower Hotel',         N'Đà Lạt',   3,  750000, 0),
-(N'Ha Long Bay Cruise Hotel',   N'Hạ Long',  4, 2800000, 0);
+INSERT INTO Hotels (Name, Location, Stars, PricePerNight, HasPool, ImageUrl) VALUES
+(N'Hanoi Pearl Hotel',          N'Hà Nội',          5, 2200000, 1, 'img/hotel/1.jpg'),
+(N'Saigon Star Hotel',          N'TP. Hồ Chí Minh', 4, 1800000, 1, 'img/hotel/2.jpg'),
+(N'Danang Beach Resort',        N'Đà Nẵng',         5, 3500000, 1, 'img/hotel/3.jpg'),
+(N'Nha Trang Palace Hotel',     N'Nha Trang',       4, 1500000, 1, 'img/hotel/4.jpg'),
+(N'Phu Quoc Island Resort',     N'Phú Quốc',        5, 4200000, 1, 'img/hotel/5.jpg'),
+(N'Hoi An Ancient House Hotel', N'Hội An',          3,  900000, 0, 'img/hotel/6.jpg'),
+(N'Dalat Flower Hotel',         N'Đà Lạt',          3,  750000, 0, 'img/hotel/7.jpg'),
+(N'Ha Long Bay Cruise Hotel',   N'Hạ Long',         4, 2800000, 0, 'img/hotel/8.jpg');
 GO
 
 IF NOT EXISTS (SELECT TOP 1 1 FROM Tours)
-INSERT INTO Tours (Name, Destination, DurationDays, Price, Description) VALUES
-(N'Du thuyền Hạ Long Bay',      N'Hạ Long',  2, 3500000, N'Khám phá kỳ quan thiên nhiên Vịnh Hạ Long.'),
-(N'Khám phá Phố Cổ Hội An',    N'Hội An',   3, 2800000, N'Dạo bộ phố cổ, thả đèn hoa đăng trên sông Hoài.'),
-(N'Trekking Sapa – Fansipan',   N'Sapa',     4, 4200000, N'Chinh phục đỉnh Fansipan – Nóc nhà Đông Dương.'),
-(N'Khám phá Phú Quốc',         N'Phú Quốc', 5, 6500000, N'Tắm biển, lặn san hô, hải sản tươi ngon.'),
-(N'Tour Đà Nẵng – Bà Nà Hills',N'Đà Nẵng',  3, 3200000, N'Cầu Vàng, Làng Pháp Bà Nà Hills, bãi biển Mỹ Khê.'),
-(N'Khám phá Tây Nguyên',       N'Đà Lạt',   3, 2500000, N'Vườn hoa, thác Datanla, làng văn hóa Cơ Ho.'),
-(N'Hành trình Cố đô Huế',      N'Huế',      2, 1800000, N'Đại Nội, lăng tẩm triều Nguyễn, cơm vua.'),
-(N'Tour Mũi Né – Bình Thuận',  N'Mũi Né',   3, 2200000, N'Đồi cát bay, suối Tiên, bãi biển miền Nam.');
+INSERT INTO Tours (Name, Destination, DurationDays, Price, Description, ImageUrl) VALUES
+(N'Du thuyền Hạ Long Bay',      N'Hạ Long',  2, 3500000, N'Khám phá kỳ quan thiên nhiên Vịnh Hạ Long.',                       'img/tour/1.jpg'),
+(N'Khám phá Phố Cổ Hội An',    N'Hội An',   3, 2800000, N'Dạo bộ phố cổ, thả đèn hoa đăng trên sông Hoài.',                 'img/tour/2.jpg'),
+(N'Trekking Sapa – Fansipan',   N'Sapa',     4, 4200000, N'Chinh phục đỉnh Fansipan – Nóc nhà Đông Dương.',                  'img/tour/3.jpg'),
+(N'Khám phá Phú Quốc',         N'Phú Quốc', 5, 6500000, N'Tắm biển, lặn san hô, hải sản tươi ngon.',                        'img/tour/4.jpg'),
+(N'Tour Đà Nẵng – Bà Nà Hills',N'Đà Nẵng',  3, 3200000, N'Cầu Vàng, Làng Pháp Bà Nà Hills, bãi biển Mỹ Khê.',              'img/tour/5.jpg'),
+(N'Khám phá Tây Nguyên',       N'Đà Lạt',   3, 2500000, N'Vườn hoa, thác Datanla, làng văn hóa Cơ Ho.',                     'img/tour/6.jpg'),
+(N'Hành trình Cố đô Huế',      N'Huế',      2, 1800000, N'Đại Nội, lăng tẩm triều Nguyễn, cơm vua.',                        'img/tour/7.jpg'),
+(N'Tour Mũi Né – Bình Thuận',  N'Mũi Né',   3, 2200000, N'Đồi cát bay, suối Tiên, bãi biển miền Nam.',                      'img/tour/8.jpg');
 GO
 
 IF NOT EXISTS (SELECT TOP 1 1 FROM Transfers)
-INSERT INTO Transfers (Type, FromLocation, ToLocation, DepartureTime, Price, Capacity) VALUES
-(N'Taxi',      N'Sân bay Nội Bài',       N'Trung tâm Hà Nội',   DATEADD(hour,2,GETDATE()),  350000, 4),
-(N'Taxi',      N'Sân bay Tân Sơn Nhất',  N'Trung tâm TP.HCM',   DATEADD(hour,3,GETDATE()),  280000, 4),
-(N'Limousine', N'Hà Nội',                N'Hạ Long',             DATEADD(day,1,GETDATE()),   250000, 9),
-(N'Bus',       N'TP. Hồ Chí Minh',       N'Mũi Né',              DATEADD(day,1,GETDATE()),   150000, 40),
-(N'Bus',       N'Đà Nẵng',               N'Hội An',              DATEADD(hour,1,GETDATE()),   50000, 25),
-(N'Train',     N'Hà Nội',                N'TP. Hồ Chí Minh',     DATEADD(day,1,GETDATE()),   900000, 60),
-(N'Limousine', N'Sân bay Đà Nẵng',       N'Hội An',              DATEADD(hour,4,GETDATE()),  180000, 7),
-(N'Taxi',      N'Sân bay Phú Quốc',      N'Dương Đông Town',     DATEADD(hour,5,GETDATE()),  200000, 4);
+INSERT INTO Transfers (Type, FromLocation, ToLocation, DepartureTime, Price, Capacity, ImageUrl) VALUES
+(N'Taxi',      N'Sân bay Nội Bài',       N'Trung tâm Hà Nội',   DATEADD(hour,2,GETDATE()),  350000, 4,  'img/transfer/1.jpg'),
+(N'Taxi',      N'Sân bay Tân Sơn Nhất',  N'Trung tâm TP.HCM',   DATEADD(hour,3,GETDATE()),  280000, 4,  'img/transfer/2.jpg'),
+(N'Limousine', N'Hà Nội',                N'Hạ Long',             DATEADD(day,1,GETDATE()),   250000, 9,  'img/transfer/3.jpg'),
+(N'Bus',       N'TP. Hồ Chí Minh',       N'Mũi Né',              DATEADD(day,1,GETDATE()),   150000, 40, 'img/transfer/4.jpg'),
+(N'Bus',       N'Đà Nẵng',               N'Hội An',              DATEADD(hour,1,GETDATE()),   50000, 25, 'img/transfer/5.jpg'),
+(N'Train',     N'Hà Nội',                N'TP. Hồ Chí Minh',     DATEADD(day,1,GETDATE()),   900000, 60, 'img/transfer/6.jpg'),
+(N'Limousine', N'Sân bay Đà Nẵng',       N'Hội An',              DATEADD(hour,4,GETDATE()),  180000, 7,  'img/transfer/7.jpg'),
+(N'Taxi',      N'Sân bay Phú Quốc',      N'Dương Đông Town',     DATEADD(hour,5,GETDATE()),  200000, 4,  'img/transfer/8.jpg');
 GO
 
 -- USERS — mật khẩu hash thực tế cần dùng BCrypt khi deploy
@@ -304,6 +309,101 @@ INSERT INTO Reviews (UserId, ServiceType, ServiceId, Rating, Comment) VALUES
 GO
 
 -- ============================================================
+-- ============================================================
+--  BẢNG LOG VOUCHER (Feature inputs + Decision outputs)
+-- ============================================================
+
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='VoucherFeatureLog' AND xtype='U')
+CREATE TABLE VoucherFeatureLog (
+    Id                    INT IDENTITY(1,1) PRIMARY KEY,
+    SessionId             NVARCHAR(64)      NOT NULL DEFAULT '',
+    UserId                INT               NULL,
+    TotalLogCount         INT               NOT NULL DEFAULT 0,
+    -- 7 Feature gửi lên model
+    AdminDuration         DECIMAL(12,4)     NOT NULL DEFAULT 0,   -- Tổng giây trang Info
+    InformationalDuration DECIMAL(12,4)     NOT NULL DEFAULT 0,   -- Dự phòng
+    ProductDuration       DECIMAL(12,4)     NOT NULL DEFAULT 0,   -- Tổng giây trang dịch vụ
+    BounceRate            DECIMAL(8,6)      NOT NULL DEFAULT 0,   -- 1.0 nếu 1 log duy nhất
+    ExitRate              DECIMAL(8,6)      NOT NULL DEFAULT 0,   -- 0.1 đã mua / 0.4 chưa
+    AvgPageValues         DECIMAL(10,4)     NOT NULL DEFAULT 0,   -- TB PageValues session
+    WeekendVal            INT               NOT NULL DEFAULT 0,   -- 1=cuối tuần, 0=ngày thường
+    -- Tóm tắt hành vi
+    PagesVisited          NVARCHAR(200)     NOT NULL DEFAULT '',  -- "Tour,Hotel,Flight"
+    UniquePageCount       INT               NOT NULL DEFAULT 0,
+    ComputedAt            DATETIME2         NOT NULL DEFAULT GETDATE()
+);
+GO
+
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='VoucherDecisionLog' AND xtype='U')
+CREATE TABLE VoucherDecisionLog (
+    Id                    INT IDENTITY(1,1) PRIMARY KEY,
+    SessionId             NVARCHAR(64)      NOT NULL DEFAULT '',
+    UserId                INT               NULL,
+    FeatureLogId          INT               NULL,   -- FK -> VoucherFeatureLog.Id
+    VoucherCode           NVARCHAR(50)      NULL,
+    -- Kết quả model
+    ModelPredictedRevenue INT               NOT NULL DEFAULT -1,  -- 0=sẽ không mua,1=sẽ mua,-1=lỗi
+    ModelDecidedGrant     BIT               NOT NULL DEFAULT 0,   -- Model quyết định cấp?
+    DiscountPercent       INT               NOT NULL DEFAULT 0,
+    DecisionReason        NVARCHAR(500)     NOT NULL DEFAULT '',  -- debug_info từ Python
+    -- Kết quả thực tế (cập nhật sau khi khách dùng hoặc hết hạn)
+    ActuallyUsed          BIT               NULL,   -- NULL=chưa biết
+    ActuallyPurchased     BIT               NULL,
+    -- Đánh giá độ chính xác model:
+    --   Grant=1 & Purchased=0 → Đúng (khách cần voucher mới mua)
+    --   Grant=1 & Purchased=1 → Sai  (model cấp nhưng khách tự mua rồi)
+    --   Grant=0 & Purchased=1 → Đúng (model biết khách tự mua, không lãng phí voucher)
+    --   Grant=0 & Purchased=0 → Sai  (lẽ ra nên cấp để kích mua)
+    IsModelCorrect        BIT               NULL,   -- NULL=chưa đủ data để đánh giá
+    DecidedAt             DATETIME2         NOT NULL DEFAULT GETDATE(),
+    EvaluatedAt           DATETIME2         NULL
+);
+GO
+
+-- FK mềm (không bắt buộc để tránh lỗi nếu FeatureLog bị xóa)
+IF NOT EXISTS (
+    SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_VoucherDecision_Feature'
+)
+ALTER TABLE VoucherDecisionLog
+    ADD CONSTRAINT FK_VoucherDecision_Feature
+    FOREIGN KEY (FeatureLogId) REFERENCES VoucherFeatureLog(Id)
+    ON DELETE SET NULL;
+GO
+
+-- ── VIEW: Kiểm tra độ chính xác model voucher ─────────────
+IF EXISTS (SELECT * FROM sysobjects WHERE name='vw_VoucherModelAccuracy' AND xtype='V')
+    DROP VIEW vw_VoucherModelAccuracy;
+GO
+
+CREATE VIEW vw_VoucherModelAccuracy AS
+SELECT
+    COUNT(*)                                                                         AS TongQuyetDinh,
+    SUM(CASE WHEN ModelDecidedGrant = 1    THEN 1 ELSE 0 END)                       AS SoLanCapVoucher,
+    SUM(CASE WHEN ModelDecidedGrant = 0    THEN 1 ELSE 0 END)                       AS SoLanKhongCap,
+    SUM(CASE WHEN IsModelCorrect    = 1    THEN 1 ELSE 0 END)                       AS SoDung,
+    SUM(CASE WHEN IsModelCorrect    = 0    THEN 1 ELSE 0 END)                       AS SoSai,
+    SUM(CASE WHEN IsModelCorrect    IS NULL THEN 1 ELSE 0 END)                      AS ChuaDanhGia,
+    -- Accuracy % (chỉ tính trên quyết định đã có kết quả thực tế)
+    CASE
+        WHEN SUM(CASE WHEN IsModelCorrect IS NOT NULL THEN 1 ELSE 0 END) > 0
+        THEN CAST(
+            SUM(CASE WHEN IsModelCorrect = 1 THEN 1.0 ELSE 0 END) * 100.0
+            / SUM(CASE WHEN IsModelCorrect IS NOT NULL THEN 1 ELSE 0 END)
+            AS DECIMAL(5,2))
+        ELSE NULL
+    END                                                                              AS AccuracyPhanTram,
+    -- Tỉ lệ voucher đã cấp được dùng thực tế
+    CASE
+        WHEN SUM(CASE WHEN ModelDecidedGrant = 1 AND ActuallyUsed IS NOT NULL THEN 1 ELSE 0 END) > 0
+        THEN CAST(
+            SUM(CASE WHEN ModelDecidedGrant = 1 AND ActuallyUsed = 1 THEN 1.0 ELSE 0 END) * 100.0
+            / SUM(CASE WHEN ModelDecidedGrant = 1 AND ActuallyUsed IS NOT NULL THEN 1 ELSE 0 END)
+            AS DECIMAL(5,2))
+        ELSE NULL
+    END                                                                              AS TiLeDungVoucher
+FROM VoucherDecisionLog;
+GO
+
 --  KIỂM TRA
 -- ============================================================
 PRINT '=== Kiểm tra dữ liệu ==='
@@ -318,7 +418,9 @@ SELECT 'Bookings',                   COUNT(*)                  FROM Bookings    
 SELECT 'Reviews',                    COUNT(*)                  FROM Reviews           UNION ALL
 SELECT 'LuatFPGrowth (chờ nạp)',     COUNT(*)                  FROM LuatFPGrowth      UNION ALL
 SELECT 'UserBehaviorLogs',           COUNT(*)                  FROM UserBehaviorLogs  UNION ALL
-SELECT 'VouchersIssued',             COUNT(*)                  FROM VouchersIssued;
+SELECT 'VouchersIssued',             COUNT(*)                  FROM VouchersIssued    UNION ALL
+SELECT 'VoucherFeatureLog',          COUNT(*)                  FROM VoucherFeatureLog UNION ALL
+SELECT 'VoucherDecisionLog',         COUNT(*)                  FROM VoucherDecisionLog;
 GO
 
 PRINT N'✅ TravelDb đã sẵn sàng!'

@@ -32,7 +32,8 @@
                 {
                     <div class="card dest-card">
                         <div class="img-wrap" style="height:160px;">
-                            <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=800" alt="Car">
+                            <img src="/@item.ImageUrl" alt="@item.Brand @item.Model" loading="lazy"
+                                 onerror="this.src='/img/car/default.jpg'">
                             @if(item.IsAvailable)
                             {
                                 <span class="dest-badge" style="background:rgba(16,185,129,0.9);">Sẵn sàng</span>

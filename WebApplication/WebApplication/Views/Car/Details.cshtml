@@ -30,6 +30,8 @@
          available  = Model.IsAvailable ? "Con_Trong" : "Het_Cho"
      }))'>
     <div class="card">
+        <img src="/@Model.ImageUrl" alt="@Model.Brand @Model.Model" class="card-img" style="height:260px;object-fit:cover;" loading="lazy"
+             onerror="this.src='/img/car/default.jpg'" />
         <div class="card-body">
             <div class="d-flex align-center gap-3 mb-4">
                 <div style="width:56px;height:56px;background:rgba(16,185,129,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;">

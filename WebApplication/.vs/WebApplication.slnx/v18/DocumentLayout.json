@@ -7,6 +7,26 @@
       "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\controllers\\recommendationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\models\\hotelmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\models\\hotelmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\models\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\models\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\models\\voucherpredictionlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\models\\voucherpredictionlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\views\\transfer\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\views\\transfer\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\views\\flight\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\views\\flight\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\views\\recommendation\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\views\\recommendation\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -65,6 +85,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|f:\\github\\data_mining\\tourism\\webapplication\\webapplication\\migrations\\20260611095228_addvoucherpredictionlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5A06509-E5A5-BA4C-296C-97C378396042}|WebApplication\\WebApplication.csproj|solutionrelative:webapplication\\migrations\\20260611095228_addvoucherpredictionlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -74,11 +98,96 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 1,
+              "Title": "HotelModels.cs",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Models\\HotelModels.cs",
+              "RelativeDocumentMoniker": "WebApplication\\Models\\HotelModels.cs",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Models\\HotelModels.cs",
+              "RelativeToolTip": "WebApplication\\Models\\HotelModels.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAuwBEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-12T15:12:16.302Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Models\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "WebApplication\\Models\\ApplicationDbContext.cs",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Models\\ApplicationDbContext.cs",
+              "RelativeToolTip": "WebApplication\\Models\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAA3wBMAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-11T09:44:56.729Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "VoucherPredictionLog.cs",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Models\\VoucherPredictionLog.cs",
+              "RelativeDocumentMoniker": "WebApplication\\Models\\VoucherPredictionLog.cs",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Models\\VoucherPredictionLog.cs",
+              "RelativeToolTip": "WebApplication\\Models\\VoucherPredictionLog.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAA9wBcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-11T09:44:34.507Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Transfer\\Index.cshtml",
+              "RelativeDocumentMoniker": "WebApplication\\Views\\Transfer\\Index.cshtml",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Transfer\\Index.cshtml",
+              "RelativeToolTip": "WebApplication\\Views\\Transfer\\Index.cshtml",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAswGIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-11T09:02:12.153Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Flight\\Index.cshtml",
+              "RelativeDocumentMoniker": "WebApplication\\Views\\Flight\\Index.cshtml",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Flight\\Index.cshtml",
+              "RelativeToolTip": "WebApplication\\Views\\Flight\\Index.cshtml",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAowFMAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-11T09:01:30.725Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RecommendationController.cs",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Controllers\\RecommendationController.cs",
+              "RelativeDocumentMoniker": "WebApplication\\Controllers\\RecommendationController.cs",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Controllers\\RecommendationController.cs",
+              "RelativeToolTip": "WebApplication\\Controllers\\RecommendationController.cs",
+              "ViewState": "AgIAAPUAAAAAAAAAAAAowAMBAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-09T11:16:37.831Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "20260611095228_AddVoucherPredictionLog.cs",
+              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Migrations\\20260611095228_AddVoucherPredictionLog.cs",
+              "RelativeDocumentMoniker": "WebApplication\\Migrations\\20260611095228_AddVoucherPredictionLog.cs",
+              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Migrations\\20260611095228_AddVoucherPredictionLog.cs",
+              "RelativeToolTip": "WebApplication\\Migrations\\20260611095228_AddVoucherPredictionLog.cs",
+              "ViewState": "AgIAAM0AAAAAAAAAAAAQwOsAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-11T09:52:28.622Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "vt-tracker.js",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\wwwroot\\js\\vt-tracker.js",
               "RelativeDocumentMoniker": "WebApplication\\wwwroot\\js\\vt-tracker.js",
@@ -90,20 +199,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "RecommendationController.cs",
-              "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Controllers\\RecommendationController.cs",
-              "RelativeDocumentMoniker": "WebApplication\\Controllers\\RecommendationController.cs",
-              "ToolTip": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Controllers\\RecommendationController.cs",
-              "RelativeToolTip": "WebApplication\\Controllers\\RecommendationController.cs",
-              "ViewState": "AgIAAGsAAAAAAAAAAAAcwHYAAABWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-09T11:16:37.831Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "Index.cshtml",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Recommendation\\Index.cshtml",
               "RelativeDocumentMoniker": "WebApplication\\Views\\Recommendation\\Index.cshtml",
@@ -111,12 +207,11 @@
               "RelativeToolTip": "WebApplication\\Views\\Recommendation\\Index.cshtml",
               "ViewState": "AgIAAAEAAAAAAAAAAAAswAcAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-09T11:13:07.135Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-09T11:13:07.135Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "Details.cshtml",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Tour\\Details.cshtml",
               "RelativeDocumentMoniker": "WebApplication\\Views\\Tour\\Details.cshtml",
@@ -128,7 +223,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "WebApplication\\Views\\Shared\\_Layout.cshtml",
@@ -136,12 +231,11 @@
               "RelativeToolTip": "WebApplication\\Views\\Shared\\_Layout.cshtml",
               "ViewState": "AgIAAFwAAAAAAAAAAAAswGoAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-09T11:02:38.3Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-09T11:02:38.3Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "_AssociationSuggestions.cshtml",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Recommendation\\_AssociationSuggestions.cshtml",
               "RelativeDocumentMoniker": "WebApplication\\Views\\Recommendation\\_AssociationSuggestions.cshtml",
@@ -149,12 +243,11 @@
               "RelativeToolTip": "WebApplication\\Views\\Recommendation\\_AssociationSuggestions.cshtml",
               "ViewState": "AgIAALoAAAAAAAAAAAAcwNAAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-09T11:30:48.075Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-09T11:30:48.075Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "RuleManagement.cshtml",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Admin\\RuleManagement.cshtml",
               "RelativeDocumentMoniker": "WebApplication\\Views\\Admin\\RuleManagement.cshtml",
@@ -166,7 +259,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "AdminController.cs",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Controllers\\AdminController.cs",
               "RelativeDocumentMoniker": "WebApplication\\Controllers\\AdminController.cs",
@@ -178,7 +271,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 14,
               "Title": "appsettings.json",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\appsettings.json",
               "RelativeDocumentMoniker": "WebApplication\\appsettings.json",
@@ -190,7 +283,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 15,
               "Title": "Program.cs",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Program.cs",
               "RelativeDocumentMoniker": "WebApplication\\Program.cs",
@@ -202,7 +295,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 18,
               "Title": "Details.cshtml",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Hotel\\Details.cshtml",
               "RelativeDocumentMoniker": "WebApplication\\Views\\Hotel\\Details.cshtml",
@@ -214,7 +307,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 13,
               "Title": "Details.cshtml",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Flight\\Details.cshtml",
               "RelativeDocumentMoniker": "WebApplication\\Views\\Flight\\Details.cshtml",
@@ -226,7 +319,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 17,
               "Title": "Details.cshtml",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Car\\Details.cshtml",
               "RelativeDocumentMoniker": "WebApplication\\Views\\Car\\Details.cshtml",
@@ -238,7 +331,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 16,
               "Title": "FlightModels.cs",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Models\\FlightModels.cs",
               "RelativeDocumentMoniker": "WebApplication\\Models\\FlightModels.cs",
@@ -250,7 +343,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 19,
               "Title": "Details.cshtml",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Views\\Transfer\\Details.cshtml",
               "RelativeDocumentMoniker": "WebApplication\\Views\\Transfer\\Details.cshtml",
@@ -262,7 +355,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 20,
               "Title": "AccountController.cs",
               "DocumentMoniker": "F:\\GitHub\\Data_Mining\\Tourism\\WebApplication\\WebApplication\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "WebApplication\\Controllers\\AccountController.cs",

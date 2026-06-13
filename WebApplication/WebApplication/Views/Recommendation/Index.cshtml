@@ -6,8 +6,7 @@
     bool hasLocation = Model.VisitedLocations.Any();
 
     // Helper: ảnh tour theo điểm đến
-    Func<string, string> tourImg = dest => dest?.ToLower() switch
-    {
+    Func<string, string> tourImg = dest => dest?.ToLower() switch {
         var d when d != null && d.Contains("hà nội") => "https://images.unsplash.com/photo-1509030450996-dd1a26dda07a?q=80&w=800",
         var d when d != null && d.Contains("đà nẵng") => "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?q=80&w=800",
         var d when d != null && d.Contains("phú quốc") => "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800",
@@ -23,11 +22,9 @@
     };
 
     // Helper: ảnh khách sạn theo location
-    Func<string, int, string> hotelImg = (location, stars) =>
-    {
+    Func<string, int, string> hotelImg = (location, stars) => {
         var loc = location?.ToLower() ?? "";
-        if (stars >= 5)
-        {
+        if (stars >= 5) {
             if (loc.Contains("hà nội")) return "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=800";
             if (loc.Contains("đà nẵng")) return "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=800";
             if (loc.Contains("phú quốc")) return "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=800";
@@ -42,8 +39,7 @@
     };
 
     // Helper: ảnh hãng bay
-    Func<string, string> flightImg = airline => airline?.ToLower() switch
-    {
+    Func<string, string> flightImg = airline => airline?.ToLower() switch {
         var a when a != null && a.Contains("vietnam") => "https://images.unsplash.com/photo-1556388158-158ea5ccacbd?q=80&w=800",
         var a when a != null && a.Contains("vietjet") => "https://images.unsplash.com/photo-1542296332-2e4473faf563?q=80&w=800",
         var a when a != null && a.Contains("bamboo") => "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800",
@@ -51,8 +47,7 @@
     };
 
     // Helper: ảnh xe
-    Func<string, string> carImg = brand => brand?.ToLower() switch
-    {
+    Func<string, string> carImg = brand => brand?.ToLower() switch {
         var b when b != null && b.Contains("toyota") => "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=800",
         var b when b != null && b.Contains("honda") => "https://images.unsplash.com/photo-1619682817481-e994891cd1f5?q=80&w=800",
         var b when b != null && b.Contains("ford") => "https://images.unsplash.com/photo-1551830820-330a71b99659?q=80&w=800",
@@ -61,8 +56,7 @@
     };
 
     // Helper: ảnh transfer
-    Func<string, string> transferImg = type => type?.ToLower() switch
-    {
+    Func<string, string> transferImg = type => type?.ToLower() switch {
         var t when t != null && t.Contains("xe khách") => "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=800",
         var t when t != null && t.Contains("taxi") => "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?q=80&w=800",
         var t when t != null && t.Contains("tàu") => "https://images.unsplash.com/photo-1474487548417-781cb71495f3?q=80&w=800",
@@ -384,135 +378,135 @@
 
 @section Scripts {
     <script>
-        (async function loadRuleRecommendations() {
-            // Ảnh theo service + location
-            const SERVICE_IMAGES = {
-                'DV_Khach_San_Homestay': {
-                    'Ha_Noi': 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=400',
-                    'Da_Nang': 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=400',
-                    'Phu_Quoc': 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=400',
-                    'Nha_Trang': 'https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=400',
-                    'Da_Lat': 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=400',
-                    'Hoi_An': 'https://images.unsplash.com/photo-1596178065887-1198b6148b2b?q=80&w=400',
-                    'default': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=400',
-                },
-                'DV_Ve_May_Bay': { 'default': 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=400' },
-                'DV_Tour_Va_Khu_Vui_Choi': {
-                    'Ha_Noi': 'https://images.unsplash.com/photo-1509030450996-dd1a26dda07a?q=80&w=400',
-                    'Da_Nang': 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?q=80&w=400',
-                    'Phu_Quoc': 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=400',
-                    'Nha_Trang': 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400',
-                    'Ha_Long': 'https://images.unsplash.com/photo-1528181304800-259b08848526?q=80&w=400',
-                    'Sa_Pa': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=400',
-                    'default': 'https://images.unsplash.com/photo-1501555088652-021faa106b9b?q=80&w=400',
-                },
-                'DV_Thue_Xe_Tu_Lai': { 'default': 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=400' },
-                'DV_Dua_Don_San_Bay': { 'default': 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=400' },
-                'HD_Tam_Bien': {
-                    'Nha_Trang': 'https://images.unsplash.com/photo-1540202404-a2f29016b523?q=80&w=400',
-                    'Phu_Quoc': 'https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=400',
-                    'default': 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400',
-                },
-                'HD_Leo_Nui_Trekking': {
-                    'Sa_Pa': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=400',
-                    'default': 'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&w=400',
-                },
-                'HD_Tham_Quan_Di_Tich': {
-                    'Ha_Noi': 'https://images.unsplash.com/photo-1509030450996-dd1a26dda07a?q=80&w=400',
-                    'Hoi_An': 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=400',
-                    'Hue': 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?q=80&w=400',
-                    'default': 'https://images.unsplash.com/photo-1553152531-b98a2fc8d3bf?q=80&w=400',
-                },
-                'HD_Am_Thuc': {
-                    'Ha_Noi': 'https://images.unsplash.com/photo-1597289124948-68fdb45b81e6?q=80&w=400',
-                    'Hoi_An': 'https://images.unsplash.com/photo-1563245372-f21724e3856d?q=80&w=400',
-                    'default': 'https://images.unsplash.com/photo-1555126634-323283e090fa?q=80&w=400',
-                },
-                'HD_Check_In': { 'default': 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=400' },
-                'HD_Nghi_Duong_Chua_Lanh': {
-                    'Da_Lat': 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=400',
-                    'Phu_Quoc': 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=400',
-                    'default': 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=400',
-                },
-            };
+    (async function loadRuleRecommendations() {
+        // Ảnh theo service + location
+        const SERVICE_IMAGES = {
+            'DV_Khach_San_Homestay': {
+                'Ha_Noi': 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=400',
+                'Da_Nang': 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=400',
+                'Phu_Quoc': 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=400',
+                'Nha_Trang': 'https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=400',
+                'Da_Lat': 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=400',
+                'Hoi_An': 'https://images.unsplash.com/photo-1596178065887-1198b6148b2b?q=80&w=400',
+                'default': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=400',
+            },
+            'DV_Ve_May_Bay': { 'default': 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=400' },
+            'DV_Tour_Va_Khu_Vui_Choi': {
+                'Ha_Noi': 'https://images.unsplash.com/photo-1509030450996-dd1a26dda07a?q=80&w=400',
+                'Da_Nang': 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?q=80&w=400',
+                'Phu_Quoc': 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=400',
+                'Nha_Trang': 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400',
+                'Ha_Long': 'https://images.unsplash.com/photo-1528181304800-259b08848526?q=80&w=400',
+                'Sa_Pa': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=400',
+                'default': 'https://images.unsplash.com/photo-1501555088652-021faa106b9b?q=80&w=400',
+            },
+            'DV_Thue_Xe_Tu_Lai': { 'default': 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=400' },
+            'DV_Dua_Don_San_Bay': { 'default': 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=400' },
+            'HD_Tam_Bien': {
+                'Nha_Trang': 'https://images.unsplash.com/photo-1540202404-a2f29016b523?q=80&w=400',
+                'Phu_Quoc': 'https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=400',
+                'default': 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400',
+            },
+            'HD_Leo_Nui_Trekking': {
+                'Sa_Pa': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=400',
+                'default': 'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&w=400',
+            },
+            'HD_Tham_Quan_Di_Tich': {
+                'Ha_Noi': 'https://images.unsplash.com/photo-1509030450996-dd1a26dda07a?q=80&w=400',
+                'Hoi_An': 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=400',
+                'Hue': 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?q=80&w=400',
+                'default': 'https://images.unsplash.com/photo-1553152531-b98a2fc8d3bf?q=80&w=400',
+            },
+            'HD_Am_Thuc': {
+                'Ha_Noi': 'https://images.unsplash.com/photo-1597289124948-68fdb45b81e6?q=80&w=400',
+                'Hoi_An': 'https://images.unsplash.com/photo-1563245372-f21724e3856d?q=80&w=400',
+                'default': 'https://images.unsplash.com/photo-1555126634-323283e090fa?q=80&w=400',
+            },
+            'HD_Check_In': { 'default': 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=400' },
+            'HD_Nghi_Duong_Chua_Lanh': {
+                'Da_Lat': 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=400',
+                'Phu_Quoc': 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=400',
+                'default': 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=400',
+            },
+        };
 
-            function getServiceImage(serviceKey, destinations) {
-                const imgMap = SERVICE_IMAGES[serviceKey];
-                if (!imgMap) return 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=400';
-                if (destinations?.length) for (const d of destinations) if (imgMap[d]) return imgMap[d];
-                return imgMap['default'] || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=400';
-            }
+        function getServiceImage(serviceKey, destinations) {
+            const imgMap = SERVICE_IMAGES[serviceKey];
+            if (!imgMap) return 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=400';
+            if (destinations?.length) for (const d of destinations) if (imgMap[d]) return imgMap[d];
+            return imgMap['default'] || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=400';
+        }
 
-            const items = (document.body.dataset.allItems || sessionStorage.getItem('vt_items') || '').trim();
-            if (!items) return;
+        const items = (document.body.dataset.allItems || sessionStorage.getItem('vt_items') || '').trim();
+        if (!items) return;
 
-            try {
-                const res  = await fetch('/Recommendation/GetSuggestions?services=' + encodeURIComponent(items) + '&limit=5');
-                const json = await res.json();
-                if (json.status !== 'success' || !json.data?.length) return;
+        try {
+            const res  = await fetch('/Recommendation/GetSuggestions?services=' + encodeURIComponent(items) + '&limit=5');
+            const json = await res.json();
+            if (json.status !== 'success' || !json.data?.length) return;
 
-                const block = document.getElementById('rec-assoc-block');
-                const cards = document.getElementById('rec-assoc-cards');
-                const label = document.getElementById('rec-context-label');
-                block.style.display = 'block';
+            const block = document.getElementById('rec-assoc-block');
+            const cards = document.getElementById('rec-assoc-cards');
+            const label = document.getElementById('rec-context-label');
+            block.style.display = 'block';
 
-                // Ngữ cảnh tóm tắt
-                const ctxParts = items.split(',')
-                    .filter(s => s.startsWith('Den_') || s.startsWith('Hang_'))
-                    .map(s => s.replace('Den_','').replace('Hang_','').replace(/_/g,' '))
-                    .slice(0,3);
-                if (ctxParts.length) label.textContent = 'Dựa trên: ' + ctxParts.join(' · ');
+            // Ngữ cảnh tóm tắt
+            const ctxParts = items.split(',')
+                .filter(s => s.startsWith('Den_') || s.startsWith('Hang_'))
+                .map(s => s.replace('Den_','').replace('Hang_','').replace(/_/g,' '))
+                .slice(0,3);
+            if (ctxParts.length) label.textContent = 'Dựa trên: ' + ctxParts.join(' · ');
 
-                const rendered = new Set();
-                json.data.forEach(rule => {
-                    const destinations = rule.extractedContext?.destinations || [];
-                    const locationHint = rule.displayItems?.[0]?.locationHint || (destinations[0]?.replace(/_/g,' ') || '');
+            const rendered = new Set();
+            json.data.forEach(rule => {
+                const destinations = rule.extractedContext?.destinations || [];
+                const locationHint = rule.displayItems?.[0]?.locationHint || (destinations[0]?.replace(/_/g,' ') || '');
 
-                    (rule.displayItems || []).forEach(item => {
-                        const key  = item.name || '';
-                        if (rendered.has(key)) return;
-                        rendered.add(key);
+                (rule.displayItems || []).forEach(item => {
+                    const key  = item.name || '';
+                    if (rendered.has(key)) return;
+                    rendered.add(key);
 
-                        const icon      = item.icon  || '📦';
-                        const url       = item.url   || '/';
-                        const serviceKey = item.serviceKey || '';
-                        const conf      = rule.do_Tin_Cay || 0;
-                        const lift      = rule.chi_So_Lift || 1;
-                        const reason    = rule.lyDoGoiY || '';
-                        const imgSrc    = getServiceImage(serviceKey, destinations);
-                        const locLabel  = item.locationHint || locationHint;
+                    const icon      = item.icon  || '📦';
+                    const url       = item.url   || '/';
+                    const serviceKey = item.serviceKey || '';
+                    const conf      = rule.do_Tin_Cay || 0;
+                    const lift      = rule.chi_So_Lift || 1;
+                    const reason    = rule.lyDoGoiY || '';
+                    const imgSrc    = getServiceImage(serviceKey, destinations);
+                    const locLabel  = item.locationHint || locationHint;
 
-                        const card = document.createElement('a');
-                        card.href = url;
-                        card.style.cssText = `
-                            display:flex;align-items:stretch;gap:0;overflow:hidden;
-                            background:rgba(255,255,255,.05);border:1px solid var(--border);
-                            border-radius:14px;text-decoration:none;
-                            color:inherit;transition:border-color .2s,background .2s;
-                            width:240px;cursor:pointer;`;
-                        card.onmouseenter = () => { card.style.borderColor='var(--accent)'; card.style.background='rgba(16,185,129,.08)'; };
-                        card.onmouseleave = () => { card.style.borderColor='var(--border)'; card.style.background='rgba(255,255,255,.05)'; };
-                        card.innerHTML = `
-                            <div style="width:80px;flex-shrink:0;overflow:hidden;">
-                                <img src="${imgSrc}" alt="${key}"
-                                    style="width:100%;height:100%;object-fit:cover;min-height:90px;"
-                                    onerror="this.parentElement.innerHTML='<div style=\\'background:rgba(255,255,255,.08);width:80px;height:90px;display:flex;align-items:center;justify-content:center;font-size:2rem;\\'>${icon}</div>'">
+                    const card = document.createElement('a');
+                    card.href = url;
+                    card.style.cssText = `
+                        display:flex;align-items:stretch;gap:0;overflow:hidden;
+                        background:rgba(255,255,255,.05);border:1px solid var(--border);
+                        border-radius:14px;text-decoration:none;
+                        color:inherit;transition:border-color .2s,background .2s;
+                        width:240px;cursor:pointer;`;
+                    card.onmouseenter = () => { card.style.borderColor='var(--accent)'; card.style.background='rgba(16,185,129,.08)'; };
+                    card.onmouseleave = () => { card.style.borderColor='var(--border)'; card.style.background='rgba(255,255,255,.05)'; };
+                    card.innerHTML = `
+                        <div style="width:80px;flex-shrink:0;overflow:hidden;">
+                            <img src="${imgSrc}" alt="${key}"
+                                style="width:100%;height:100%;object-fit:cover;min-height:90px;"
+                                onerror="this.parentElement.innerHTML='<div style=\\'background:rgba(255,255,255,.08);width:80px;height:90px;display:flex;align-items:center;justify-content:center;font-size:2rem;\\'>${icon}</div>'">
+                        </div>
+                        <div style="padding:.8rem 1rem;flex:1;min-width:0;">
+                            <div style="font-weight:600;font-size:.88rem;">${key}</div>
+                            ${locLabel ? `<div style="font-size:.68rem;color:#6ee7b7;margin-top:.15rem;">📍 ${locLabel}</div>` : ''}
+                            <div style="font-size:.67rem;color:rgba(255,255,255,.45);margin-top:.2rem;line-height:1.4;">
+                                Tin cậy <strong style="color:var(--accent);">${conf}%</strong>
+                                ${lift > 1.2 ? ` · Lift <strong style="color:#f59e0b;">${lift}x</strong>` : ''}
+                                ${reason ? `<br><span style="font-size:.63rem;">${reason}</span>` : ''}
                             </div>
-                            <div style="padding:.8rem 1rem;flex:1;min-width:0;">
-                                <div style="font-weight:600;font-size:.88rem;">${key}</div>
-                                ${locLabel ? `<div style="font-size:.68rem;color:#6ee7b7;margin-top:.15rem;">📍 ${locLabel}</div>` : ''}
-                                <div style="font-size:.67rem;color:rgba(255,255,255,.45);margin-top:.2rem;line-height:1.4;">
-                                    Tin cậy <strong style="color:var(--accent);">${conf}%</strong>
-                                    ${lift > 1.2 ? ` · Lift <strong style="color:#f59e0b;">${lift}x</strong>` : ''}
-                                    ${reason ? `<br><span style="font-size:.63rem;">${reason}</span>` : ''}
-                                </div>
-                            </div>`;
-                        cards.appendChild(card);
-                    });
+                        </div>`;
+                    cards.appendChild(card);
                 });
+            });
 
-                if (!cards.children.length) block.style.display = 'none';
-            } catch(_) {}
-        })();
+            if (!cards.children.length) block.style.display = 'none';
+        } catch(_) {}
+    })();
     </script>
 }

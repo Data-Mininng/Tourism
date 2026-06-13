@@ -40,8 +40,8 @@
      }))'>
     <div class="container" style="max-width:800px;">
         <div class="card">
-            <!-- Tour Image -->
-            <img src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?q=80&w=1200" alt="@Model.Name" class="card-img" style="height:300px;" />
+            <img src="/@Model.ImageUrl" alt="@Model.Name" class="card-img" style="height:300px;object-fit:cover;"
+                 onerror="this.src='/img/tour/default.jpg'" />
 
             <div class="card-body">
                 <!-- Tour Name & Badges -->

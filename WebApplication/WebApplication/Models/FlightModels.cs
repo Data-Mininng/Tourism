@@ -14,6 +14,11 @@ public class Flight
     public DateTime ArrivalTime { get; set; }
     public decimal Price { get; set; }
     public int AvailableSeats { get; set; }
+
+    /// <summary>Đường dẫn ảnh đại diện hãng bay, VD: img/flight/1.jpg</summary>
+    [MaxLength(300)]
+    public string ImageUrl { get; set; } = "img/flight/default.jpg";
+
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
 }

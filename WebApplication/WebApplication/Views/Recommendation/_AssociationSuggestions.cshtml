@@ -31,179 +31,179 @@
 </style>
 
 <script>
-    (function loadAssoc() {
-        // Ảnh đại diện cho từng dịch vụ theo ngữ cảnh địa điểm
-        const SERVICE_IMAGES = {
-            'DV_Khach_San_Homestay': {
-                'Ha_Noi': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=400',
-                'Da_Nang': 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=400',
-                'Phu_Quoc': 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=400',
-                'Nha_Trang': 'https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=400',
-                'Da_Lat': 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=400',
-                'Hoi_An': 'https://images.unsplash.com/photo-1596178065887-1198b6148b2b?q=80&w=400',
-                'default': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=400',
-            },
-            'DV_Ve_May_Bay': {
-                'default': 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=400',
-                'Vietnam_Airlines': 'https://images.unsplash.com/photo-1556388158-158ea5ccacbd?q=80&w=400',
-                'Vietjet': 'https://images.unsplash.com/photo-1542296332-2e4473faf563?q=80&w=400',
-            },
-            'DV_Tour_Va_Khu_Vui_Choi': {
-                'Ha_Noi': 'https://images.unsplash.com/photo-1509030450996-dd1a26dda07a?q=80&w=400',
-                'Da_Nang': 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?q=80&w=400',
-                'Phu_Quoc': 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=400',
-                'Nha_Trang': 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400',
-                'Hoi_An': 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=400',
-                'Sa_Pa': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=400',
-                'Ha_Long': 'https://images.unsplash.com/photo-1528181304800-259b08848526?q=80&w=400',
-                'default': 'https://images.unsplash.com/photo-1501555088652-021faa106b9b?q=80&w=400',
-            },
-            'DV_Thue_Xe_Tu_Lai': {
-                'default': 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=400',
-            },
-            'DV_Dua_Don_San_Bay': {
-                'default': 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=400',
-            },
-            'HD_Tam_Bien': {
-                'default': 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400',
-                'Nha_Trang': 'https://images.unsplash.com/photo-1540202404-a2f29016b523?q=80&w=400',
-                'Phu_Quoc': 'https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=400',
-                'Da_Nang': 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?q=80&w=400',
-            },
-            'HD_Leo_Nui_Trekking': {
-                'default': 'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&w=400',
-                'Sa_Pa': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=400',
-            },
-            'HD_Tham_Quan_Di_Tich': {
-                'default': 'https://images.unsplash.com/photo-1553152531-b98a2fc8d3bf?q=80&w=400',
-                'Ha_Noi': 'https://images.unsplash.com/photo-1509030450996-dd1a26dda07a?q=80&w=400',
-                'Hoi_An': 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=400',
-                'Hue': 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?q=80&w=400',
-            },
-            'HD_Am_Thuc': {
-                'default': 'https://images.unsplash.com/photo-1555126634-323283e090fa?q=80&w=400',
-                'Ha_Noi': 'https://images.unsplash.com/photo-1597289124948-68fdb45b81e6?q=80&w=400',
-                'Hoi_An': 'https://images.unsplash.com/photo-1563245372-f21724e3856d?q=80&w=400',
-            },
-            'HD_Check_In': {
-                'default': 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=400',
-            },
-            'HD_Nghi_Duong_Chua_Lanh': {
-                'default': 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=400',
-                'Da_Lat': 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=400',
-                'Phu_Quoc': 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=400',
-            },
-        };
+(function loadAssoc() {
+    // Ảnh đại diện cho từng dịch vụ theo ngữ cảnh địa điểm
+    const SERVICE_IMAGES = {
+        'DV_Khach_San_Homestay': {
+            'Ha_Noi': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=400',
+            'Da_Nang': 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=400',
+            'Phu_Quoc': 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=400',
+            'Nha_Trang': 'https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=400',
+            'Da_Lat': 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=400',
+            'Hoi_An': 'https://images.unsplash.com/photo-1596178065887-1198b6148b2b?q=80&w=400',
+            'default': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=400',
+        },
+        'DV_Ve_May_Bay': {
+            'default': 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=400',
+            'Vietnam_Airlines': 'https://images.unsplash.com/photo-1556388158-158ea5ccacbd?q=80&w=400',
+            'Vietjet': 'https://images.unsplash.com/photo-1542296332-2e4473faf563?q=80&w=400',
+        },
+        'DV_Tour_Va_Khu_Vui_Choi': {
+            'Ha_Noi': 'https://images.unsplash.com/photo-1509030450996-dd1a26dda07a?q=80&w=400',
+            'Da_Nang': 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?q=80&w=400',
+            'Phu_Quoc': 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=400',
+            'Nha_Trang': 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400',
+            'Hoi_An': 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=400',
+            'Sa_Pa': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=400',
+            'Ha_Long': 'https://images.unsplash.com/photo-1528181304800-259b08848526?q=80&w=400',
+            'default': 'https://images.unsplash.com/photo-1501555088652-021faa106b9b?q=80&w=400',
+        },
+        'DV_Thue_Xe_Tu_Lai': {
+            'default': 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=400',
+        },
+        'DV_Dua_Don_San_Bay': {
+            'default': 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=400',
+        },
+        'HD_Tam_Bien': {
+            'default': 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400',
+            'Nha_Trang': 'https://images.unsplash.com/photo-1540202404-a2f29016b523?q=80&w=400',
+            'Phu_Quoc': 'https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=400',
+            'Da_Nang': 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?q=80&w=400',
+        },
+        'HD_Leo_Nui_Trekking': {
+            'default': 'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&w=400',
+            'Sa_Pa': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=400',
+        },
+        'HD_Tham_Quan_Di_Tich': {
+            'default': 'https://images.unsplash.com/photo-1553152531-b98a2fc8d3bf?q=80&w=400',
+            'Ha_Noi': 'https://images.unsplash.com/photo-1509030450996-dd1a26dda07a?q=80&w=400',
+            'Hoi_An': 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=400',
+            'Hue': 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?q=80&w=400',
+        },
+        'HD_Am_Thuc': {
+            'default': 'https://images.unsplash.com/photo-1555126634-323283e090fa?q=80&w=400',
+            'Ha_Noi': 'https://images.unsplash.com/photo-1597289124948-68fdb45b81e6?q=80&w=400',
+            'Hoi_An': 'https://images.unsplash.com/photo-1563245372-f21724e3856d?q=80&w=400',
+        },
+        'HD_Check_In': {
+            'default': 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=400',
+        },
+        'HD_Nghi_Duong_Chua_Lanh': {
+            'default': 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=400',
+            'Da_Lat': 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=400',
+            'Phu_Quoc': 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=400',
+        },
+    };
 
-        function getServiceImage(serviceKey, destinations) {
-            const imgMap = SERVICE_IMAGES[serviceKey];
-            if (!imgMap) return 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=400';
-            if (destinations && destinations.length) {
-                for (const dest of destinations) {
-                    if (imgMap[dest]) return imgMap[dest];
-                }
+    function getServiceImage(serviceKey, destinations) {
+        const imgMap = SERVICE_IMAGES[serviceKey];
+        if (!imgMap) return 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=400';
+        if (destinations && destinations.length) {
+            for (const dest of destinations) {
+                if (imgMap[dest]) return imgMap[dest];
             }
-            return imgMap['default'] || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=400';
+        }
+        return imgMap['default'] || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=400';
+    }
+
+    function getItems() {
+        const fromBody = document.body.dataset.allItems;
+        if (fromBody && fromBody.length > 3) return fromBody;
+        return sessionStorage.getItem('vt_items') || '';
+    }
+
+    async function run() {
+        await new Promise(r => setTimeout(r, 250));
+
+        const items = getItems();
+        const loadingEl = document.getElementById('vt-assoc-loading');
+        const chipsEl   = document.getElementById('vt-assoc-chips');
+        const ctxEl     = document.getElementById('vt-assoc-context');
+        const blockEl   = document.getElementById('vt-assoc-block');
+
+        if (!items) {
+            if (loadingEl) loadingEl.style.display = 'none';
+            return;
         }
 
-        function getItems() {
-            const fromBody = document.body.dataset.allItems;
-            if (fromBody && fromBody.length > 3) return fromBody;
-            return sessionStorage.getItem('vt_items') || '';
+        // Hiển thị ngữ cảnh
+        const ctxParts = items.split(',')
+            .filter(s => s.startsWith('Den_') || s.startsWith('Hang_') || s.startsWith('KhachSan_'))
+            .map(s => s.replace(/^(Den_|Hang_|KhachSan_)/, '').replace(/_/g,' '))
+            .slice(0, 3);
+        if (ctxParts.length && ctxEl) {
+            ctxEl.textContent = 'Ngữ cảnh: ' + ctxParts.join(' · ');
         }
 
-        async function run() {
-            await new Promise(r => setTimeout(r, 250));
+        try {
+            const res  = await fetch('/Recommendation/GetSuggestions?services=' + encodeURIComponent(items) + '&limit=4');
+            const json = await res.json();
 
-            const items = getItems();
-            const loadingEl = document.getElementById('vt-assoc-loading');
-            const chipsEl   = document.getElementById('vt-assoc-chips');
-            const ctxEl     = document.getElementById('vt-assoc-context');
-            const blockEl   = document.getElementById('vt-assoc-block');
+            if (loadingEl) loadingEl.style.display = 'none';
+            if (json.status !== 'success' || !json.data?.length) return;
 
-            if (!items) {
-                if (loadingEl) loadingEl.style.display = 'none';
-                return;
-            }
+            blockEl.style.display = 'block';
 
-            // Hiển thị ngữ cảnh
-            const ctxParts = items.split(',')
-                .filter(s => s.startsWith('Den_') || s.startsWith('Hang_') || s.startsWith('KhachSan_'))
-                .map(s => s.replace(/^(Den_|Hang_|KhachSan_)/, '').replace(/_/g,' '))
-                .slice(0, 3);
-            if (ctxParts.length && ctxEl) {
-                ctxEl.textContent = 'Ngữ cảnh: ' + ctxParts.join(' · ');
-            }
+            const rendered = new Set();
+            json.data.forEach(rule => {
+                const destinations = rule.extractedContext?.destinations || [];
+                const locationHint = destinations.length ? destinations[0].replace(/_/g,' ') : '';
 
-            try {
-                const res  = await fetch('/Recommendation/GetSuggestions?services=' + encodeURIComponent(items) + '&limit=4');
-                const json = await res.json();
+                (rule.displayItems || []).forEach(item => {
+                    const name = item.name || '';
+                    if (rendered.has(name)) return;
+                    rendered.add(name);
 
-                if (loadingEl) loadingEl.style.display = 'none';
-                if (json.status !== 'success' || !json.data?.length) return;
+                    const icon      = item.icon  || '📦';
+                    const url       = item.url   || '/';
+                    const serviceKey = item.serviceKey || '';
+                    const conf      = rule.do_Tin_Cay || 0;
+                    const lift      = rule.chi_So_Lift || 1;
+                    const reason    = rule.lyDoGoiY   || '';
+                    const imgSrc    = getServiceImage(serviceKey, destinations);
+                    const locLabel  = item.locationHint || locationHint;
 
-                blockEl.style.display = 'block';
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.style.cssText = `
+                        display:flex;align-items:center;gap:0;
+                        background:rgba(255,255,255,.05);border:1px solid var(--border);
+                        border-radius:12px;text-decoration:none;overflow:hidden;
+                        color:inherit;transition:border-color .2s,background .2s;
+                        width:220px;cursor:pointer;`;
+                    a.onmouseenter = () => { a.style.borderColor='var(--accent)'; a.style.background='rgba(16,185,129,.08)'; };
+                    a.onmouseleave = () => { a.style.borderColor='var(--border)'; a.style.background='rgba(255,255,255,.05)'; };
 
-                const rendered = new Set();
-                json.data.forEach(rule => {
-                    const destinations = rule.extractedContext?.destinations || [];
-                    const locationHint = destinations.length ? destinations[0].replace(/_/g,' ') : '';
-
-                    (rule.displayItems || []).forEach(item => {
-                        const name = item.name || '';
-                        if (rendered.has(name)) return;
-                        rendered.add(name);
-
-                        const icon      = item.icon  || '📦';
-                        const url       = item.url   || '/';
-                        const serviceKey = item.serviceKey || '';
-                        const conf      = rule.do_Tin_Cay || 0;
-                        const lift      = rule.chi_So_Lift || 1;
-                        const reason    = rule.lyDoGoiY   || '';
-                        const imgSrc    = getServiceImage(serviceKey, destinations);
-                        const locLabel  = item.locationHint || locationHint;
-
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.style.cssText = `
-                            display:flex;align-items:center;gap:0;
-                            background:rgba(255,255,255,.05);border:1px solid var(--border);
-                            border-radius:12px;text-decoration:none;overflow:hidden;
-                            color:inherit;transition:border-color .2s,background .2s;
-                            width:220px;cursor:pointer;`;
-                        a.onmouseenter = () => { a.style.borderColor='var(--accent)'; a.style.background='rgba(16,185,129,.08)'; };
-                        a.onmouseleave = () => { a.style.borderColor='var(--border)'; a.style.background='rgba(255,255,255,.05)'; };
-
-                        a.innerHTML = `
-                            <div style="width:72px;height:72px;flex-shrink:0;overflow:hidden;">
-                                <img src="${imgSrc}" alt="${name}"
-                                    style="width:100%;height:100%;object-fit:cover;"
-                                    onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\\'font-size:2rem;display:flex;align-items:center;justify-content:center;height:100%;\\' >${icon}</span>'">
+                    a.innerHTML = `
+                        <div style="width:72px;height:72px;flex-shrink:0;overflow:hidden;">
+                            <img src="${imgSrc}" alt="${name}"
+                                style="width:100%;height:100%;object-fit:cover;"
+                                onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\\'font-size:2rem;display:flex;align-items:center;justify-content:center;height:100%;\\' >${icon}</span>'">
+                        </div>
+                        <div style="padding:.55rem .8rem;flex:1;min-width:0;">
+                            <div style="font-weight:600;font-size:.82rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${name}</div>
+                            ${locLabel ? `<div style="font-size:.67rem;color:#6ee7b7;margin-top:.1rem;">📍 ${locLabel}</div>` : ''}
+                            <div style="font-size:.65rem;color:rgba(255,255,255,.42);margin-top:.15rem;">
+                                Tin cậy <strong style="color:var(--accent);">${conf}%</strong>
+                                ${lift > 1.2 ? ` · <strong style="color:#f59e0b;">${lift}x</strong>` : ''}
+                                ${reason ? `<br><span style="font-size:.6rem;">${reason}</span>` : ''}
                             </div>
-                            <div style="padding:.55rem .8rem;flex:1;min-width:0;">
-                                <div style="font-weight:600;font-size:.82rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${name}</div>
-                                ${locLabel ? `<div style="font-size:.67rem;color:#6ee7b7;margin-top:.1rem;">📍 ${locLabel}</div>` : ''}
-                                <div style="font-size:.65rem;color:rgba(255,255,255,.42);margin-top:.15rem;">
-                                    Tin cậy <strong style="color:var(--accent);">${conf}%</strong>
-                                    ${lift > 1.2 ? ` · <strong style="color:#f59e0b;">${lift}x</strong>` : ''}
-                                    ${reason ? `<br><span style="font-size:.6rem;">${reason}</span>` : ''}
-                                </div>
-                            </div>`;
-                        chipsEl.appendChild(a);
-                    });
+                        </div>`;
+                    chipsEl.appendChild(a);
                 });
+            });
 
-                if (!chipsEl.children.length) blockEl.style.display = 'none';
+            if (!chipsEl.children.length) blockEl.style.display = 'none';
 
-            } catch(_) {
-                if (loadingEl) loadingEl.style.display = 'none';
-            }
+        } catch(_) {
+            if (loadingEl) loadingEl.style.display = 'none';
         }
+    }
 
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', run);
-        } else {
-            run();
-        }
-    })();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', run);
+    } else {
+        run();
+    }
+})();
 </script>

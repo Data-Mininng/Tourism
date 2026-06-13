@@ -116,7 +116,7 @@ namespace TravelApp.Controllers
                 || behaviors.Any(b => b.PageType == "Tour");
 
             if (showTour)
-                vm.SuggestedTours = await QueryToursAsync(priorityLocations, ruleCtx);
+                vm.SuggestedTours = await QueryToursAsync(priorityLocations, ruleCtx, suggestedServiceKeys);
 
             // CAR: hiển thị khi luật gợi ý DV_Thue_Xe_Tu_Lai
             bool showCar = suggestedServiceKeys.Contains("DV_Thue_Xe_Tu_Lai")
@@ -149,30 +149,28 @@ namespace TravelApp.Controllers
 
             if (locations.Any())
             {
+                // Lọc theo địa điểm từ luật
                 var locNorms = locations.Select(l => NormalizeLocationForDb(l)).ToList();
-                // SỬA TẠI ĐÂY: Dùng .Contains thay cho EF.Functions.Like lồng trong .Any
-                query = query.Where(h => locNorms.Any(loc => h.Location.Contains(loc)));
+                query = query.Where(h => locNorms.Any(loc => EF.Functions.Like(h.Location, "%" + loc + "%")));
             }
 
-            if (ctx.HotelTypes != null && ctx.HotelTypes.Any())
+            // Lọc theo sao nếu context có
+            if (ctx.HotelTypes?.Any() == true)
             {
-                var starsList = ctx.HotelTypes
-                    .Select(s => s.Replace("_Sao", "").Trim())
-                    .Select(s => int.TryParse(s, out var v) ? v : 0)
-                    .Where(v => v > 0).ToList();
-
-                if (starsList.Any())
-                {
-                    query = query.Where(h => starsList.Contains(h.Stars));
-                }
+                if (ctx.HotelTypes.Contains("Cao_Cap") || ctx.HotelTypes.Any(t => t.Contains("4") || t.Contains("5")))
+                    query = query.Where(h => h.Stars >= 4);
+                else if (ctx.HotelTypes.Contains("Binh_Dan"))
+                    query = query.Where(h => h.Stars <= 3);
             }
 
-            if (ctx.HasPool.HasValue)
-            {
-                query = query.Where(h => h.HasPool == ctx.HasPool.Value);
-            }
+            // Lọc theo hồ bơi nếu context có
+            if (ctx.HasPool == true)
+                query = query.Where(h => h.HasPool);
 
-            return await query.Take(4).ToListAsync();
+            var result = await query.Take(4).ToListAsync();
+            if (!result.Any())
+                result = await _db.Hotels.OrderBy(_ => Guid.NewGuid()).Take(4).ToListAsync();
+            return result;
         }
 
         private async Task<List<Flight>> QueryFlightsAsync(List<string> locations, ExtractedContext ctx)
@@ -182,33 +180,57 @@ namespace TravelApp.Controllers
             if (locations.Any())
             {
                 var locNorms = locations.Select(l => NormalizeLocationForDb(l)).ToList();
-                // SỬA TẠI ĐÂY: Dùng .Contains thay cho EF.Functions.Like lồng trong .Any
-                query = query.Where(f => locNorms.Any(loc => f.Arrival.Contains(loc)));
+                query = query.Where(f => locNorms.Any(loc => EF.Functions.Like(f.Arrival, "%" + loc + "%")));
             }
 
-            if (ctx.Airlines != null && ctx.Airlines.Any())
+            // Lọc theo hãng hàng không nếu context có
+            if (ctx.Airlines?.Any() == true)
             {
-                var airNorms = ctx.Airlines.Select(a => a.Replace("_", " ").ToLower().Trim()).ToList();
-                query = query.Where(f => airNorms.Any(a => f.Airline.ToLower().Contains(a)));
+                var airlineNorms = ctx.Airlines.Select(a => a.Replace("_", " ")).ToList();
+                query = query.Where(f => airlineNorms.Any(a => EF.Functions.Like(f.Airline, "%" + a + "%")));
             }
 
             var result = await query.OrderBy(f => f.DepartureTime).Take(4).ToListAsync();
+            if (!result.Any())
+                result = await _db.Flights.OrderBy(_ => Guid.NewGuid()).Take(4).ToListAsync();
             return result;
         }
 
-        private async Task<List<Tour>> QueryToursAsync(List<string> locations, ExtractedContext ctx)
+        private async Task<List<Tour>> QueryToursAsync(List<string> locations, ExtractedContext ctx, HashSet<string> serviceKeys)
         {
             var query = _db.Tours.AsQueryable();
 
             if (locations.Any())
             {
                 var locNorms = locations.Select(l => NormalizeLocationForDb(l)).ToList();
-                // SỬA TẠI ĐÂY: Dùng .Contains thay cho EF.Functions.Like lồng trong .Any
-                query = query.Where(t => locNorms.Any(loc => t.Destination.Contains(loc)));
+                query = query.Where(t => locNorms.Any(loc => EF.Functions.Like(t.Destination, "%" + loc + "%")));
             }
 
-            return await query.Take(4).ToListAsync();
+            // Lọc theo hoạt động nếu context có
+            if (ctx.Activities?.Any() == true)
+            {
+                var actKeywords = ctx.Activities.Select(a => a.Replace("_", " ")).ToList();
+                if (actKeywords.Any(k => k.Contains("Tam_Bien") || k.Contains("bien")))
+                    query = query.Where(t => EF.Functions.Like(t.Description, "%biển%") || EF.Functions.Like(t.Name, "%biển%"));
+                else if (actKeywords.Any(k => k.Contains("Leo_Nui") || k.Contains("trekking")))
+                    query = query.Where(t => EF.Functions.Like(t.Description, "%núi%") || EF.Functions.Like(t.Name, "%núi%"));
+            }
+
+            // Lọc theo số ngày
+            if (ctx.Durations?.Any() == true)
+            {
+                if (ctx.Durations.Contains("Ngan"))
+                    query = query.Where(t => t.DurationDays <= 3);
+                else if (ctx.Durations.Contains("Dai"))
+                    query = query.Where(t => t.DurationDays > 7);
+            }
+
+            var result = await query.Take(4).ToListAsync();
+            if (!result.Any())
+                result = await _db.Tours.OrderBy(_ => Guid.NewGuid()).Take(4).ToListAsync();
+            return result;
         }
+
         private async Task<List<Car>> QueryCarsAsync(ExtractedContext ctx)
         {
             var query = _db.Cars.Where(c => c.IsAvailable);
@@ -216,7 +238,7 @@ namespace TravelApp.Controllers
             if (ctx.CarBrands?.Any() == true)
             {
                 var brands = ctx.CarBrands.Select(b => b.Replace("_", " ")).ToList();
-                query = query.Where(c => brands.Any(b => EF.Functions.Like(c.Brand, $"%{b}%")));
+                query = query.Where(c => brands.Any(b => EF.Functions.Like(c.Brand, "%" + b + "%")));
             }
 
             var result = await query.Take(4).ToListAsync();
@@ -232,11 +254,15 @@ namespace TravelApp.Controllers
             if (locations.Any())
             {
                 var locNorms = locations.Select(l => NormalizeLocationForDb(l)).ToList();
-                // SỬA TẠI ĐÂY: Dùng .Contains thay cho EF.Functions.Like lồng trong .Any
-                query = query.Where(t => locNorms.Any(loc => t.ToLocation.Contains(loc) || t.FromLocation.Contains(loc)));
+                query = query.Where(t =>
+                    locNorms.Any(loc => EF.Functions.Like(t.ToLocation, "%" + loc + "%") ||
+                                        EF.Functions.Like(t.FromLocation, "%" + loc + "%")));
             }
 
-            return await query.Take(4).ToListAsync();
+            var result = await query.Take(4).ToListAsync();
+            if (!result.Any())
+                result = await _db.Transfers.Take(4).ToListAsync();
+            return result;
         }
 
         // ── GỌI PYTHON LẤY LUẬT CÓ CONTEXT ──────────────────────────────
@@ -248,7 +274,7 @@ namespace TravelApp.Controllers
             {
                 var client = _http.CreateClient();
                 client.Timeout = TimeSpan.FromSeconds(5);
-                var url = $"{PythonUrl}/api/recommendations-with-context?service_name={Uri.EscapeDataString(allItems)}&limit={limit}";
+                var url = $"{PythonUrl}/api/recommendations?service_name={Uri.EscapeDataString(allItems)}&limit={limit}";
                 var res = await client.GetAsync(url);
 
                 if (res.IsSuccessStatusCode)
@@ -396,16 +422,8 @@ namespace TravelApp.Controllers
                     .Where(v => v.SessionId == sessionId && v.VoucherCode.StartsWith("TEST-")).ToListAsync();
                 if (oldTest.Any()) { _db.VouchersIssued.RemoveRange(oldTest); await _db.SaveChangesAsync(); }
 
-                var features = new
-                {
-                    administrative_duration = 180.0,
-                    informational_duration = 0.0,
-                    productrelated_duration = 600.0,
-                    bounce_rates = 0.0,
-                    exit_rates = 0.05,
-                    page_values = 75.0,
-                    weekend = 1
-                };
+                var features = new { administrative_duration=180.0, informational_duration=0.0,
+                    productrelated_duration=600.0, bounce_rates=0.0, exit_rates=0.05, page_values=75.0, weekend=1 };
 
                 int discount = 15; bool giveVoucher = false; string aiDecision = "fallback";
                 try
@@ -423,37 +441,28 @@ namespace TravelApp.Controllers
                             aiDecision = ri.GetInt32() == 0 ? "model=0(không mua)→cấp" : "model=1(sẽ mua)→không cấp";
                     }
                 }
-                catch (Exception ex) { giveVoucher = true; aiDecision = "python_offline_fallback: " + ex.Message; }
+                catch (Exception ex)
+                {
+                    // Python offline → không cấp từ fallback, chỉ ghi log
+                    giveVoucher = false;
+                    aiDecision = "python_offline: " + ex.Message;
+                }
 
-                if (!giveVoucher) { giveVoucher = true; aiDecision += " [test_override]"; }
+                // Nút TEST: nếu model dự đoán "nên cấp" thì cấp; nếu model nói "không" thì vẫn tạo TEST voucher để demo UI
+                // (đây là nút test dành cho dev/demo, không áp dụng cho luồng thực)
+                if (!giveVoucher) { giveVoucher = true; aiDecision += " [test_ui_override - chỉ cho nút demo]"; }
 
                 var code = "TEST-" + Guid.NewGuid().ToString("N")[..6].ToUpper();
-                var voucher = new VoucherIssued
-                {
-                    SessionId = sessionId,
-                    UserId = int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int u) ? u : null,
-                    VoucherCode = code,
-                    DiscountPercent = discount,
-                    ApplicableType = "Test",
-                    IssuedAt = DateTime.Now,
-                    ExpiresAt = DateTime.Now.AddMinutes(30),
-                    IsUsed = false
-                };
+                var voucher = new VoucherIssued { SessionId=sessionId,
+                    UserId=int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int u) ? u : null,
+                    VoucherCode=code, DiscountPercent=discount, ApplicableType="Test",
+                    IssuedAt=DateTime.Now, ExpiresAt=DateTime.Now.AddMinutes(30), IsUsed=false };
                 _db.VouchersIssued.Add(voucher); await _db.SaveChangesAsync();
 
-                return Json(new
-                {
-                    success = true,
-                    code,
-                    discount,
-                    expiresAt = voucher.ExpiresAt.ToString("o"),
-                    aiDecision,
-                    isNew = true,
-                    applicableType = "Test",
-                    hasVoucher = true
-                });
+                return Json(new { success=true, code, discount, expiresAt=voucher.ExpiresAt.ToString("o"),
+                    aiDecision, isNew=true, applicableType="Test", hasVoucher=true });
             }
-            catch (Exception ex) { return Json(new { success = false, error = ex.Message }); }
+            catch (Exception ex) { return Json(new { success=false, error=ex.Message }); }
         }
 
         // ── 4. API GỢI Ý LUẬT KẾT HỢP (cho _AssociationSuggestions partial) ──
@@ -469,7 +478,7 @@ namespace TravelApp.Controllers
                 {
                     var client = _http.CreateClient();
                     client.Timeout = TimeSpan.FromSeconds(4);
-                    var url = $"{PythonUrl}/api/recommendations-with-context?service_name={Uri.EscapeDataString(services)}&limit={limit}";
+                    var url = $"{PythonUrl}/api/recommendations?service_name={Uri.EscapeDataString(services)}&limit={limit}";
                     var res = await client.GetAsync(url);
                     if (res.IsSuccessStatusCode)
                     {
@@ -503,8 +512,7 @@ namespace TravelApp.Controllers
                                     chi_So_Lift = lift,
                                     displayItems = display,
                                     lyDoGoiY = BuildReason(goc),
-                                    extractedContext = new
-                                    {
+                                    extractedContext = new {
                                         destinations = itemCtx.Destinations ?? new(),
                                         airlines = itemCtx.Airlines ?? new(),
                                         hotelTypes = itemCtx.HotelTypes ?? new(),
@@ -562,16 +570,14 @@ namespace TravelApp.Controllers
 
                 _db.UserBehaviorLogs.Add(new UserBehaviorLog
                 {
-                    SessionId = sessionId,
-                    UserId = userId,
+                    SessionId = sessionId, UserId = userId,
                     PageType = req.PageType ?? "",
                     ReferenceId = req.ReferenceId,
                     PageValues = req.PageValues,
                     TimeOnPage = req.TimeOnPage,
                     ContextData = req.ContextData ?? "{}",
                     IsWeekend = DateTime.Now.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday,
-                    HasPurchased = false,
-                    LoggedAt = DateTime.Now
+                    HasPurchased = false, LoggedAt = DateTime.Now
                 });
                 await _db.SaveChangesAsync();
                 return Json(new { status = "ok", sessionId });
@@ -590,95 +596,161 @@ namespace TravelApp.Controllers
                     .Where(v => v.SessionId == sessionId && !v.IsUsed && v.ExpiresAt > DateTime.Now)
                     .FirstOrDefaultAsync();
                 if (existing != null)
-                    return Json(new
-                    {
-                        hasVoucher = true,
-                        isNew = false,
-                        code = existing.VoucherCode,
-                        discount = existing.DiscountPercent,
-                        expiresAt = existing.ExpiresAt.ToString("o"),
-                        applicableType = existing.ApplicableType,
-                        applicableId = existing.ApplicableId
-                    });
+                    return Json(new { hasVoucher=true, isNew=false, code=existing.VoucherCode,
+                        discount=existing.DiscountPercent, expiresAt=existing.ExpiresAt.ToString("o"),
+                        applicableType=existing.ApplicableType, applicableId=existing.ApplicableId });
 
                 var logs = await _db.UserBehaviorLogs
                     .Where(b => b.SessionId == sessionId && b.LoggedAt > DateTime.Now.AddHours(-4)).ToListAsync();
                 if (logs.Count < 2) return Json(new { hasVoucher = false });
 
-                double adminDuration = logs.Where(b => b.PageType == "Info").Sum(b => b.TimeOnPage);
+                // ── TÍNH 7 FEATURE TỪ UserBehaviorLogs ──────────────────────────
+                double adminDuration   = logs.Where(b => b.PageType == "Info").Sum(b => b.TimeOnPage);
                 double productDuration = logs.Where(b => b.PageType is "Tour" or "Hotel" or "Flight" or "Car" or "Transfer").Sum(b => b.TimeOnPage);
-                double avgPV = logs.Any() ? logs.Average(b => b.PageValues) : 0.0;
-                double bounceRate = logs.Count == 1 ? 1.0 : 0.0;
-                double exitRate = logs.Any(b => b.HasPurchased) ? 0.1 : 0.4;
-                int weekendVal = logs.Any(b => b.IsWeekend) ? 1 : 0;
+                double avgPV           = logs.Any() ? logs.Average(b => b.PageValues) : 0.0;
+                double bounceRate      = logs.Count == 1 ? 1.0 : 0.0;
+                double exitRate        = logs.Any(b => b.HasPurchased) ? 0.1 : 0.4;
+                int    weekendVal      = logs.Any(b => b.IsWeekend) ? 1 : 0;
 
-                bool giveVoucher = false; int discount = 10;
+                string pagesVisited  = string.Join(",", logs.Select(b => b.PageType).Where(p => !string.IsNullOrEmpty(p)).Distinct());
+                int    uniquePages   = logs.Select(b => b.PageType).Distinct().Count();
+                int?   currentUserId = int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int uid3) ? uid3 : null;
+
+                // ── LƯU VoucherFeatureLog ────────────────────────────────────────
+                var featureLog = new VoucherFeatureLog
+                {
+                    SessionId             = sessionId,
+                    UserId                = currentUserId,
+                    TotalLogCount         = logs.Count,
+                    AdminDuration         = (decimal)adminDuration,
+                    InformationalDuration = 0,
+                    ProductDuration       = (decimal)productDuration,
+                    BounceRate            = (decimal)bounceRate,
+                    ExitRate              = (decimal)exitRate,
+                    AvgPageValues         = (decimal)avgPV,
+                    WeekendVal            = weekendVal,
+                    PagesVisited          = pagesVisited,
+                    UniquePageCount       = uniquePages,
+                    ComputedAt            = DateTime.Now,
+                };
+                _db.VoucherFeatureLogs.Add(featureLog);
+                await _db.SaveChangesAsync(); // lưu để có Id
+
+                // ── GỬI LÊN MODEL PYTHON DỰ ĐOÁN ────────────────────────────────
+                bool   giveVoucher    = false;
+                int    discount       = 10;
+                int    modelRevenue   = -1;      // -1 = chưa gọi được model
+                string decisionReason = "Python offline – không cấp";
+
                 try
                 {
                     var features = new
                     {
-                        administrative_duration = adminDuration,
-                        informational_duration = 0.0,
-                        productrelated_duration = productDuration,
-                        bounce_rates = bounceRate,
-                        exit_rates = exitRate,
-                        page_values = avgPV,
-                        weekend = weekendVal
+                        administrative_duration  = adminDuration,
+                        informational_duration   = 0.0,
+                        productrelated_duration  = productDuration,
+                        bounce_rates             = bounceRate,
+                        exit_rates               = exitRate,
+                        page_values              = avgPV,
+                        weekend                  = weekendVal
                     };
-                    var client = _http.CreateClient(); client.Timeout = TimeSpan.FromSeconds(5);
-                    var jsonPayload = JsonSerializer.Serialize(features, new JsonSerializerOptions { PropertyNamingPolicy = null });
-                    var resp = await client.PostAsync($"{PythonUrl}/api/predict-voucher",
-                        new StringContent(jsonPayload, System.Text.Encoding.UTF8, "application/json"));
-                    if (!resp.IsSuccessStatusCode) throw new Exception($"Python API error: {resp.StatusCode}");
+                    var client      = _http.CreateClient();
+                    client.Timeout  = TimeSpan.FromSeconds(5);
+                    var payload     = JsonSerializer.Serialize(features, new JsonSerializerOptions { PropertyNamingPolicy = null });
+                    var resp        = await client.PostAsync($"{PythonUrl}/api/predict-voucher",
+                                         new StringContent(payload, System.Text.Encoding.UTF8, "application/json"));
+
+                    if (!resp.IsSuccessStatusCode)
+                        throw new Exception($"HTTP {resp.StatusCode}");
+
                     var doc = JsonDocument.Parse(await resp.Content.ReadAsStringAsync());
-                    if (doc.RootElement.TryGetProperty("need_voucher", out var nv)) giveVoucher = nv.GetInt32() == 1;
-                    if (doc.RootElement.TryGetProperty("discount_percent", out var dp) && dp.GetInt32() > 0) discount = dp.GetInt32();
+
+                    if (doc.RootElement.TryGetProperty("need_voucher",     out var nvEl)) giveVoucher  = nvEl.GetInt32() == 1;
+                    if (doc.RootElement.TryGetProperty("discount_percent", out var dpEl) && dpEl.GetInt32() > 0) discount = dpEl.GetInt32();
+
+                    // Lấy thông tin debug từ model
+                    if (doc.RootElement.TryGetProperty("debug_info", out var di))
+                    {
+                        if (di.TryGetProperty("predicted_revenue_intent", out var ri)) modelRevenue   = ri.GetInt32();
+                        if (di.TryGetProperty("decision_reason",          out var dr)) decisionReason = dr.GetString() ?? "";
+                    }
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine($"[Voucher Fallback] {ex.Message}");
-                    var totalTime = logs.Sum(b => b.TimeOnPage); var pages = logs.Select(b => b.PageType).Distinct().Count();
-                    giveVoucher = totalTime > 90 && avgPV > 10 && pages >= 2 && !logs.Any(b => b.HasPurchased);
-                    if (giveVoucher) discount = avgPV > 40 ? 20 : avgPV > 20 ? 15 : 10;
+                    // Python offline → KHÔNG tự chế, bắt buộc qua model
+                    System.Diagnostics.Debug.WriteLine($"[Voucher] Python offline: {ex.Message}");
+                    giveVoucher   = false;
+                    decisionReason = $"Python offline: {ex.Message}";
+                    modelRevenue   = -1;
                 }
 
-                if (!giveVoucher) return Json(new { hasVoucher = false });
+                // ── LƯU VoucherDecisionLog (dù cấp hay không cấp) ───────────────
+                var decisionLog = new VoucherDecisionLog
+                {
+                    SessionId             = sessionId,
+                    UserId                = currentUserId,
+                    FeatureLogId          = featureLog.Id,
+                    VoucherCode           = null,              // cập nhật bên dưới nếu cấp
+                    ModelPredictedRevenue = modelRevenue,
+                    ModelDecidedGrant     = giveVoucher,
+                    DiscountPercent       = giveVoucher ? discount : 0,
+                    DecisionReason        = (decisionReason?.Length > 500 ? decisionReason[..500] : decisionReason) ?? "",
+                    ActuallyUsed          = null,              // chưa biết
+                    ActuallyPurchased     = null,
+                    IsModelCorrect        = null,
+                    DecidedAt             = DateTime.Now,
+                };
+                _db.VoucherDecisionLogs.Add(decisionLog);
+                await _db.SaveChangesAsync();
 
+                // ── Nếu không cấp thì trả về luôn ───────────────────────────────
+                if (!giveVoucher)
+                    return Json(new { hasVoucher = false, modelRevenue, decisionReason });
+
+                // ── Xác định dịch vụ áp dụng (trang xem nhiều nhất) ─────────────
                 string targetType = "Tour"; int? targetId = null;
                 if (logs.Any())
                 {
-                    var top = logs.GroupBy(b => new { b.PageType, b.ReferenceId })
-                                  .OrderByDescending(g => g.Sum(b => b.TimeOnPage + b.PageValues)).First();
-                    targetType = top.Key.PageType; targetId = top.Key.ReferenceId;
+                    var top  = logs.GroupBy(b => new { b.PageType, b.ReferenceId })
+                                   .OrderByDescending(g => g.Sum(b => b.TimeOnPage + b.PageValues))
+                                   .First();
+                    targetType = top.Key.PageType;
+                    targetId   = top.Key.ReferenceId;
                 }
 
-                var code = "VTV-" + Guid.NewGuid().ToString("N")[..8].ToUpper();
+                var code    = "VTV-" + Guid.NewGuid().ToString("N")[..8].ToUpper();
                 var voucher = new VoucherIssued
                 {
-                    SessionId = sessionId,
-                    UserId = int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int u2) ? u2 : null,
-                    VoucherCode = code,
-                    DiscountPercent = discount,
+                    SessionId      = sessionId,
+                    UserId         = currentUserId,
+                    VoucherCode    = code,
+                    DiscountPercent= discount,
                     ApplicableType = targetType,
-                    ApplicableId = targetId,
-                    IssuedAt = DateTime.Now,
-                    ExpiresAt = DateTime.Now.AddMinutes(15),
-                    IsUsed = false
+                    ApplicableId   = targetId,
+                    IssuedAt       = DateTime.Now,
+                    ExpiresAt      = DateTime.Now.AddMinutes(15),
+                    IsUsed         = false,
                 };
-                _db.VouchersIssued.Add(voucher); await _db.SaveChangesAsync();
+                _db.VouchersIssued.Add(voucher);
+
+                // Cập nhật VoucherCode vào DecisionLog
+                decisionLog.VoucherCode = code;
+                await _db.SaveChangesAsync();
 
                 return Json(new
                 {
-                    hasVoucher = true,
-                    isNew = true,
+                    hasVoucher    = true,
+                    isNew         = true,
                     code,
                     discount,
-                    expiresAt = voucher.ExpiresAt.ToString("o"),
-                    applicableType = voucher.ApplicableType,
-                    applicableId = voucher.ApplicableId
+                    expiresAt     = voucher.ExpiresAt.ToString("o"),
+                    applicableType= voucher.ApplicableType,
+                    applicableId  = voucher.ApplicableId,
+                    modelRevenue,
+                    decisionReason,
                 });
             }
-            catch (Exception ex) { return Json(new { hasVoucher = false, error = ex.Message }); }
+            catch (Exception ex) { return Json(new { hasVoucher=false, error=ex.Message }); }
         }
 
         // ── PRIVATE HELPERS ──────────────────────────────────────────────────
@@ -688,7 +760,7 @@ namespace TravelApp.Controllers
             if (!string.IsNullOrEmpty(id)) return id;
             id = Guid.NewGuid().ToString("N")[..16];
             Response.Cookies.Append("vt_session", id, new CookieOptions
-            { Expires = DateTimeOffset.Now.AddDays(1), HttpOnly = false, SameSite = SameSiteMode.Lax });
+                { Expires=DateTimeOffset.Now.AddDays(1), HttpOnly=false, SameSite=SameSiteMode.Lax });
             return id;
         }
 
@@ -704,13 +776,13 @@ namespace TravelApp.Controllers
                          || s.StartsWith("Mua_") || s.StartsWith("KhachSan_") || s.StartsWith("SoNguoi_"))
                 .Select(s =>
                 {
-                    if (s.StartsWith("Den_")) return "Đến " + s.Replace("Den_", "").Replace("_", " ");
-                    if (s.StartsWith("Hang_")) return "Hãng " + s.Replace("Hang_", "").Replace("_", " ");
-                    if (s.StartsWith("NganSach_")) return "Ngân sách " + s.Replace("NganSach_", "").Replace("_", " ").ToLower();
-                    if (s.StartsWith("Mua_")) return "Mùa " + s.Replace("Mua_", "").ToLower();
-                    if (s.StartsWith("KhachSan_")) return s.Replace("KhachSan_", "Khách sạn ").Replace("_", " ");
-                    if (s.StartsWith("SoNguoi_")) return "Nhóm " + s.Replace("SoNguoi_", "").ToLower();
-                    return s.Replace("_", " ");
+                    if (s.StartsWith("Den_")) return "Đến " + s.Replace("Den_","").Replace("_"," ");
+                    if (s.StartsWith("Hang_")) return "Hãng " + s.Replace("Hang_","").Replace("_"," ");
+                    if (s.StartsWith("NganSach_")) return "Ngân sách " + s.Replace("NganSach_","").Replace("_"," ").ToLower();
+                    if (s.StartsWith("Mua_")) return "Mùa " + s.Replace("Mua_","").ToLower();
+                    if (s.StartsWith("KhachSan_")) return s.Replace("KhachSan_","Khách sạn ").Replace("_"," ");
+                    if (s.StartsWith("SoNguoi_")) return "Nhóm " + s.Replace("SoNguoi_","").ToLower();
+                    return s.Replace("_"," ");
                 }).Take(3).ToList();
             return parts.Any() ? string.Join(" · ", parts) : "";
         }
@@ -719,108 +791,36 @@ namespace TravelApp.Controllers
         private static object ServiceInfoWithContext(string key, ExtractedContext ctx)
         {
             var firstDest = ctx.Destinations?.FirstOrDefault() ?? "";
-            var destParam = !string.IsNullOrEmpty(firstDest) ? $"?location={Uri.EscapeDataString(firstDest.Replace("_", " "))}" : "";
-            var destParamFlight = !string.IsNullOrEmpty(firstDest) ? $"?arrival={Uri.EscapeDataString(firstDest.Replace("_", " "))}" : "";
+            var destParam = !string.IsNullOrEmpty(firstDest) ? $"?location={Uri.EscapeDataString(firstDest.Replace("_"," "))}" : "";
+            var destParamFlight = !string.IsNullOrEmpty(firstDest) ? $"?arrival={Uri.EscapeDataString(firstDest.Replace("_"," "))}" : "";
 
             return key switch
             {
-                "DV_Khach_San_Homestay" => new
-                {
-                    icon = "🏨",
-                    url = $"/Hotel{destParam}",
-                    name = "Khách sạn & Homestay",
-                    locationHint = firstDest.Replace("_", " "),
-                    serviceKey = key
-                },
-                "DV_Ve_May_Bay" => new
-                {
-                    icon = "✈️",
-                    url = $"/Flight{destParamFlight}",
-                    name = "Vé máy bay",
-                    locationHint = firstDest.Replace("_", " "),
-                    serviceKey = key
-                },
-                "DV_Dua_Don_San_Bay" => new
-                {
-                    icon = "🚗",
-                    url = $"/Transfer{destParam}",
-                    name = "Đưa đón sân bay",
-                    locationHint = firstDest.Replace("_", " "),
-                    serviceKey = key
-                },
-                "DV_Tour_Va_Khu_Vui_Choi" => new
-                {
-                    icon = "🗺️",
-                    url = $"/Tour{destParam}",
-                    name = "Tour & Khu vui chơi",
-                    locationHint = firstDest.Replace("_", " "),
-                    serviceKey = key
-                },
-                "DV_Thue_Xe_Tu_Lai" => new
-                {
-                    icon = "🚙",
-                    url = "/Car",
-                    name = "Thuê xe tự lái",
-                    locationHint = "",
-                    serviceKey = key
-                },
-                "HD_Tam_Bien" => new
-                {
-                    icon = "🏖️",
-                    url = $"/Tour{destParam}",
-                    name = "Tour tắm biển",
-                    locationHint = firstDest.Replace("_", " "),
-                    serviceKey = key
-                },
-                "HD_Leo_Nui_Trekking" => new
-                {
-                    icon = "⛰️",
-                    url = $"/Tour{destParam}",
-                    name = "Tour leo núi / Trekking",
-                    locationHint = firstDest.Replace("_", " "),
-                    serviceKey = key
-                },
-                "HD_Tham_Quan_Di_Tich" => new
-                {
-                    icon = "🏛️",
-                    url = $"/Tour{destParam}",
-                    name = "Tham quan di tích",
-                    locationHint = firstDest.Replace("_", " "),
-                    serviceKey = key
-                },
-                "HD_Am_Thuc" => new
-                {
-                    icon = "🍜",
-                    url = $"/Tour{destParam}",
-                    name = "Tour ẩm thực",
-                    locationHint = firstDest.Replace("_", " "),
-                    serviceKey = key
-                },
-                "HD_Check_In" => new
-                {
-                    icon = "📸",
-                    url = $"/Tour{destParam}",
-                    name = "Địa điểm check-in",
-                    locationHint = firstDest.Replace("_", " "),
-                    serviceKey = key
-                },
-                "HD_Nghi_Duong_Chua_Lanh" => new
-                {
-                    icon = "🧘",
-                    url = $"/Hotel{destParam}",
-                    name = "Nghỉ dưỡng chữa lành",
-                    locationHint = firstDest.Replace("_", " "),
-                    serviceKey = key
-                },
-                _ => new
-                {
-                    icon = "📦",
-                    url = "/",
-                    name = key.Replace("Den_", "Đến ").Replace("NganSach_", "Ngân sách ")
-                    .Replace("Hang_", "Hãng ").Replace("Mua_", "Mùa ").Replace("_", " "),
-                    locationHint = "",
-                    serviceKey = key
-                }
+                "DV_Khach_San_Homestay" => new { icon="🏨", url=$"/Hotel{destParam}", name="Khách sạn & Homestay",
+                    locationHint=firstDest.Replace("_"," "), serviceKey=key },
+                "DV_Ve_May_Bay" => new { icon="✈️", url=$"/Flight{destParamFlight}", name="Vé máy bay",
+                    locationHint=firstDest.Replace("_"," "), serviceKey=key },
+                "DV_Dua_Don_San_Bay" => new { icon="🚗", url=$"/Transfer{destParam}", name="Đưa đón sân bay",
+                    locationHint=firstDest.Replace("_"," "), serviceKey=key },
+                "DV_Tour_Va_Khu_Vui_Choi" => new { icon="🗺️", url=$"/Tour{destParam}", name="Tour & Khu vui chơi",
+                    locationHint=firstDest.Replace("_"," "), serviceKey=key },
+                "DV_Thue_Xe_Tu_Lai" => new { icon="🚙", url="/Car", name="Thuê xe tự lái",
+                    locationHint="", serviceKey=key },
+                "HD_Tam_Bien" => new { icon="🏖️", url=$"/Tour{destParam}", name="Tour tắm biển",
+                    locationHint=firstDest.Replace("_"," "), serviceKey=key },
+                "HD_Leo_Nui_Trekking" => new { icon="⛰️", url=$"/Tour{destParam}", name="Tour leo núi / Trekking",
+                    locationHint=firstDest.Replace("_"," "), serviceKey=key },
+                "HD_Tham_Quan_Di_Tich" => new { icon="🏛️", url=$"/Tour{destParam}", name="Tham quan di tích",
+                    locationHint=firstDest.Replace("_"," "), serviceKey=key },
+                "HD_Am_Thuc" => new { icon="🍜", url=$"/Tour{destParam}", name="Tour ẩm thực",
+                    locationHint=firstDest.Replace("_"," "), serviceKey=key },
+                "HD_Check_In" => new { icon="📸", url=$"/Tour{destParam}", name="Địa điểm check-in",
+                    locationHint=firstDest.Replace("_"," "), serviceKey=key },
+                "HD_Nghi_Duong_Chua_Lanh" => new { icon="🧘", url=$"/Hotel{destParam}", name="Nghỉ dưỡng chữa lành",
+                    locationHint=firstDest.Replace("_"," "), serviceKey=key },
+                _ => new { icon="📦", url="/", name=key.Replace("Den_","Đến ").Replace("NganSach_","Ngân sách ")
+                    .Replace("Hang_","Hãng ").Replace("Mua_","Mùa ").Replace("_"," "),
+                    locationHint="", serviceKey=key }
             };
         }
     }
